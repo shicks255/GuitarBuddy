@@ -1,9 +1,13 @@
+import { useState } from "react";
 
 const pattern = [
     'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b', 'c', 'c#', 'd', 'd#'
 ]
 
 const majorScale = [2,2, 1, 2, 2, 2]
+const naturalMinorScale = [2,1,2,2,1,2]
+const harmonicMinorScale = [2,1,2,2,3,1]
+const melodicMinorScale = [2,1,2,2,2,2]
 
 const frets = [
     {
@@ -225,11 +229,9 @@ const frets = [
     
 ]
 
-
-
 export default function() {
 
-    function generateString(start: string, high: boolean = false, tones?: string[]) {
+    function generateString(start: string, high: boolean = false, tones?: any[], isRosewood?: boolean) {
 
         let patternStart = pattern.findIndex((note) => note === start);
 
@@ -267,25 +269,69 @@ export default function() {
                 extraClass += 'flex-none w-4';
             }
 
+            let notee = note;
             let extra = '';
-            if (tones && tones.includes(note)) {
+            if (tones && tones.length && tones.findIndex((tone) => tone.note === note) >= 0) {
                 extra += 'text-red-600';
+                notee = tones.find((tone) => tone.note === note).position;
             }
+
+            let noneScaleNote = '';
+            if (tones && tones.length > 0 && tones.findIndex((tone) => tone.note === note) < 0 && indx > 0) {
+                noneScaleNote = 'opacity-30'
+            }
+
+            const thing = start === 'g' && (indx === 3 || indx === 5 || indx === 7 || indx === 9 || indx === 12);
+            const thing2 = start === 'd' && (indx === 3 || indx === 5 || indx === 7 || indx === 9 || indx === 12);
+
+            const isFirst = indx === 0;
+
+            const noteBorder = isFirst ? '' : 'bg-blue-200 w-6 h-6 m-auto rounded-full opacity-90';
+            const inlayColor = isRosewood ? 'bg-white': 'bg-black';
+
             return (
                 <div className={`flex-1 relative text-center ${extraClass}`}>
                     {indx > 0 ? <div className={`${height} w-full bg-slate-400 top-5 absolute`}/> : ''}
-                    <div className={`top-2 h-6 w-full absolute z-50 ${extra}`}>{note}</div>
-                    {indx > 0 ? <div className="h-[40px] w-1 bg-slate-600"/> : ''}
+                    <div className={`top-2 h-6 w-full absolute z-50 ${extra}`}>
+                        <div className={`${noteBorder} ${noneScaleNote}`}>
+                            {notee}
+                        </div>
+                    </div>
+                    {indx > 0 ? <div className="h-[40px] w-1 bg-slate-300"/> : ''}
+                    {thing && <div className={`h-1 w-2 ${inlayColor} inset-x-1/2 bottom-0 rounded-tl-full rounded-tr-full m-auto absolute`} />}
+                    {thing2 && <div className={`h-1 w-2 ${inlayColor} inset-x-1/2 top-0  rounded-bl-full rounded-br-full m-auto absolute`} />}
                 </div>
             )
         })
     }
 
-    function generateScaleTones(scale: string) {
-        let patternStart = pattern.findIndex((note) => note === scale);
-        let notes = [scale];
+    function generateScaleTones(key: string, scale: string) {
+        if (!key || key.length === 0 || !scale) {
+            return [];
+        }
 
-        majorScale.forEach((deg) => {
+        let patternStart = pattern.findIndex((note) => note === key);
+        let notes = [{
+            note: key,
+            position: 1
+        }];
+
+
+        let selectedScale = [];
+        if (scale === 'major') {
+            selectedScale = majorScale
+        }
+        if (scale === 'natMinor') {
+            selectedScale = naturalMinorScale
+        }
+        if (scale === 'harmMinor') {
+            selectedScale = harmonicMinorScale
+        }
+        if (scale === 'melodMinor') {
+            selectedScale = melodicMinorScale
+        }
+
+        selectedScale.forEach((deg, indx) => {
             let x = patternStart + deg;
             if (x > 11) {
                 x = x - 12;
@@ -293,52 +339,59 @@ export default function() {
 
             patternStart = x;
 
-            notes.push(pattern[x]);
+            notes.push({
+                note: pattern[x],
+                position: indx+2
+            });
         })
 
-        console.log(notes);
         return notes;
     }
 
 
-    function generateFretboard2() {
+    function generateFretboard2(key?: string, scale?: string, rosewoodNeck?: boolean) {
 
-        const tones = generateScaleTones('f#');
+        const neckStyle = rosewoodNeck ? 'bg-yellow-900' : 'bg-yellow-50';
+        const tones = generateScaleTones(key, scale);
 
         return (
-            <div className="p-4 bg-amber-50">
-                <div className="flex">
-                    {generateString('e', true, tones)}
+            <div className="p-4">
+                <div className={neckStyle}>
+                    <div className="flex">
+                        {generateString('e', true, tones, rosewoodNeck)}
+                        </div>
+                    <div className="flex">
+                        {generateString('b', false, tones, rosewoodNeck)}
                     </div>
-                <div className="flex">
-                    {generateString('b', false, tones)}
+                    <div className="flex">
+                        {generateString('g', false, tones, rosewoodNeck)}
+                    </div>
+                    <div className="flex">
+                        {generateString('d', false, tones, rosewoodNeck)}
+                    </div>
+                    <div className="flex">
+                        {generateString('a', false, tones, rosewoodNeck)}
+                    </div>
+                    <div className="flex">
+                        {generateString('e', false, tones, rosewoodNeck)}
+                    </div>
                 </div>
-                <div className="flex">
-                    {generateString('g', false, tones)}
-                </div>
-                <div className="flex">
-                    {generateString('d', false, tones)}
-                </div>
-                <div className="flex">
-                    {generateString('a', false, tones)}
-                </div>
-                <div className="flex">
-                    {generateString('e', false, tones)}
-                </div>
-                <div className="flex">
-                    <div className="flex-none w-4 text-center"></div>
-                    <div className="flex-1 text-center"></div>
-                    <div className="flex-1 text-center"></div>
-                    <div className="flex-1 text-center">3</div>
-                    <div className="flex-1 text-center"></div>
-                    <div className="flex-1 text-center">5</div>
-                    <div className="flex-1 text-center"></div>
-                    <div className="flex-1 text-center">7</div>
-                    <div className="flex-1 text-center"></div>
-                    <div className="flex-1 text-center">9</div>
-                    <div className="flex-1 text-center"></div>
-                    <div className="flex-1 text-center"></div>
-                    <div className="flex-1 text-center">12</div>
+                <div>
+                    <div className="flex">
+                        <div className="flex-1 w-4 text-center"></div>
+                        <div className="flex-1 text-center"></div>
+                        <div className="flex-1 text-center"></div>
+                        <div className="flex-1 text-center">3</div>
+                        <div className="flex-1 text-center"></div>
+                        <div className="flex-1 text-center">5</div>
+                        <div className="flex-1 text-center"></div>
+                        <div className="flex-1 text-center">7</div>
+                        <div className="flex-1 text-center"></div>
+                        <div className="flex-1 text-center">9</div>
+                        <div className="flex-1 text-center"></div>
+                        <div className="flex-1 text-center"></div>
+                        <div className="flex-1 text-center">12</div>
+                    </div>
                 </div>
             </div>
         )
@@ -454,10 +507,43 @@ export default function() {
         )
     }
 
+    const [key, setKey] = useState('');
+    const [scale, setScale] = useState<string | undefined>(undefined)
+
+    const [neckWood, setNeckWood] = useState('maple');
+
+    const tones = generateScaleTones(key, scale);
+    console.log(tones);
+
     return (
         <div>
-            {/* {generateFretboard()} */}
-            {generateFretboard2()}
+            <select value={key} onChange={(e) => setKey(e.target.value)}>
+                <option value=''></option>
+                {pattern.map((note) => (<option value={note}>{note}</option>))}
+            </select>
+
+            <select value={scale} onChange={(e) => setScale(e.target.value)}>
+                <option value=''></option>
+                <option value='major'>Major</option>
+                <option value='natMinor'>Natural Minor</option>
+                <option value='melodMinor'>Melodic Minor</option>
+                <option value='harmMinor'>Harmonic Minor</option>
+            </select>
+
+            <form>
+                <input type="radio" name="wood" id="maple" value="maple" checked={neckWood === 'maple'} onChange={() => {setNeckWood('maple')}} />
+                <label htmlFor="maple">Maple</label>
+                <input type="radio" name="wood" id="rosewood" value="rosewood" checked={neckWood === 'rosewood'} onChange={() => setNeckWood('rosewood')} />
+                <label htmlFor="rosewood">Rosewood</label>
+            </form>
+
+            {key && scale && <div>
+                Scale Degrees: {majorScale.join(' - ')}
+                <br/>
+                Notes: {tones.join(' - ')}
+                </div>}
+
+            {generateFretboard2(key, scale, neckWood === 'rosewood')}
         </div>
     )
 

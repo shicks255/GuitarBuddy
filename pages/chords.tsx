@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { chords, generateChord, generateFretboard2, pattern } from "../utils";
+import { chordFamilies, chords, generateChord, generateFretboard2, pattern } from "../utils";
 
 export default function() {
 
@@ -11,7 +11,8 @@ export default function() {
     console.log(chordTones);
 
     return (
-        <div>
+        <div className="p-2">
+            <h1 className="text-lg">Chords</h1>
             <label htmlFor="keySelect">Key</label>
             <select name="keySelect" value={key} onChange={(e) => setKey(e.target.value)}>
                 <option value=''></option>
@@ -23,7 +24,11 @@ export default function() {
             <label htmlFor="chordSelect">Chord</label>
             <select name="chordSelect" value={chord} onChange={(e) => setChord(e.target.value)}>
                 <option value={undefined}></option>
-                {chords.map((chord) => (<option value={chord.name}>{chord.name}</option>))}
+                    {chordFamilies.map((family) => {
+                    return <optgroup label={family}>
+                        {chords.filter((chord) => chord.family === family).map((chord) => (<option value={chord.name}>{chord.name}</option>))}
+                    </optgroup>
+                })}
             </select>
 
             <br />
@@ -38,7 +43,7 @@ export default function() {
                 </div>}
 
             {chordTones && <div>
-                {chordTones.map((it) => (it.note))}
+                {chordTones.map((it) => (it.note)).join('-')}
                 </div>}
         </div>
     )

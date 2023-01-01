@@ -8,119 +8,144 @@ export const chords = [
     {
         name: 'major',
         pattern: ['1','3','5'],
-        formula: [4,3]
+        formula: [4,3],
+        family: 'Major'
     },
     {
         name: 'major6',
         pattern: ['1','3','5','6'],
-        formula: [4,3,2]
+        formula: [4,3,2],
+        family: 'Major'
     },
     {
         name: 'major6/9',
         pattern: ['1,3,5,6,9'],
-        formula: [4,3,2,5]
+        formula: [4,3,2,5],
+        family: 'Major'
     },
     {
         name: 'major7',
         pattern: ['1','3','5','7'],
-        formula: [4,3,4]
+        formula: [4,3,4],
+        family: 'Major'
     },
     {
         name: 'major9',
         pattern: ['1','3','5','7','9'],
-        formula: [4,3,4,3]
+        formula: [4,3,4,3],
+        family: 'Major'
     },
     {
         name: 'major11',
         pattern: ['1','3','5','7','9','11'],
-        formula: [4,3,4,3,3]
+        formula: [4,3,4,3,3],
+        family: 'Major'
     },
     {
         name: 'minor',
         pattern: ['1','b3','5'],
-        formula: [3,4]
+        formula: [3,4],
+        family: 'Minor'
     },
     {
         name: 'minor6',
         pattern: ['1','b3','5','6'],
-        formula: [3,4,2]
+        formula: [3,4,2],
+        family: 'Minor'
     },
     {
         name: 'minor7',
         pattern: ['1','b3','5','b7'],
-        formula: [3,4,3]        
+        formula: [3,4,3],
+        family: 'Minor'   
     },
     {
         name: 'minor9',
         pattern: ['1','b3','5','b7','9'],
-        formula: [3,4,3,4]        
+        formula: [3,4,3,4],
+        family: 'Minor'     
     },
     {
         name: 'minor11',
         pattern: ['1','b3','5','b7','9','11'],
-        formula: [3,4,3,4,3]        
+        formula: [3,4,3,4,3],
+        family: 'Minor'     
     },
     {
         name: 'dom7',
         pattern: ['1','3','5','b7'],
-        formula: [4,3,3] 
+        formula: [4,3,3],
+        family: 'Dominant'
     },
     {
         name: 'dom9',
         pattern: ['1','3','5','b7','9'],
-        formula: [4,3,3,4] 
+        formula: [4,3,3,4],
+        family: 'Dominant'
     },
     {
         name: 'dom11',
         pattern: ['1','3','5','b7','9','11'],
-        formula: [4,3,3,4,3] 
+        formula: [4,3,3,4,3],
+        family: 'Dominant'
     },
     {
         name: 'dim',
         pattern: ['1','b3','b5'],
-        formula: [3,3] 
+        formula: [3,3],
+        family: 'Diminished'
     },
     {
         name: 'dim7',
         pattern: ['1','b3','b5','bb7'],
-        formula: [3,3,3] 
+        formula: [3,3,3],
+        family: 'Diminished'
     },
     {
         name: 'aug',
         pattern: ['1','3','#5'],
-        formula: [4,4] 
+        formula: [4,4],
+        family: 'Augmented'
     },
     {
         name: 'aug7',
         pattern: ['1','3','#5','b7'],
-        formula: [4,4,2] 
+        formula: [4,4,2],
+        family: 'Augmented'
     },
     {
         name: 'sus2',
         pattern: ['1','2','5'],
-        formula: [2,5] 
+        formula: [2,5],
+        family: 'Suspended'
     },
     {
         name: 'sus4',
         pattern: ['1','4','5'],
-        formula: [5,2] 
+        formula: [5,2],
+        family: 'Suspended'
     },
     {
         name: '7sus4',
         pattern: ['1','4','5','b7'],
-        formula: [5,2,3] 
+        formula: [5,2,3],
+        family: 'Suspended'
     },
     {
         name: 'add9',
         pattern: ['1','3','5','9'],
-        formula: [4,3,7] 
+        formula: [4,3,7],
+        family: 'Other'
     },
     {
         name: 'add11',
         pattern: ['1','3','5','11'],
-        formula: [4,3,10] 
+        formula: [4,3,10],
+        family: 'Other'
     }
 ]
+
+export const chordFamilies = ['Major', 'Minor', 'Dominant', 'Augmented', 'Diminished', 'Suspended', 'Other']
 
 export const majorScale = [2,2, 1, 2, 2, 2]
 export const naturalMinorScale = [2,1,2,2,1,2]
@@ -220,7 +245,7 @@ export function generateString(
         let patternStart = pattern.findIndex((note) => note === key);
         let notes = [{
             note: key,
-            position: 1
+            position: '1'
         }];
 
 
@@ -248,7 +273,7 @@ export function generateString(
 
             notes.push({
                 note: pattern[x],
-                position: indx+2
+                position: '' + indx+2
             });
         })
 
@@ -294,7 +319,6 @@ export function generateString(
 
         const neckStyle = rosewoodNeck ? 'bg-yellow-900' : 'bg-yellow-50';
         const scaleTones = scale ? generateScaleTones(key, scale) : [];
-
         const chordTones = chord ? generateChord(key, chord) : [];
 
         let tones = scaleTones;

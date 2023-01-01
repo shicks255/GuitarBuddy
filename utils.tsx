@@ -17,71 +17,108 @@ export const chords = [
     },
     {
         name: 'major6/9',
-        pattern: [1,3,5,6,9]
+        pattern: ['1,3,5,6,9'],
+        formula: [4,3,2,5]
     },
     {
         name: 'major7',
-        pattern: [1,3,5,7]
+        pattern: ['1','3','5','7'],
+        formula: [4,3,4]
     },
     {
         name: 'major9',
-        pattern: [1,3,5,7,9]
+        pattern: ['1','3','5','7','9'],
+        formula: [4,3,4,3]
     },
     {
         name: 'major11',
-        pattern: [1,3,5,7,9,11]
+        pattern: ['1','3','5','7','9','11'],
+        formula: [4,3,4,3,3]
     },
     {
         name: 'minor',
-        pattern: [1,3,5]
+        pattern: ['1','b3','5'],
+        formula: [3,4]
     },
     {
-        name: 'minor6'
+        name: 'minor6',
+        pattern: ['1','b3','5','6'],
+        formula: [3,4,2]
     },
     {
-        name: 'minor7'
+        name: 'minor7',
+        pattern: ['1','b3','5','b7'],
+        formula: [3,4,3]        
     },
     {
-        name: 'minor9'
+        name: 'minor9',
+        pattern: ['1','b3','5','b7','9'],
+        formula: [3,4,3,4]        
     },
     {
-        name: 'minor11'
+        name: 'minor11',
+        pattern: ['1','b3','5','b7','9','11'],
+        formula: [3,4,3,4,3]        
     },
     {
-        name: 'dom7'
+        name: 'dom7',
+        pattern: ['1','3','5','b7'],
+        formula: [4,3,3] 
     },
     {
-        name: 'dom9'
+        name: 'dom9',
+        pattern: ['1','3','5','b7','9'],
+        formula: [4,3,3,4] 
     },
     {
-        name: 'dom11'
+        name: 'dom11',
+        pattern: ['1','3','5','b7','9','11'],
+        formula: [4,3,3,4,3] 
     },
     {
-        name: 'dim'
+        name: 'dim',
+        pattern: ['1','b3','b5'],
+        formula: [3,3] 
     },
     {
-        name: 'dim7'
+        name: 'dim7',
+        pattern: ['1','b3','b5','bb7'],
+        formula: [3,3,3] 
     },
     {
-        name: 'aug'
+        name: 'aug',
+        pattern: ['1','3','#5'],
+        formula: [4,4] 
     },
     {
-        name: 'aug7'
+        name: 'aug7',
+        pattern: ['1','3','#5','b7'],
+        formula: [4,4,2] 
     },
     {
-        name: 'sus2'
+        name: 'sus2',
+        pattern: ['1','2','5'],
+        formula: [2,5] 
     },
     {
-        name: 'sus4'
+        name: 'sus4',
+        pattern: ['1','4','5'],
+        formula: [5,2] 
     },
     {
-        name: '7sus2'
+        name: '7sus4',
+        pattern: ['1','4','5','b7'],
+        formula: [5,2,3] 
     },
     {
-        name: 'add9'
+        name: 'add9',
+        pattern: ['1','3','5','9'],
+        formula: [4,3,7] 
     },
     {
-        name: 'add11'
+        name: 'add11',
+        pattern: ['1','3','5','11'],
+        formula: [4,3,10] 
     }
 ]
 
@@ -224,10 +261,14 @@ export function generateString(
         let patternStart = pattern.findIndex((note) => note === key);
         const notes = [{
             note: key,
-            position: 1
+            position: '1'
         }];
 
-        c.formula.forEach((i) => {
+        if (!c) {
+            return [];
+        }
+
+        c.formula.forEach((i, indx) => {
             let x = patternStart + i;
             if (x > 11) {
                 x = x - 12;
@@ -237,7 +278,7 @@ export function generateString(
 
             notes.push({
                 note: pattern[x],
-                position: i
+                position: c.pattern[indx+1]
             })
         });
 
@@ -282,8 +323,6 @@ export function generateString(
                     <div className="flex">
                         {generateString('e', false, tones, rosewoodNeck)}
                     </div>
-                </div>
-                <div>
                     <div className="flex">
                         <div className="flex-1 w-4 text-center"></div>
                         <div className="flex-1 text-center"></div>

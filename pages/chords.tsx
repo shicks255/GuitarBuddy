@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { chords, generateFretboard2, pattern } from "../utils";
+import { chords, generateChord, generateFretboard2, pattern } from "../utils";
 
 export default function() {
 
     const [key, setKey] = useState('');
     const [chord, setChord] = useState<string | undefined>(undefined);
     const [type, setType] = useState<string | undefined>(undefined);
+
+    const chordTones = generateChord(key, chord);
+    console.log(chordTones);
 
     return (
         <div>
@@ -32,6 +35,10 @@ export default function() {
 
             {key && chord && <div>
                 {generateFretboard2(key, undefined, false, chord)}
+                </div>}
+
+            {chordTones && <div>
+                {chordTones.map((it) => (it.note))}
                 </div>}
         </div>
     )

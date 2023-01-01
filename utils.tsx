@@ -273,7 +273,7 @@ export function generateString(
 
             notes.push({
                 note: pattern[x],
-                position: '' + indx+2
+                position: indx+2 + ''
             });
         })
 

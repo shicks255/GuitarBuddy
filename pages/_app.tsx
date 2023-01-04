@@ -1,24 +1,24 @@
-import '../styles/globals.css'
-import Link from 'next/link'
-import { useState } from 'react'
-import { useRouter } from 'next/router'
-import Head from 'next/head'
-import Image from 'next/image'
+import '../styles/globals.css';
+import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
+import Image from 'next/image';
 
 export default function MyApp({ Component, pageProps }) {
-  console.log(Component)
-  console.log(pageProps)
+  console.log(Component);
+  console.log(pageProps);
 
-  const { asPath } = useRouter()
+  const { asPath } = useRouter();
 
-  const [expanded, setExpanded] = useState(true)
+  const [expanded, setExpanded] = useState(true);
 
-  const width = expanded ? 'w-[100px]' : 'w-[0px]'
-  const left = expanded ? 'left-[100px]' : 'left-0'
+  const width = expanded ? 'w-[100px]' : 'w-[0px]';
+  const left = expanded ? 'left-[100px]' : 'left-0';
 
   const innerWidth = expanded
     ? { width: 'calc(100% - 100px' }
-    : { width: '100%' }
+    : { width: '100%' };
 
   return (
     <>
@@ -106,5 +106,5 @@ export default function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </main>
     </>
-  )
+  );
 }

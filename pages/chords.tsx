@@ -1,18 +1,18 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import {
   chordFamilies,
   chords,
   generateChord,
   generateFretboard2,
   pattern,
-} from '../utils'
+} from '../utils';
 
 const Chords = () => {
-  const [key, setKey] = useState('')
-  const [chord, setChord] = useState<string | undefined>(undefined)
-  const [type, setType] = useState<string | undefined>(undefined)
+  const [key, setKey] = useState('');
+  const [chord, setChord] = useState<string | undefined>(undefined);
+  const [type, setType] = useState<string | undefined>(undefined);
 
-  const chordTones = generateChord(key, chord)
+  const chordTones = generateChord(key, chord);
 
   return (
     <div className="p-2">
@@ -51,7 +51,7 @@ const Chords = () => {
                   </option>
                 ))}
             </optgroup>
-          )
+          );
         })}
       </select>
 
@@ -72,7 +72,7 @@ const Chords = () => {
 
       {chordTones && <div>{chordTones.map((it) => it.note).join('-')}</div>}
     </div>
-  )
-}
+  );
+};
 
-export default Chords
+export default Chords;

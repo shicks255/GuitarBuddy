@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import {
   generateFretboard2,
   generateScaleTones,
@@ -7,28 +7,28 @@ import {
   melodicMinorScale,
   naturalMinorScale,
   pattern,
-} from '../utils'
+} from '../utils';
 
 const Scales: React.FC = () => {
-  const [key, setKey] = useState('')
-  const [scale, setScale] = useState<string | undefined>(undefined)
-  let selectedScale = undefined
+  const [key, setKey] = useState('');
+  const [scale, setScale] = useState<string | undefined>(undefined);
+  let selectedScale = undefined;
   if (scale === 'major') {
-    selectedScale = majorScale
+    selectedScale = majorScale;
   }
   if (scale === 'harmMinor') {
-    selectedScale = harmonicMinorScale
+    selectedScale = harmonicMinorScale;
   }
   if (scale === 'melodMinor') {
-    selectedScale = melodicMinorScale
+    selectedScale = melodicMinorScale;
   }
   if (scale === 'natMinor') {
-    selectedScale = naturalMinorScale
+    selectedScale = naturalMinorScale;
   }
 
-  const [neckWood, setNeckWood] = useState('maple')
+  const [neckWood, setNeckWood] = useState('maple');
 
-  const tones = generateScaleTones(key, scale)
+  const tones = generateScaleTones(key, scale);
 
   return (
     <div className="p-2">
@@ -71,7 +71,7 @@ const Scales: React.FC = () => {
           value="maple"
           checked={neckWood === 'maple'}
           onChange={() => {
-            setNeckWood('maple')
+            setNeckWood('maple');
           }}
         />
         <label htmlFor="maple">Maple</label>
@@ -96,7 +96,7 @@ const Scales: React.FC = () => {
 
       {generateFretboard2(key, scale, neckWood === 'rosewood')}
     </div>
-  )
-}
+  );
+};
 
-export default Scales
+export default Scales;

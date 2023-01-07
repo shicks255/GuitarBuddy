@@ -50,6 +50,6 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(38 38 38);
+  background-color: rgb(107, 65, 22);
   outline: 0 solid slategrey;
 }

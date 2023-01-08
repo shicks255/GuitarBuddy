@@ -655,10 +655,14 @@ const Tuner: React.FC = () => {
 
   // let audioContext = null;
   let source = null;
+  let aStream = null;
 
   const stop = () => {
     if (source) {
       source.disconnect();
+    }
+    if (aStream) {
+      aStream.getTracks().forEach((track) => track.stop());
     }
   };
 
@@ -672,6 +676,7 @@ const Tuner: React.FC = () => {
           const audioContext = new AudioContext();
           const analyzer = audioContext.createAnalyser();
           source = audioContext.createMediaStreamSource(stream);
+          aStream = stream;
 
           analyzer.smoothingTimeConstant = 0.85;
           analyzer.minDecibels = -100;
@@ -706,6 +711,7 @@ const Tuner: React.FC = () => {
               if (note && note.note && note.offBy) {
                 console.log(note);
                 const text = `${note.note}`;
+                cCtx.fillStyle = 'black';
                 cCtx.fillText(text, 145, 50);
 
                 cCtx.beginPath();
@@ -714,12 +720,24 @@ const Tuner: React.FC = () => {
                 cCtx.stroke();
 
                 cCtx.beginPath();
-                cCtx.arc(150, 75, 10, 0, 2 * Math.PI);
+                cCtx.arc(150, 75, 11, 0, 2 * Math.PI);
                 cCtx.stroke();
 
                 const xPath = calculateDistanceFromCenter(note);
+                let color = '#f57b42';
+
+                if (Math.abs(note.offBy) > 2) {
+                  color = '#f5c842';
+                } else if (Math.abs(note.offBy) > 1) {
+                  color = '#e0f542';
+                } else {
+                  color = '#33b546';
+                }
+
                 cCtx.beginPath();
                 cCtx.arc(xPath, 75, 10, 0, 2 * Math.PI);
+                cCtx.fillStyle = color;
+                cCtx.fill();
                 cCtx.stroke();
               }
 
@@ -758,17 +776,19 @@ const Tuner: React.FC = () => {
           onChange={(e) => setDuration(Number(e.target.value))}
         />
         <label htmlFor="duration">Note duration</label>
-        {pattern.map((note, indx) => {
-          return (
-            <div
-              className="w-8 text-center bg-blue-200 p-1 m-2 rounded hover:cursor-pointer"
-              onClick={() => playTone(noteFrequencies[indx])}
-              key={note}
-            >
-              {note}
-            </div>
-          );
-        })}
+        <div className="flex">
+          {pattern.map((note, indx) => {
+            return (
+              <div
+                className="w-8 text-center bg-blue-200 p-1 m-2 rounded hover:cursor-pointer"
+                onClick={() => playTone(noteFrequencies[indx])}
+                key={note}
+              >
+                {note}
+              </div>
+            );
+          })}
+        </div>
         <br />
         <button onClick={() => listen()}>Listen</button>
         <button onClick={() => stop()}>Stop</button>

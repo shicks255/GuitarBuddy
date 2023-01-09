@@ -1,6 +1,6 @@
 import '../styles/globals.css';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -19,6 +19,21 @@ export default function MyApp({ Component, pageProps }) {
   const innerWidth = expanded
     ? { width: 'calc(100% - 100px' }
     : { width: '100%' };
+
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        this.navigator.serviceWorker.register('/sw.js').then(
+          function (registration) {
+            console.log('all good');
+          },
+          function (error) {
+            console.log('did not work", error');
+          }
+        );
+      });
+    }
+  }, []);
 
   return (
     <>

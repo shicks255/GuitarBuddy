@@ -1,11 +1,6 @@
 import { useState } from 'react';
-import {
-  chordFamilies,
-  chords,
-  generateChord,
-  generateFretboard2,
-  pattern,
-} from '../utils';
+import Fretboard from '../components/fretboard';
+import { chordFamilies, chords, generateChord, pattern } from '../utils';
 
 const Chords = () => {
   const [key, setKey] = useState('');
@@ -67,7 +62,9 @@ const Chords = () => {
       </select>
 
       {key && chord && (
-        <div>{generateFretboard2(key, undefined, false, chord)}</div>
+        <div>
+          <Fretboard keyy={key} scale={undefined} chord={chord} />
+        </div>
       )}
 
       {chordTones && <div>{chordTones.map((it) => it.note).join('-')}</div>}

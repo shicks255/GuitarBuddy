@@ -65,7 +65,7 @@ export default function MyApp({ Component, pageProps }) {
         </div>
         <div className="flex-1 justify-self-center">
           <Image
-            className="w-full md:w-1/2 h-full"
+            className="w-full md:w-auto h-full"
             src="/banner_red.png"
             width={784}
             alt="banner"
@@ -116,10 +116,12 @@ export default function MyApp({ Component, pageProps }) {
         </div>
       </aside>
       <main
-        className={`transition-all absolute ${left} top-24 p-2`}
+        className={`transition-all absolute ${left} top-24 p-2 flex margin-auto justify-center`}
         style={innerWidth}
       >
-        <Component {...pageProps} />
+        <div className="flex-initial w-auto grow max-w-screen-lg">
+          <Component {...pageProps} />
+        </div>
       </main>
     </>
   );

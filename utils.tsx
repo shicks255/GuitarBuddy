@@ -1,3 +1,5 @@
+import { INote } from './types/note';
+
 /* eslint-disable react/jsx-key */
 export const pattern = [
   'e',
@@ -170,13 +172,54 @@ export const naturalMinorScale = [2, 1, 2, 2, 1, 2];
 export const harmonicMinorScale = [2, 1, 2, 2, 3, 1];
 export const melodicMinorScale = [2, 1, 2, 2, 2, 2];
 
+export const majorDiatonics = ['maj', 'min', 'min', 'maj', 'maj', 'min', 'dim'];
+export const natMinorDiatonics = [
+  'min',
+  'dim',
+  'maj',
+  'min',
+  'min',
+  'maj',
+  'maj',
+];
+export const harmonicMinorDiatonics = [
+  'min',
+  'dim',
+  'aug',
+  'min',
+  'maj',
+  'maj',
+  'dim',
+];
+export const melodicMinorDiatonics = [
+  'min',
+  'min',
+  'maj',
+  'maj',
+  'min',
+  'dim',
+  'maj',
+];
+
+// opacity-[0]
+// opacity-[.10]
+// opacity-[.20]
+// opacity-[.30]
+// opacity-[.40]
+// opacity-[.50]
+// opacity-[.60]
+// opacity-[.70]
+// opacity-[.80]
+// opacity-[.90]
+
 export function generateString(
   start: string,
   high: boolean = false,
-  tones?: any[],
-  isRosewood?: boolean
+  tones?: INote[],
+  isRosewood?: boolean,
+  opacity?: number
 ) {
-  console.log(tones);
+  console.log(opacity);
 
   let patternStart = pattern.findIndex((note) => note === start);
 
@@ -211,10 +254,8 @@ export function generateString(
   return notes.map((note, indx) => {
     let extraClass = '';
     if (indx === 0) {
-      extraClass += 'flex-none w-4';
+      extraClass += 'flex-none w-4 rounded font-bold';
     }
-
-    const isFirst = indx === 0;
 
     let notee = note;
     let extra = '';
@@ -234,9 +275,22 @@ export function generateString(
       tones.findIndex((tone) => tone.note === note) < 0 &&
       indx > 0
     ) {
-      noteStyle += 'opacity-30';
+      if (opacity) {
+        noteStyle += `opacity-[.${opacity}]`;
+      } else if (opacity === 0) {
+        noteStyle += 'opacity-[0]';
+      } else {
+        noteStyle += 'opacity-30';
+      }
     } else {
       noteStyle += 'opacity-90';
+    }
+
+    if (
+      tones.findIndex((tone) => tone.note === note) >= 0 &&
+      tones.find((tone) => tone.note === note).root
+    ) {
+      extra += ' font-bold text-lg';
     }
 
     const thing =
@@ -280,10 +334,11 @@ export function generateScaleTones(key: string, scale: string) {
   }
 
   let patternStart = pattern.findIndex((note) => note === key);
-  let notes = [
+  let notes: INote[] = [
     {
       note: key,
       position: '1',
+      root: true,
     },
   ];
 
@@ -312,6 +367,7 @@ export function generateScaleTones(key: string, scale: string) {
     notes.push({
       note: pattern[x],
       position: indx + 2 + '',
+      root: false,
     });
   });
 
@@ -348,60 +404,4 @@ export function generateChord(key?: string, chord?: string) {
   });
 
   return notes;
-}
-
-export function generateFretboard2(
-  key?: string,
-  scale?: string,
-  rosewoodNeck?: boolean,
-  chord?: string
-) {
-  const neckStyle = rosewoodNeck ? 'bg-yellow-900' : 'bg-yellow-50';
-  const scaleTones = scale ? generateScaleTones(key, scale) : [];
-  const chordTones = chord ? generateChord(key, chord) : [];
-
-  let tones = scaleTones;
-  if (scaleTones.length === 0) {
-    tones = chordTones;
-  }
-
-  return (
-    <div className="">
-      <div className={neckStyle}>
-        <div className="flex">
-          {generateString('e', true, tones, rosewoodNeck)}
-        </div>
-        <div className="flex">
-          {generateString('b', false, tones, rosewoodNeck)}
-        </div>
-        <div className="flex">
-          {generateString('g', false, tones, rosewoodNeck)}
-        </div>
-        <div className="flex">
-          {generateString('d', false, tones, rosewoodNeck)}
-        </div>
-        <div className="flex">
-          {generateString('a', false, tones, rosewoodNeck)}
-        </div>
-        <div className="flex">
-          {generateString('e', false, tones, rosewoodNeck)}
-        </div>
-        <div className="flex">
-          <div className="flex-1 w-4 text-center"></div>
-          <div className="flex-1 text-center"></div>
-          <div className="flex-1 text-center"></div>
-          <div className="flex-1 text-center">3</div>
-          <div className="flex-1 text-center"></div>
-          <div className="flex-1 text-center">5</div>
-          <div className="flex-1 text-center"></div>
-          <div className="flex-1 text-center">7</div>
-          <div className="flex-1 text-center"></div>
-          <div className="flex-1 text-center">9</div>
-          <div className="flex-1 text-center"></div>
-          <div className="flex-1 text-center"></div>
-          <div className="flex-1 text-center">12</div>
-        </div>
-      </div>
-    </div>
-  );
 }

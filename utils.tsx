@@ -1,3 +1,4 @@
+import { chordTypes } from './chordTypes';
 import { INote } from './types/note';
 
 /* eslint-disable react/jsx-key */
@@ -16,6 +17,37 @@ export const pattern = [
   'd#',
 ];
 
+export const genChord = (index, key, chord, type) => {
+  const t = chordTypes.find((c) => c.type === type && c.name === chord);
+
+  if (t) {
+    const degree = t.pattern[index];
+    if (degree === 0) {
+      return [];
+    }
+    let patternStart = pattern.findIndex((note) => note === key);
+
+    let notes = [];
+    let move = 1;
+    while (notes.length === 0) {
+      if (patternStart > 11) {
+        patternStart = 0;
+      }
+
+      if (move === degree) {
+        notes.push({ note: pattern[patternStart] });
+      }
+
+      patternStart += 1;
+      move += 1;
+    }
+
+    return notes;
+  }
+
+  return [];
+};
+
 export const chords = [
   {
     name: 'major',
@@ -31,7 +63,7 @@ export const chords = [
   },
   {
     name: 'major6/9',
-    pattern: ['1,3,5,6,9'],
+    pattern: ['1', '3', '5', '6', '9'],
     formula: [4, 3, 2, 5],
     family: 'Major',
   },
@@ -215,7 +247,7 @@ export const melodicMinorDiatonics = [
 export function generateString(
   start: string,
   high: boolean = false,
-  tones?: INote[],
+  tones?: any[],
   isRosewood?: boolean,
   opacity?: number
 ) {

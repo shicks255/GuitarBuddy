@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   chords,
+  genChord,
   generateChord,
   generateScaleTones,
   generateString,
@@ -8,13 +9,14 @@ import {
 } from '../utils';
 
 interface IProps {
-  keyy: string;
+  keyy?: string;
   scale?: string;
   chord?: string;
+  chordType?: string;
 }
 
 const Fretboard: React.FC<IProps> = (props: IProps) => {
-  const { keyy, scale, chord } = props;
+  const { keyy, scale, chord, chordType } = props;
 
   const [neckWood, setNeckWood] = useState('maple');
   const [nonNoteOpacity, setNonNoteOpacity] = useState(30);
@@ -22,11 +24,13 @@ const Fretboard: React.FC<IProps> = (props: IProps) => {
   const neckStyle = neckWood === 'rosewood' ? 'bg-yellow-900' : 'bg-yellow-50';
   const scaleTones = scale ? generateScaleTones(keyy, scale) : [];
   const chordTones = chord ? generateChord(keyy, chord) : [];
+  console.log(chordTones);
 
   let tones = scaleTones;
   if (scaleTones.length === 0) {
     tones = chordTones;
   }
+
   return (
     <div className="mt-2">
       <div className="flex">
@@ -49,7 +53,7 @@ const Fretboard: React.FC<IProps> = (props: IProps) => {
           {generateString(
             'e',
             true,
-            tones,
+            chordType ? genChord(0, keyy, chord, chordType) : tones,
             neckWood === 'rosewood',
             nonNoteOpacity
           )}
@@ -58,7 +62,7 @@ const Fretboard: React.FC<IProps> = (props: IProps) => {
           {generateString(
             'b',
             false,
-            tones,
+            chordType ? genChord(1, keyy, chord, chordType) : tones,
             neckWood === 'rosewood',
             nonNoteOpacity
           )}
@@ -67,7 +71,7 @@ const Fretboard: React.FC<IProps> = (props: IProps) => {
           {generateString(
             'g',
             false,
-            tones,
+            chordType ? genChord(2, keyy, chord, chordType) : tones,
             neckWood === 'rosewood',
             nonNoteOpacity
           )}
@@ -76,7 +80,7 @@ const Fretboard: React.FC<IProps> = (props: IProps) => {
           {generateString(
             'd',
             false,
-            tones,
+            chordType ? genChord(3, keyy, chord, chordType) : tones,
             neckWood === 'rosewood',
             nonNoteOpacity
           )}
@@ -85,7 +89,7 @@ const Fretboard: React.FC<IProps> = (props: IProps) => {
           {generateString(
             'a',
             false,
-            tones,
+            chordType ? genChord(4, keyy, chord, chordType) : tones,
             neckWood === 'rosewood',
             nonNoteOpacity
           )}
@@ -94,7 +98,7 @@ const Fretboard: React.FC<IProps> = (props: IProps) => {
           {generateString(
             'e',
             false,
-            tones,
+            chordType ? genChord(5, keyy, chord, chordType) : tones,
             neckWood === 'rosewood',
             nonNoteOpacity
           )}

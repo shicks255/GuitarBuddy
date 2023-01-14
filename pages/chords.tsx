@@ -8,6 +8,16 @@ const Chords = () => {
   const [chord, setChord] = useState<string | undefined>(undefined);
   const [type, setType] = useState<string | undefined>(undefined);
 
+  const changeKey = (newKey: string) => {
+    setType(undefined);
+    setKey(newKey);
+  };
+
+  const changeChord = (newChord: string) => {
+    setType(undefined);
+    setChord(newChord);
+  };
+
   const types = chordTypes.filter((c) => c.name === chord).map((c) => c.type);
 
   const chordTones = generateChord(key, chord);
@@ -20,7 +30,7 @@ const Chords = () => {
       <select
         name="keySelect"
         value={key}
-        onChange={(e) => setKey(e.target.value)}
+        onChange={(e) => changeKey(e.target.value)}
       >
         <option value=""></option>
         {pattern.map((note) => (
@@ -36,7 +46,7 @@ const Chords = () => {
       <select
         name="chordSelect"
         value={chord}
-        onChange={(e) => setChord(e.target.value)}
+        onChange={(e) => changeChord(e.target.value)}
       >
         <option value={undefined}></option>
         {chordFamilies.map((family) => {

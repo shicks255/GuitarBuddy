@@ -17,6 +17,24 @@ export const pattern = [
   'd#',
 ];
 
+const degreeMap = {
+  1: '1',
+  2: 'b2',
+  3: '2',
+  4: 'b3',
+  5: '3',
+  6: '4',
+  7: '1',
+  8: '5',
+  9: '#5',
+  10: '6',
+  11: 'b7',
+  12: '7',
+  13: '1',
+  14: '1',
+  15: '9',
+};
+
 export const genChord = (index, key, chord, type) => {
   const t = chordTypes.find((c) => c.type === type && c.name === chord);
 
@@ -35,12 +53,17 @@ export const genChord = (index, key, chord, type) => {
       }
 
       if (move === degree) {
-        notes.push({ note: pattern[patternStart] });
+        notes.push({
+          note: pattern[patternStart],
+          position: degreeMap[degree],
+        });
       }
 
       patternStart += 1;
       move += 1;
     }
+
+    console.log(notes);
 
     return notes;
   }
@@ -251,8 +274,6 @@ export function generateString(
   isRosewood?: boolean,
   opacity?: number
 ) {
-  console.log(opacity);
-
   let patternStart = pattern.findIndex((note) => note === start);
 
   let notes = [];
@@ -290,6 +311,9 @@ export function generateString(
     }
 
     let notee = note;
+    // if (indx > 0 && tones.length === 0) {
+    //   notee = null;
+    // }
     let extra = '';
     if (
       tones &&
@@ -302,10 +326,11 @@ export function generateString(
 
     let noteStyle = 'bg-blue-200 w-6 h-6 m-auto rounded-full ';
     if (
-      tones &&
-      tones.length > 0 &&
-      tones.findIndex((tone) => tone.note === note) < 0 &&
-      indx > 0
+      (tones &&
+        tones.length > 0 &&
+        tones.findIndex((tone) => tone.note === note) < 0 &&
+        indx > 0) ||
+      tones.length === 0
     ) {
       if (opacity) {
         noteStyle += `opacity-[.${opacity}]`;

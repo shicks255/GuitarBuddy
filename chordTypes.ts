@@ -139,6 +139,11 @@ export const chordTypes = [
     extra: 'no 5th',
   },
   {
+    name: 'minor11',
+    type: '1',
+    pattern: [8, 4, 11, 6, 1, 0],
+  },
+  {
     name: 'dom7',
     type: '1',
     pattern: [5, 11, 8, 0, 0, 0],
@@ -148,5 +153,94 @@ export const chordTypes = [
     name: 'dom7',
     type: '2',
     pattern: [0, 0, 11, 5, 1, 0],
+    extra: 'no 5th',
+  },
+  {
+    name: 'dom7',
+    type: '3',
+    pattern: [1, 8, 5, 11, 8, 1],
+  },
+  {
+    name: 'dom9',
+    type: '1',
+    pattern: [0, 8, 15, 11, 5, 0],
+    extra: 'no 1st',
+  },
+  {
+    name: 'dom9',
+    type: '2',
+    pattern: [8, 15, 11, 5, 1, 0],
+  },
+  {
+    name: 'dom9',
+    type: '3',
+    pattern: [15, 8, 5, 11, 8, 1],
+  },
+  {
+    name: 'dom11',
+    type: '1',
+    pattern: [8, 15, 11, 6, 1, 0],
+    extra: 'no 3rd',
+  },
+  {
+    name: 'aug',
+    type: '1',
+    pattern: [0, 0, 0, 9, 5, 1],
+  },
+  {
+    name: 'aug',
+    type: '2',
+    pattern: [0, 0, 5, 1, 9, 0],
+  },
+  {
+    name: 'aug',
+    type: '3',
+    pattern: [0, 9, 5, 1, 9, 0],
+  },
+  {
+    name: 'aug',
+    type: '4',
+    pattern: [1, 9, 5, 1, 0, 0],
+  },
+  {
+    name: 'aug7',
+    type: '1',
+    pattern: [0, 1, 9, 5, 11, 0],
+  },
+  {
+    name: 'sus2',
+    type: '1',
+    pattern: [0, 0, 8, 3, 1, 0],
+  },
+  {
+    name: 'sus2',
+    type: '2',
+    pattern: [0, 3, 1, 8, 1, 0],
+  },
+  {
+    name: 'sus4',
+    type: 'barre1',
+    pattern: [1, 8, 6, 1, 6, 1],
+  },
+  {
+    name: 'sus4',
+    type: 'barre2',
+    pattern: [8, 6, 1, 8, 1, 0],
+  },
+  {
+    name: '7sus4',
+    type: '1',
+    pattern: [0, 1, 11, 6, 1, 0],
+    extra: 'no 5th',
+  },
+  {
+    name: '7sus4',
+    type: 'barre1',
+    pattern: [1, 8, 6, 11, 8, 1],
+  },
+  {
+    name: 'add9',
+    type: '1',
+    pattern: [15, 8, 5, 1, 0, 0],
   },
 ];

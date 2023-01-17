@@ -97,6 +97,15 @@ export default function MyApp({ Component, pageProps }) {
           </div>
           <div
             className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
+              asPath === '/chordFinder' ? 'font-bold' : ''
+            }`}
+          >
+            <Link className="flex-1" href="/chordFinder">
+              Chord Finder
+            </Link>
+          </div>
+          <div
+            className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
               asPath === '/tuner' ? 'font-bold' : ''
             }`}
           >

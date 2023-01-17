@@ -161,6 +161,16 @@ export const chordTypes = [
     pattern: [1, 8, 5, 11, 8, 1],
   },
   {
+    name: 'dom7b5',
+    type: '1',
+    pattern: [0, 0, 5, 11, 7, 1],
+  },
+  {
+    name: 'dom7b5',
+    type: '2',
+    pattern: [0, 5, 11, 7, 1, 0],
+  },
+  {
     name: 'dom9',
     type: '1',
     pattern: [0, 8, 15, 11, 5, 0],

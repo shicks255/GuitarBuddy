@@ -56,7 +56,6 @@ const Scales: React.FC = () => {
     <div className="p-4">
       <div className="max-w-sm">
         <h1 className="text-6xl font-bold mb-4">Scales</h1>
-
         <div className="md:flex md:items-center mb-6 justify-start">
           <div className="md:w-12 flex-none">
             <label

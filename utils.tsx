@@ -145,6 +145,12 @@ export const chords = [
     family: 'Dominant',
   },
   {
+    name: 'dom7b5',
+    pattern: ['1', '3', 'b5', '7'],
+    formula: [4, 2, 4],
+    family: 'Dominant',
+  },
+  {
     name: 'dom9',
     pattern: ['1', '3', '5', 'b7', '9'],
     formula: [4, 3, 3, 4],

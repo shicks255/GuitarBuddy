@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
+import { ISelectedNotes } from '../pages/chordFinder';
 import {
   chords,
   genChord,
@@ -13,10 +14,12 @@ interface IProps {
   scale?: string;
   chord?: string;
   chordType?: string;
+  notes?: ISelectedNotes;
+  setSelectedNotes?: Dispatch<SetStateAction<ISelectedNotes>>;
 }
 
 const Fretboard: React.FC<IProps> = (props: IProps) => {
-  const { keyy, scale, chord, chordType } = props;
+  const { keyy, scale, chord, chordType, notes, setSelectedNotes } = props;
 
   const [neckWood, setNeckWood] = useState('maple');
   const [nonNoteOpacity, setNonNoteOpacity] = useState(30);
@@ -55,7 +58,9 @@ const Fretboard: React.FC<IProps> = (props: IProps) => {
             true,
             chordType ? genChord(0, keyy, chord, chordType) : tones,
             neckWood === 'rosewood',
-            nonNoteOpacity
+            nonNoteOpacity,
+            notes,
+            setSelectedNotes
           )}
         </div>
         <div className="flex">
@@ -64,7 +69,9 @@ const Fretboard: React.FC<IProps> = (props: IProps) => {
             false,
             chordType ? genChord(1, keyy, chord, chordType) : tones,
             neckWood === 'rosewood',
-            nonNoteOpacity
+            nonNoteOpacity,
+            notes,
+            setSelectedNotes
           )}
         </div>
         <div className="flex">
@@ -73,7 +80,9 @@ const Fretboard: React.FC<IProps> = (props: IProps) => {
             false,
             chordType ? genChord(2, keyy, chord, chordType) : tones,
             neckWood === 'rosewood',
-            nonNoteOpacity
+            nonNoteOpacity,
+            notes,
+            setSelectedNotes
           )}
         </div>
         <div className="flex">
@@ -82,7 +91,9 @@ const Fretboard: React.FC<IProps> = (props: IProps) => {
             false,
             chordType ? genChord(3, keyy, chord, chordType) : tones,
             neckWood === 'rosewood',
-            nonNoteOpacity
+            nonNoteOpacity,
+            notes,
+            setSelectedNotes
           )}
         </div>
         <div className="flex">
@@ -91,16 +102,20 @@ const Fretboard: React.FC<IProps> = (props: IProps) => {
             false,
             chordType ? genChord(4, keyy, chord, chordType) : tones,
             neckWood === 'rosewood',
-            nonNoteOpacity
+            nonNoteOpacity,
+            notes,
+            setSelectedNotes
           )}
         </div>
         <div className="flex">
           {generateString(
-            'e',
+            'E',
             false,
             chordType ? genChord(5, keyy, chord, chordType) : tones,
             neckWood === 'rosewood',
-            nonNoteOpacity
+            nonNoteOpacity,
+            notes,
+            setSelectedNotes
           )}
         </div>
       </div>

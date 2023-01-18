@@ -1,4 +1,6 @@
+import { Dispatch, SetStateAction } from 'react';
 import { chordTypes } from './chordTypes';
+import { ISelectedNotes } from './pages/chordFinder';
 import { INote } from './types/note';
 
 /* eslint-disable react/jsx-key */
@@ -278,11 +280,17 @@ export function generateString(
   high: boolean = false,
   tones?: any[],
   isRosewood?: boolean,
-  opacity?: number
+  opacity?: number,
+  selectedNotes?: ISelectedNotes,
+  setSelectedNotes?: Dispatch<SetStateAction<ISelectedNotes>>
 ) {
-  let patternStart = pattern.findIndex((note) => note === start);
+  let patternStart = pattern.findIndex((note) => note === start.toLowerCase());
 
   let notes = [];
+
+  const selectedNote = selectedNotes && selectedNotes[start];
+  console.log(start);
+  console.log(selectedNote);
 
   while (notes.length < 13) {
     if (patternStart > 11) {
@@ -294,7 +302,7 @@ export function generateString(
   }
 
   let height = 'h-[3px]';
-  if (start === 'e' && high) {
+  if (start === 'e' || start === 'E') {
     height = 'h-[0.5px]';
   }
   if (start === 'b') {
@@ -324,17 +332,21 @@ export function generateString(
     if (
       tones &&
       tones.length &&
-      tones.findIndex((tone) => tone.note === note) >= 0
+      tones.findIndex((tone) => tone.note === note.toLowerCase()) >= 0
     ) {
       extra += 'text-red-600';
-      notee = tones.find((tone) => tone.note === note).position;
+      notee = tones.find((tone) => tone.note === note.toLowerCase()).position;
+    }
+
+    if (selectedNote === note) {
+      extra += 'text-red-600';
     }
 
     let noteStyle = 'bg-blue-200 w-6 h-6 m-auto rounded-full ';
     if (
       (tones &&
         tones.length > 0 &&
-        tones.findIndex((tone) => tone.note === note) < 0 &&
+        tones.findIndex((tone) => tone.note === note.toLowerCase()) < 0 &&
         indx > 0) ||
       tones.length === 0
     ) {
@@ -349,9 +361,14 @@ export function generateString(
       noteStyle += 'opacity-90';
     }
 
+    if (selectedNote === note) {
+      noteStyle += ' opacity-90';
+    }
+
     if (
-      tones.findIndex((tone) => tone.note === note) >= 0 &&
-      tones.find((tone) => tone.note === note).root
+      (tones.findIndex((tone) => tone.note === note) >= 0 &&
+        tones.find((tone) => tone.note === note).root) ||
+      selectedNote === note
     ) {
       extra += ' font-bold text-lg';
     }
@@ -365,6 +382,14 @@ export function generateString(
 
     const inlayColor = isRosewood ? 'bg-white' : 'bg-black';
 
+    const updateSelectedNotes = () => {
+      if (selectedNote === note) {
+        setSelectedNotes({ ...selectedNotes, [start]: undefined });
+      } else {
+        setSelectedNotes({ ...selectedNotes, [start]: notee });
+      }
+    };
+
     return (
       <div className={`flex-1 relative text-center ${extraClass}`}>
         {indx > 0 ? (
@@ -373,7 +398,9 @@ export function generateString(
           ''
         )}
         <div className={`top-2 h-6 w-full absolute z-50 ${extra}`}>
-          <div className={`${noteStyle}`}>{notee}</div>
+          <div className={`${noteStyle}`} onClick={() => updateSelectedNotes()}>
+            {notee}
+          </div>
         </div>
         {indx > 0 ? <div className="h-[40px] w-1 bg-slate-300" /> : ''}
         {thing && (
@@ -396,7 +423,7 @@ export function generateScaleTones(key: string, scale: string) {
     return [];
   }
 
-  let patternStart = pattern.findIndex((note) => note === key);
+  let patternStart = pattern.findIndex((note) => note.toLowerCase() === key);
   let notes: INote[] = [
     {
       note: key,

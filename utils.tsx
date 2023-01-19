@@ -289,8 +289,6 @@ export function generateString(
   let notes = [];
 
   const selectedNote = selectedNotes && selectedNotes[start];
-  console.log(start);
-  console.log(selectedNote);
 
   while (notes.length < 13) {
     if (patternStart > 11) {

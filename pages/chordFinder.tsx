@@ -101,7 +101,7 @@ const ChordFinder = () => {
       <div>{JSON.stringify(selectedNotes)}</div>
       <div>
         {candidates.map((c) => (
-          <div>{c.chord}</div>
+          <div key={c.chord}>{c.chord}</div>
         ))}
       </div>
       <Fretboard notes={selectedNotes} setSelectedNotes={setSelectedNotes} />

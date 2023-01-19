@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+// import Head from 'next/document';
 import Script from 'next/script';
 import Image from 'next/image';
 

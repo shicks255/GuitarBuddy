@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import Script from 'next/script';
 import Image from 'next/image';
 
 export default function MyApp({ Component, pageProps }) {
@@ -38,11 +39,35 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
+        {/* <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-5MRWHRJ');`,
+        }}
+      /> */}
         <title>Guitar-Pal</title>
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.webmanifest" />
       </Head>
+      <Script id="google-tag-manager" strategy="afterInteractive">
+        {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-5MRWHRJ');`}
+      </Script>
       <div className="flex h-24 border-b-4">
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-5MRWHRJ"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          ></iframe>
+        </noscript>
         <div
           className={`hover:cursor-pointer w-[50px] p-2 z-50 flex-none mx-4 m-auto justify-self-center`}
           onClick={() => setExpanded((val) => !val)}

@@ -1,26 +1,40 @@
 import '../styles/globals.css';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 // import Head from 'next/document';
 import Script from 'next/script';
 import Image from 'next/image';
+import useIsMobile from '../hooks/useIsMobile';
+import useClickOutside from '../hooks/useClickOutside';
 
 export default function MyApp({ Component, pageProps }) {
-  console.log(Component);
-  console.log(pageProps);
-
-  const { asPath } = useRouter();
+  const { asPath, push } = useRouter();
 
   const [expanded, setExpanded] = useState(true);
+  const isMobile = useIsMobile();
 
-  const width = expanded ? 'w-[100px]' : 'w-[0px]';
-  const left = expanded ? 'left-[100px]' : 'left-0';
+  const sideNavRef = useRef(undefined);
+  const hamburgerRef = useRef(undefined);
+  useClickOutside([sideNavRef, hamburgerRef], () => {
+    if (isMobile) {
+      setExpanded(false)
+    }
+  });
 
-  const innerWidth = expanded
-    ? { width: 'calc(100% - 100px' }
+  let width = expanded ? 'w-[150px]' : 'w-[0px]';
+  let left = expanded ? 'left-[150px]' : 'left-0';
+
+  let innerWidth = expanded && !isMobile
+    ? { width: 'calc(100% - 150px' }
     : { width: '100%' };
+
+  if (isMobile && expanded) {
+    width = 'w-7/12'
+    innerWidth = {width: '100%'}
+    left = 'left-0'
+  }
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
@@ -54,103 +68,109 @@ export default function MyApp({ Component, pageProps }) {
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.webmanifest" />
       </Head>
-      <body>
-        <noscript
-          dangerouslySetInnerHTML={{
-            __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5MRWHRJ" height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
-          }}
-        ></noscript>
-        <div className="flex h-24 border-b-4">
+      <noscript
+        dangerouslySetInnerHTML={{
+          __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5MRWHRJ" height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
+        }}
+      ></noscript>
+      <div className="flex h-24 border-b-4">
+        <div
+          className={`hover:cursor-pointer w-[50px] p-2 z-50 flex-none mx-4 m-auto justify-self-center`}
+          onClick={() => setExpanded((val) => !val)}
+          ref={hamburgerRef}
+        >
           <div
-            className={`hover:cursor-pointer w-[50px] p-2 z-50 flex-none mx-4 m-auto justify-self-center`}
-            onClick={() => setExpanded((val) => !val)}
+            className={`transition-all w-[25px] h-[3px] bg-black rounded m-[5px] m-auto origin-center ${
+              expanded ? 'rotate-45 translate-y-[8px]' : ''
+            }`}
+          />
+          <div
+            className={`transition-all w-[25px] h-[3px] bg-black rounded m-[5px] m-auto ${
+              expanded ? 'invisible' : ''
+            }`}
+          />
+          <div
+            className={`transition-all w-[25px] h-[3px] bg-black rounded m-[5px] m-auto origin-center ${
+              expanded ? '-rotate-45 -translate-y-[8px]' : ''
+            }`}
+          />
+        </div>
+        <div className="flex-1 justify-self-center">
+          <Image
+            className="w-full md:w-auto h-full cursor-pointer"
+            src="/banner_red.png"
+            width={784}
+            alt="banner"
+            height={161}
+            onClick={() => push('/')}
+          />
+        </div>
+      </div>
+      <aside ref={sideNavRef}
+        className={`transition-all ${width} min-h-screen h-auto absolute top-24 border-r-2 overflow-hidden z-50 bg-white`}
+      >
+        <div className="flex flex-col h-full">
+          <div
+            className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
+              asPath === '/scales' ? 'font-bold' : ''
+            }`}
           >
-            <div
-              className={`transition-all w-[25px] h-[3px] bg-black rounded m-[5px] m-auto origin-center ${
-                expanded ? 'rotate-45 translate-y-[8px]' : ''
-              }`}
-            />
-            <div
-              className={`transition-all w-[25px] h-[3px] bg-black rounded m-[5px] m-auto ${
-                expanded ? 'invisible' : ''
-              }`}
-            />
-            <div
-              className={`transition-all w-[25px] h-[3px] bg-black rounded m-[5px] m-auto origin-center ${
-                expanded ? '-rotate-45 -translate-y-[8px]' : ''
-              }`}
-            />
+            <Link className="flex-1" href="/scales">
+              Scales
+            </Link>
           </div>
-          <div className="flex-1 justify-self-center">
-            <Image
-              className="w-full md:w-auto h-full"
-              src="/banner_red.png"
-              width={784}
-              alt="banner"
-              height={161}
-            />
+          <div
+            className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
+              asPath === '/chords' ? 'font-bold' : ''
+            }`}
+          >
+            <Link className="flex-1" href="/chords">
+              Chords
+            </Link>
+          </div>
+          <div
+            className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
+              asPath === '/chordFinder' ? 'font-bold' : ''
+            }`}
+          >
+            <Link className="flex-1" href="/chordFinder">
+              Chord Finder
+            </Link>
+          </div>
+          <div
+            className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
+              asPath === '/tuner' ? 'font-bold' : ''
+            }`}
+          >
+            <Link className="flex-1" href="/tuner">
+              Tuner
+            </Link>
+          </div>
+          <div
+            className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
+              asPath === '/practice' ? 'font-bold' : ''
+            }`}
+          >
+            <Link className="flex-1" href="/practice">
+              Practice
+            </Link>
           </div>
         </div>
-        <aside
-          className={`transition-all ${width} h-screen absolute top-24 border-r-2 overflow-hidden`}
-        >
-          <div className="flex flex-col h-screen">
-            <div
-              className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
-                asPath === '/scales' ? 'font-bold' : ''
-              }`}
-            >
-              <Link className="flex-1" href="/scales">
-                Scales
-              </Link>
-            </div>
-            <div
-              className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
-                asPath === '/chords' ? 'font-bold' : ''
-              }`}
-            >
-              <Link className="flex-1" href="/chords">
-                Chords
-              </Link>
-            </div>
-            <div
-              className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
-                asPath === '/chordFinder' ? 'font-bold' : ''
-              }`}
-            >
-              <Link className="flex-1" href="/chordFinder">
-                Chord Finder
-              </Link>
-            </div>
-            <div
-              className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
-                asPath === '/tuner' ? 'font-bold' : ''
-              }`}
-            >
-              <Link className="flex-1" href="/tuner">
-                Tuner
-              </Link>
-            </div>
-            <div
-              className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
-                asPath === '/practice' ? 'font-bold' : ''
-              }`}
-            >
-              <Link className="flex-1" href="/practice">
-                Practice
-              </Link>
-            </div>
-          </div>
-        </aside>
-        <main
-          className={`transition-all absolute ${left} top-24 p-2 flex margin-auto justify-center`}
-          style={innerWidth}
-        >
-          <div className="flex-initial w-auto grow max-w-screen-lg">
+      </aside>
+      {isMobile && expanded && <div className={`bg-slate-400 h-full w-full absolute z-40 opacity-40`} />}
+      <main
+        className={`transition-all absolute ${left} top-24 p-2 flex flex-col margin-auto justify-center z-30`}
+        style={innerWidth}
+      >
+          <div className="flex-initial w-auto grow max-w-screen-lg min-h-screen">
             <Component {...pageProps} />
           </div>
-        </main>
-      </body>
+          <footer className={`border-t w- text-center`}>
+            <div className='mt-4'>
+              <a href='https://shicks255.com' target='_blank' rel="noopener noreferrer">&copy; Steven Hicks</a>
+            </div>
+          </footer>
+      </main>
     </>
   );
 }

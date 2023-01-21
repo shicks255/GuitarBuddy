@@ -27,7 +27,6 @@ const Fretboard: React.FC<IProps> = (props: IProps) => {
   const neckStyle = neckWood === 'rosewood' ? 'bg-yellow-900' : 'bg-yellow-50';
   const scaleTones = scale ? generateScaleTones(keyy, scale) : [];
   const chordTones = chord ? generateChord(keyy, chord) : [];
-  console.log(chordTones);
 
   let tones = scaleTones;
   if (scaleTones.length === 0) {

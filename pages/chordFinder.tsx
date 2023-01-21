@@ -22,12 +22,21 @@ const ChordFinder = () => {
   });
   const [candidates, setCandidates] = useState([]);
 
+  const reset = () => {
+    setSelectedNotes({
+      e: undefined,
+      b: undefined,
+      g: undefined,
+      d: undefined,
+      a: undefined,
+      E: undefined,
+    });
+  };
+
   useEffect(() => {
     if (
       Object.values(selectedNotes).filter((e) => e !== undefined).length > 2
     ) {
-      console.log('penis');
-
       const combinations = [];
 
       // iterate through each note
@@ -54,15 +63,12 @@ const ChordFinder = () => {
         });
       });
 
-      console.log(combinations);
-
       const selected = new Set<string>();
       Object.values(selectedNotes).forEach((not) => {
         if (not && not !== undefined) {
           selected.add(not);
         }
       });
-      console.log(selected);
 
       const cands = [];
       combinations.forEach((combo) => {
@@ -71,16 +77,24 @@ const ChordFinder = () => {
         }
       });
 
+      const finals = [];
+
       if (cands.length > 0) {
         let bestMatch = cands[0];
 
-        cands.forEach((can) => {
+        cands.forEach((can, indx) => {
           const bestMatchOffBy = computeOffBy(Array.from(selected), bestMatch);
           const thisMatchOffBy = computeOffBy(Array.from(selected), can);
           if (thisMatchOffBy < bestMatchOffBy) {
             bestMatch = can;
+            finals.splice(0, finals.length);
+            finals.push(bestMatch);
+          } else if (bestMatchOffBy === thisMatchOffBy) {
+            console.log('uh oh we have a runOFF!');
+            finals.push(can);
           }
         });
+        console.log(finals);
         console.log(bestMatch);
         setCandidates([bestMatch]);
       }
@@ -103,6 +117,9 @@ const ChordFinder = () => {
         {candidates.map((c) => (
           <div key={c.chord}>{c.chord}</div>
         ))}
+      </div>
+      <div>
+        <button onClick={() => reset()}>Clear</button>
       </div>
       <Fretboard notes={selectedNotes} setSelectedNotes={setSelectedNotes} />
     </div>

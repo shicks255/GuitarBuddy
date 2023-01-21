@@ -19,21 +19,20 @@ export default function MyApp({ Component, pageProps }) {
   const hamburgerRef = useRef(undefined);
   useClickOutside([sideNavRef, hamburgerRef], () => {
     if (isMobile) {
-      setExpanded(false)
+      setExpanded(false);
     }
   });
 
   let width = expanded ? 'w-[150px]' : 'w-[0px]';
   let left = expanded ? 'left-[150px]' : 'left-0';
 
-  let innerWidth = expanded && !isMobile
-    ? { width: 'calc(100% - 150px' }
-    : { width: '100%' };
+  let innerWidth =
+    expanded && !isMobile ? { width: 'calc(100% - 150px' } : { width: '100%' };
 
   if (isMobile && expanded) {
-    width = 'w-7/12'
-    innerWidth = {width: '100%'}
-    left = 'left-0'
+    width = 'w-7/12';
+    innerWidth = { width: '100%' };
+    left = 'left-0';
   }
 
   useEffect(() => {
@@ -106,7 +105,8 @@ export default function MyApp({ Component, pageProps }) {
           />
         </div>
       </div>
-      <aside ref={sideNavRef}
+      <aside
+        ref={sideNavRef}
         className={`transition-all ${width} min-h-screen h-auto absolute top-24 border-r-2 overflow-hidden z-50 bg-white`}
       >
         <div className="flex flex-col h-full">
@@ -157,19 +157,29 @@ export default function MyApp({ Component, pageProps }) {
           </div>
         </div>
       </aside>
-      {isMobile && expanded && <div className={`bg-slate-400 h-full w-full absolute z-40 opacity-40`} />}
+      {isMobile && expanded && (
+        <div
+          className={`bg-slate-400 h-full w-full absolute z-40 opacity-40`}
+        />
+      )}
       <main
         className={`transition-all absolute ${left} top-24 p-2 flex flex-col margin-auto justify-center z-30`}
         style={innerWidth}
       >
-          <div className="flex-initial w-auto grow max-w-screen-lg min-h-screen">
-            <Component {...pageProps} />
+        <div className="flex-initial w-auto grow max-w-screen-lg min-h-screen">
+          <Component {...pageProps} />
+        </div>
+        <footer className={`border-t w- text-center`}>
+          <div className="mt-4">
+            <a
+              href="https://shicks255.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              &copy; Steven Hicks
+            </a>
           </div>
-          <footer className={`border-t w- text-center`}>
-            <div className='mt-4'>
-              <a href='https://shicks255.com' target='_blank' rel="noopener noreferrer">&copy; Steven Hicks</a>
-            </div>
-          </footer>
+        </footer>
       </main>
     </>
   );

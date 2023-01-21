@@ -4,15 +4,12 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <main>
-        <h1 className={styles.title}>
-          Welcome to Guitar Pal
-        </h1>
+        <h1 className={styles.title}>Welcome to Guitar Pal</h1>
 
         <p className={styles.description}>
           Get started by editing <code>pages/index.js</code>
-          Welcome 
+          Welcome
         </p>
-
       </main>
 
       <style jsx>{`

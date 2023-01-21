@@ -58,10 +58,10 @@ export default function MyApp({ Component, pageProps }) {
             __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5MRWHRJ');`,
           }}
         ></script>
-        <title>Guitar Pal</title>
+        <title>Guitar Pal: Helpful Guitar Tools</title>
         <meta
           name="description"
-          content="Easy to use tools for guitar plays including scales, chords, tuner and chord building."
+          content="Easy to use tools for guitar players including scales, chords, tuner and chord building."
         />
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

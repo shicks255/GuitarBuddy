@@ -7,7 +7,7 @@ export default function Home() {
     <div className="font-sans m-auto">
       <main className="p-2">
         <h1 className="text-3xl font-semibold font-sans">
-          Welcome to Guitar Pal
+          A string instrument player&apos;s best friend
         </h1>
         <p className="p-2 mb-8">
           It is my hope that this page will become your go-to resource for all
@@ -35,11 +35,11 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div
-          onClick={() => push('/chordFinder')}
-          className="flex m-auto flex-wrap w-full md:flex-nowrap place-content-center place-items-center"
-        >
-          <div className="rounded-lg border-2 p-4 w-full text-center flex-col md:basis-1/2 h-36 md:mr-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110">
+        <div className="flex m-auto flex-wrap w-full md:flex-nowrap place-content-center place-items-center">
+          <div
+            onClick={() => push('/chordFinder')}
+            className="rounded-lg border-2 p-4 w-full text-center flex-col md:basis-1/2 h-36 md:mr-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
+          >
             <h2 className="font-semibold text-xl">Chord Finder</h2>
             <p className="mt-2 font-light">
               Enter a few notes on a guitar neck to see the closest matching

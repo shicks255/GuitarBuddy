@@ -163,10 +163,10 @@ export default function MyApp({ Component, pageProps }) {
         />
       )}
       <main
-        className={`transition-all absolute ${left} top-24 p-2 flex flex-col margin-auto justify-center z-30`}
+        className={`transition-all absolute ${left} top-24 p-2 flex flex-col m-auto justify-center z-30`}
         style={innerWidth}
       >
-        <div className="flex-initial w-auto grow max-w-screen-lg min-h-screen">
+        <div className="flex-initial w-full grow max-w-screen-lg min-h-screen">
           <Component {...pageProps} />
         </div>
         <footer className={`border-t w- text-center`}>

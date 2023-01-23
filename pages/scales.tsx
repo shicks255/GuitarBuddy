@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Fretboard from '../components/fretboard';
+import PageHeader from '../components/pageHeader';
 import {
   generateScaleTones,
   harmonicMinorDiatonics,
@@ -13,7 +14,15 @@ import {
   pattern,
 } from '../utils';
 
+const scaleAbbrev = {
+  major: 'Major',
+  natMinor: 'Natural Minor',
+  melodMinor: 'Melodic Minor',
+  harmMinor: 'Harmonic Minor',
+};
+
 const Scales: React.FC = () => {
+  const [collapse, setCollapse] = useState(false);
   const [key, setKey] = useState<string | undefined>(undefined);
   const [scale, setScale] = useState<string | undefined>(undefined);
   let selectedScale = undefined;
@@ -32,8 +41,6 @@ const Scales: React.FC = () => {
 
   const tones = generateScaleTones(key, scale);
 
-  console.log(tones);
-
   const diatonics = tones.map((tone, index) => {
     let d = majorDiatonics;
     if (scale === 'natMinor') {
@@ -50,13 +57,21 @@ const Scales: React.FC = () => {
     return `${tone.note} ${x}`;
   });
 
-  console.log(diatonics);
-
   return (
     <div className="p-4">
-      <div className="max-w-sm">
-        <h1 className="text-6xl font-bold mb-4">Scales</h1>
-        <div className="md:flex md:items-center mb-6 justify-start">
+      <div>
+        <PageHeader headline="Scales">
+          <p>
+            Scales are of critically importance in music theory, and serve as
+            the basis for many other concepts
+            <br />
+            <br />
+            Select a key and one of the scales below to see all the notes that
+            make up that scale, as well as the diatonic chords in that scale and
+            the scale pattern.
+          </p>
+        </PageHeader>
+        <div className="md:flex md:items-center mb-6 mt-6 justify-start">
           <div className="md:w-12 flex-none">
             <label
               htmlFor="keySelect"
@@ -81,7 +96,7 @@ const Scales: React.FC = () => {
             </select>
           </div>
         </div>
-        <div className="md:flex md:items-center">
+        <div className="md:flex md:items-center mb-6 justify-start">
           <div className="md:w-12 flex-none">
             <label
               htmlFor="scaleSelect"
@@ -108,7 +123,12 @@ const Scales: React.FC = () => {
       </div>
 
       {key && scale && (
-        <div className="rounded border p-6 mt-8">
+        <div className="rounded border px-6 pt-6 pb-2 mt-8">
+          <div className="md:flex md:items-center mb-6 justify-start">
+            <div className="block text-xl text-gray-600 font-bold md:text-right mb-1 md:mb-0 pr-4">
+              {key} {scaleAbbrev[scale]}
+            </div>
+          </div>
           <div className="md:flex md:items-center mb-6 justify-start">
             <div className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
               Scale Degrees:
@@ -130,8 +150,8 @@ const Scales: React.FC = () => {
             </div>
             <div>{tones.map((tone) => tone.note).join(' - ')}</div>
           </div>
-          <div className="md:flex md:items-center mb-6 justify-start">
-            <div className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+          <div className="md:flex md:items-center justify-start">
+            <div className="block text-gray-500 font-bold md:text-right md:mb-0 pr-4">
               Diatonic Chords:
             </div>
             <div>{diatonics.map((d) => d).join(' - ')}</div>

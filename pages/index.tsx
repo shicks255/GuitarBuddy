@@ -6,17 +6,17 @@ export default function Home() {
   return (
     <div className="font-sans m-auto">
       <main className="p-2">
-        <h1 className="text-3xl font-semibold font-sans">
-          A string instrument player&apos;s best friend
+        <h1 className="text-3xl font-sans">
+          The string instrumentalist&apos;s best friend
         </h1>
-        <p className="p-2 mb-8">
+        <p className="p-2 mb-8 font-light">
           It is my hope that this page will become your go-to resource for all
           things guitar education
         </p>
         <div className="flex m-auto flex-wrap w-full md:flex-nowrap place-content-center place-items-center">
           <div
             onClick={() => push('/scales')}
-            className="rounded-lg border-2 p-4 w-full text-center flex-col md:basis-1/2 h-36 md:mr-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
+            className="rounded-lg border-2 border-slate-400 p-4 w-full text-center flex-col md:basis-1/2 h-36 md:mr-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
           >
             <h2 className="font-semibold text-xl">Scales</h2>
             <p className="mt-2 font-light">
@@ -26,7 +26,7 @@ export default function Home() {
           </div>
           <div
             onClick={() => push('/chords')}
-            className="rounded-lg border-2 p-4 w-full text-center flex-col md:basis-1/2 h-36 ml-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
+            className="rounded-lg border-2 border-slate-400 p-4 w-full text-center flex-col md:basis-1/2 h-36 ml-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
           >
             <h2 className="font-semibold text-xl">Chords</h2>
             <p className="mt-2 font-light">
@@ -38,7 +38,7 @@ export default function Home() {
         <div className="flex m-auto flex-wrap w-full md:flex-nowrap place-content-center place-items-center">
           <div
             onClick={() => push('/chordFinder')}
-            className="rounded-lg border-2 p-4 w-full text-center flex-col md:basis-1/2 h-36 md:mr-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
+            className="rounded-lg border-2 border-slate-400 p-4 w-full text-center flex-col md:basis-1/2 h-36 md:mr-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
           >
             <h2 className="font-semibold text-xl">Chord Finder</h2>
             <p className="mt-2 font-light">
@@ -48,7 +48,7 @@ export default function Home() {
           </div>
           <div
             onClick={() => push('/tuner')}
-            className="rounded-lg border-2 p-4 w-full text-center flex-col md:basis-1/2 h-36 md:ml-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
+            className="rounded-lg border-2 border-slate-400 p-4 w-full text-center flex-col md:basis-1/2 h-36 md:ml-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
           >
             <h2 className="font-semibold text-xl">Tuner</h2>
             <p className="mt-2 font-light">
@@ -61,7 +61,7 @@ export default function Home() {
           onClick={() => push('/practice')}
           className="flex m-auto flex-wrap w-full md:flex-nowrap place-content-center place-items-center"
         >
-          <div className="rounded-lg border-2 p-4 w-full text-center flex-col md:basis-1/2 h-36 cursor-pointer hover:bg-slate-100 transition hover:scale-110">
+          <div className="rounded-lg border-2 border-slate-400 p-4 w-full text-center flex-col md:basis-1/2 h-36 cursor-pointer hover:bg-slate-100 transition hover:scale-110">
             <h2 className="font-semibold text-xl">Practice</h2>
             <p className="mt-2 font-light">
               Level up your fretboard knowledge with different practice

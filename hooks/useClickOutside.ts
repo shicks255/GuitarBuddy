@@ -6,16 +6,16 @@ function useClickOutside(
 ): void {
   useEffect(() => {
     function handle(e) {
-        let fire = true;
-        refs.forEach((ref) => {
-            if (ref.current && ref.current.contains(e.target)) {
-                fire = false;
-            }
-        })
-
-        if (fire) {
-            callback(e);
+      let fire = true;
+      refs.forEach((ref) => {
+        if (ref.current && ref.current.contains(e.target)) {
+          fire = false;
         }
+      });
+
+      if (fire) {
+        callback(e);
+      }
     }
 
     document.addEventListener('click', handle);

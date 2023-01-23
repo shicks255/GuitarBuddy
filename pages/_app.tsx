@@ -12,8 +12,8 @@ import useClickOutside from '../hooks/useClickOutside';
 export default function MyApp({ Component, pageProps }) {
   const { asPath, push } = useRouter();
 
-  const [expanded, setExpanded] = useState(true);
   const isMobile = useIsMobile();
+  const [expanded, setExpanded] = useState(isMobile ? false : true);
 
   const sideNavRef = useRef(undefined);
   const hamburgerRef = useRef(undefined);
@@ -34,6 +34,12 @@ export default function MyApp({ Component, pageProps }) {
     innerWidth = { width: '100%' };
     left = 'left-0';
   }
+
+  const closeIfMobile = () => {
+    if (isMobile) {
+      setExpanded(false);
+    }
+  };
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
@@ -72,7 +78,7 @@ export default function MyApp({ Component, pageProps }) {
           __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5MRWHRJ" height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
         }}
       ></noscript>
-      <div className="flex h-24 border-b-4">
+      <div className={`flex h-24 border-b-4`}>
         <div
           className={`hover:cursor-pointer w-[50px] p-2 z-50 flex-none mx-4 m-auto justify-self-center`}
           onClick={() => setExpanded((val) => !val)}
@@ -111,47 +117,71 @@ export default function MyApp({ Component, pageProps }) {
       >
         <div className="flex flex-col h-full">
           <div
-            className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
-              asPath === '/scales' ? 'font-bold' : ''
-            }`}
+            className={`hover:bg-slate-200 h-14 hover:cursor-pointer w-full text-center items-center flex ${
+              asPath === '/scales' ? 'font-bold bg-orange-400' : 'font-semibold'
+            } ${isMobile ? 'border-b-2' : ''}`}
           >
-            <Link className="flex-1" href="/scales">
+            <Link
+              className="flex-1"
+              href="/scales"
+              onClick={() => closeIfMobile()}
+            >
               Scales
             </Link>
           </div>
           <div
-            className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
-              asPath === '/chords' ? 'font-bold' : ''
-            }`}
+            className={`hover:bg-slate-200 h-14 hover:cursor-pointer w-full text-center items-center flex ${
+              asPath === '/chords' ? 'font-bold bg-orange-400' : 'font-semibold'
+            } ${isMobile ? 'border-b-2' : ''}`}
           >
-            <Link className="flex-1" href="/chords">
+            <Link
+              className="flex-1"
+              href="/chords"
+              onClick={() => closeIfMobile()}
+            >
               Chords
             </Link>
           </div>
           <div
-            className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
-              asPath === '/chordFinder' ? 'font-bold' : ''
-            }`}
+            className={`hover:bg-slate-200 h-14 hover:cursor-pointer w-full text-center items-center flex ${
+              asPath === '/chordFinder'
+                ? 'font-bold bg-orange-400'
+                : 'font-semibold'
+            } ${isMobile ? 'border-b-2' : ''}`}
           >
-            <Link className="flex-1" href="/chordFinder">
+            <Link
+              className="flex-1"
+              href="/chordFinder"
+              onClick={() => closeIfMobile()}
+            >
               Chord Finder
             </Link>
           </div>
           <div
-            className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
-              asPath === '/tuner' ? 'font-bold' : ''
-            }`}
+            className={`hover:bg-slate-200 h-14 hover:cursor-pointer w-full text-center items-center flex ${
+              asPath === '/tuner' ? 'font-bold bg-orange-400' : 'font-semibold'
+            } ${isMobile ? 'border-b-2' : ''}`}
           >
-            <Link className="flex-1" href="/tuner">
+            <Link
+              className="flex-1"
+              href="/tuner"
+              onClick={() => closeIfMobile()}
+            >
               Tuner
             </Link>
           </div>
           <div
-            className={`hover:bg-slate-200 h-10 hover:cursor-pointer w-full text-center items-center flex ${
-              asPath === '/practice' ? 'font-bold' : ''
-            }`}
+            className={`hover:bg-slate-200 h-14 hover:cursor-pointer w-full text-center items-center flex ${
+              asPath === '/practice'
+                ? 'font-bold bg-orange-400'
+                : 'font-semibold'
+            } ${isMobile ? 'border-b-2' : ''}`}
           >
-            <Link className="flex-1" href="/practice">
+            <Link
+              className="flex-1"
+              href="/practice"
+              onClick={() => closeIfMobile()}
+            >
               Practice
             </Link>
           </div>
@@ -159,11 +189,11 @@ export default function MyApp({ Component, pageProps }) {
       </aside>
       {isMobile && expanded && (
         <div
-          className={`bg-slate-400 h-full w-full absolute z-40 opacity-40`}
+          className={`bg-slate-400 h-full w-full absolute z-40 opacity-40 top-24`}
         />
       )}
       <main
-        className={`transition-all absolute ${left} top-24 p-2 flex flex-col m-auto justify-center z-30`}
+        className={`transition-all absolute ${left} top-24 p-2 flex flex-col m-auto justify-center z-30 overflow-x-hidden`}
         style={innerWidth}
       >
         <div className="flex-initial w-full grow max-w-screen-lg min-h-screen">

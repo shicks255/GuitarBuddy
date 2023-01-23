@@ -1,4 +1,3 @@
-
 # Guitar Buddy
 
 [![Build Status](https://jenkins.shicks255.com/buildStatus/icon?job=GuitarBuddyPipeline)](https://jenkins.shicks255.com/job/GuitarBuddyPipeline/)

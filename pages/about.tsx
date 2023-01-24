@@ -26,13 +26,24 @@ const About = () => {
         into Metal for a while, with small dabbles into classical and jazz. A
         few years later I was on a big country kick, primarily classic country
         from the 50&apos;s to 70&apos;s.
+        <br />
+        <br />
+        I&apos;ve been in a few bands over the years, most currently{' '}
+        <a
+          target="_blank"
+          className="text-orange-700 font-bold"
+          href="https://linktr.ee/wearehavens"
+          rel="noreferrer"
+        >
+          Havens
+        </a>
       </p>
       <h2 className="font-semibold text-lg p-2">My Guitars</h2>
       <PageImage imageFloat="LEFT" src="/pics/guitars.jpg" alt="My guitar">
         My girst guitar was a MiM Fender stratocaster I had to share with my
         brother. It wasn&apos;t long before my mother realized sharing the
         guitar was not going to work so I was able to get my own used Ibanez
-        A27XGN.
+        AX120.
       </PageImage>
       <PageImage
         imageFloat="RIGHT"

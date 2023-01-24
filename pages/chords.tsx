@@ -124,6 +124,15 @@ const Chords = () => {
         </div>
       </div>
 
+      <div>
+        <Fretboard
+          keyy={key}
+          scale={undefined}
+          chord={chord}
+          chordType={type}
+        />
+      </div>
+
       {key && chord && (
         <div className="rounded border px-6 pt-6 pb-2 mt-8">
           <div className="md:flex md:items-center mb-6 justify-start">
@@ -146,15 +155,6 @@ const Chords = () => {
           </div>
         </div>
       )}
-
-      <div>
-        <Fretboard
-          keyy={key}
-          scale={undefined}
-          chord={chord}
-          chordType={type}
-        />
-      </div>
     </div>
   );
 };

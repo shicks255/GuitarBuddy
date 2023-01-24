@@ -22,7 +22,6 @@ const scaleAbbrev = {
 };
 
 const Scales: React.FC = () => {
-  const [collapse, setCollapse] = useState(false);
   const [key, setKey] = useState<string | undefined>(undefined);
   const [scale, setScale] = useState<string | undefined>(undefined);
   let selectedScale = undefined;
@@ -69,7 +68,65 @@ const Scales: React.FC = () => {
             Select a key and one of the scales below to see all the notes that
             make up that scale, as well as the diatonic chords in that scale and
             the scale pattern.
+            <br />
+            <br />
+            The{' '}
+            <a
+              className="text-orange-600 font-bold"
+              target="_blank"
+              href="https://en.wikipedia.org/wiki/Major_scale"
+              rel="noreferrer"
+            >
+              Major Scale
+            </a>{' '}
+            has an uplifting and happy sound, and is probably the most important
+            scale to learn.
+            <br />
+            <br />
+            The{' '}
+            <a
+              className="text-orange-600 font-bold"
+              target="_blank"
+              href="https://en.wikipedia.org/wiki/Minor_scale"
+              rel="noreferrer"
+            >
+              Minor Scale
+            </a>{' '}
+            has a sader or more foreboding sound, and actually has 3 slightly
+            different versions:
           </p>
+          <ul className="list-disc ml-4 p-2">
+            <li>
+              <a
+                className="text-orange-700 font-bold"
+                target="_blank"
+                href="https://en.wikipedia.org/wiki/Minor_scale#Natural_minor_scale"
+                rel="noreferrer"
+              >
+                Natural Minor
+              </a>
+            </li>
+            <li>
+              <a
+                className="text-orange-700 font-bold"
+                target="_blank"
+                href="https://en.wikipedia.org/wiki/Minor_scale#Harmonic_minor_scale"
+                rel="noreferrer"
+              >
+                Harmonic Minor{' '}
+              </a>
+            </li>
+            <li>
+              <a
+                className="text-orange-700 font-bold"
+                target="_blank"
+                href="https://en.wikipedia.org/wiki/Minor_scale#Melodic_minor_scale"
+                rel="noreferrer"
+              >
+                Melodic Minor
+              </a>
+            </li>
+          </ul>
         </PageHeader>
         <div className="md:flex md:items-center mb-6 mt-6 justify-start">
           <div className="md:w-12 flex-none">
@@ -122,6 +179,7 @@ const Scales: React.FC = () => {
         </div>
       </div>
 
+      <Fretboard keyy={key} scale={scale} />
       {key && scale && (
         <div className="rounded border px-6 pt-6 pb-2 mt-8">
           <div className="md:flex md:items-center mb-6 justify-start">
@@ -158,8 +216,6 @@ const Scales: React.FC = () => {
           </div>
         </div>
       )}
-
-      <Fretboard keyy={key} scale={scale} />
     </div>
   );
 };

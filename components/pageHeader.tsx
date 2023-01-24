@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 
 interface IProps {
   headline: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const PageHeader: React.FC<IProps> = (props: IProps) => {
   const { headline, children } = props;
-  const [collapse, setCollapse] = useState(false);
-
-  console.log(children);
+  const [collapse, setCollapse] = useState(true);
 
   return (
     <div
@@ -19,16 +17,24 @@ const PageHeader: React.FC<IProps> = (props: IProps) => {
     >
       <div
         className="flex justify-between"
-        onClick={() => setCollapse((cur: boolean) => !cur)}
+        onClick={() => {
+          if (children) {
+            setCollapse((cur: boolean) => !cur);
+          }
+        }}
       >
-        <h1 className="text-4xl font-semibold mb-4">{headline}</h1>
-        <div
-          className={`transition my-auto font-bold ${
-            collapse ? 'rotate-90' : ''
-          }`}
-        >
-          V
-        </div>
+        <h1 className="text-4xl font-semibold mb-4 text-slate-600">
+          {headline}
+        </h1>
+        {children && (
+          <div
+            className={`transition my-auto font-bold ${
+              collapse ? 'rotate-90' : ''
+            }`}
+          >
+            V
+          </div>
+        )}
       </div>
       <div className="max-w-md">{children}</div>
     </div>

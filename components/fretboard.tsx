@@ -133,55 +133,52 @@ const Fretboard: React.FC<IProps> = (props: IProps) => {
         <div className="flex-1 text-center"></div>
         <div className="flex-1 text-center font-semibold">12</div>
       </div>
-      <div className="flex justify-start">
-        <div>
-          <form className="form-check">
+      <div className="flex justify-start gap-8">
+        <form className="form-check">
+          <label
+            htmlFor="maple"
+            className="form-check-label
+                inline-block
+                text-gray-800"
+          >
+            Maple
+          </label>
+          <input
+            type="radio"
+            name="wood"
+            id="maple"
+            value="maple"
+            checked={neckWood === 'maple'}
+            onChange={() => {
+              setNeckWood('maple');
+            }}
+            className="appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+          />
+          <div>
             <label
-              htmlFor="maple"
+              htmlFor="rosewood"
               className="form-check-label
                 inline-block
                 text-gray-800"
             >
-              Maple
+              Rosewood
             </label>
             <input
               type="radio"
               name="wood"
-              id="maple"
-              value="maple"
-              checked={neckWood === 'maple'}
-              onChange={() => {
-                setNeckWood('maple');
-              }}
+              id="rosewood"
+              value="rosewood"
+              checked={neckWood === 'rosewood'}
+              onChange={() => setNeckWood('rosewood')}
               className="appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
             />
-            <div>
-              <label
-                htmlFor="rosewood"
-                className="form-check-label
-                inline-block
-                text-gray-800"
-              >
-                Rosewood
-              </label>
-              <input
-                type="radio"
-                name="wood"
-                id="rosewood"
-                value="rosewood"
-                checked={neckWood === 'rosewood'}
-                onChange={() => setNeckWood('rosewood')}
-                className="appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-              />
-            </div>
-          </form>
-        </div>
-      </div>
-      <div className="flex">
+          </div>
+        </form>
         <div className="">
           <label htmlFor="opacity" className="mr-4">
             Faded note opacity
           </label>
+          <br />
           <input
             type="range"
             min={0}

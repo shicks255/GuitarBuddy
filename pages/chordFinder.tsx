@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Fretboard from '../components/fretboard';
+import PageHeader from '../components/pageHeader';
 import { chords, pattern } from '../utils';
 
 export interface ISelectedNotes {
@@ -110,18 +111,44 @@ const ChordFinder = () => {
   };
 
   return (
-    <div>
-      This is the chord finder page.
-      <div>{JSON.stringify(selectedNotes)}</div>
-      <div>
+    <div className="p-4">
+      <PageHeader headline="Chord Finder">
+        If you have a cool position that you like to play on guitar, or just
+        want to explore, select a combination of notes on the fretboard below to
+        see what the closest chord is.
+        <br />
+        <br />
+        Some fingerings can sometimes be ambiguous, so there may be multiple
+        candidates for the chord.
+      </PageHeader>
+
+      <div className="h-8">
         {candidates.map((c) => (
           <div key={c.chord}>{c.chord}</div>
         ))}
       </div>
-      <div>
-        <button onClick={() => reset()}>Clear</button>
-      </div>
+
       <Fretboard notes={selectedNotes} setSelectedNotes={setSelectedNotes} />
+      <div className="mt-4">
+        <button
+          className="bg-orange-500 rounded-md hover:bg-orange-600"
+          onClick={() => reset()}
+        >
+          Clear
+        </button>
+      </div>
+      {Object.values(selectedNotes).some((e) => e) && (
+        <div className="rounded border px-6 pt-6 pb-2 mt-8">
+          <div className="flex flex-col">
+            <div>e: {selectedNotes.e}</div>
+            <div>b: {selectedNotes.b}</div>
+            <div>g: {selectedNotes.g}</div>
+            <div>d: {selectedNotes.d}</div>
+            <div>a: {selectedNotes.a}</div>
+            <div>E: {selectedNotes.E}</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

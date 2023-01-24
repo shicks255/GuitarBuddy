@@ -3,8 +3,6 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-// import Head from 'next/document';
-import Script from 'next/script';
 import Image from 'next/image';
 import useIsMobile from '../hooks/useIsMobile';
 import useClickOutside from '../hooks/useClickOutside';
@@ -13,7 +11,7 @@ export default function MyApp({ Component, pageProps }) {
   const { asPath, push } = useRouter();
 
   const isMobile = useIsMobile();
-  const [expanded, setExpanded] = useState(isMobile ? false : true);
+  const [expanded, setExpanded] = useState(false);
 
   const sideNavRef = useRef(undefined);
   const hamburgerRef = useRef(undefined);
@@ -46,7 +44,7 @@ export default function MyApp({ Component, pageProps }) {
       window.addEventListener('load', function () {
         this.navigator.serviceWorker.register('/sw.js').then(
           function (registration) {
-            console.log('all good');
+            // console.log('all good');
           },
           function (error) {
             console.log('did not work", error');
@@ -117,8 +115,10 @@ export default function MyApp({ Component, pageProps }) {
       >
         <div className="flex flex-col h-full">
           <div
-            className={`hover:bg-slate-200 h-14 hover:cursor-pointer w-full text-center items-center flex ${
-              asPath === '/scales' ? 'font-bold bg-orange-400' : 'font-semibold'
+            className={`h-14 hover:cursor-pointer w-full text-center items-center flex ${
+              asPath === '/scales'
+                ? 'font-bold bg-orange-400'
+                : 'font-semibold hover:bg-orange-100'
             } ${isMobile ? 'border-b-2' : ''}`}
           >
             <Link
@@ -130,8 +130,10 @@ export default function MyApp({ Component, pageProps }) {
             </Link>
           </div>
           <div
-            className={`hover:bg-slate-200 h-14 hover:cursor-pointer w-full text-center items-center flex ${
-              asPath === '/chords' ? 'font-bold bg-orange-400' : 'font-semibold'
+            className={`h-14 hover:cursor-pointer w-full text-center items-center flex ${
+              asPath === '/chords'
+                ? 'font-bold bg-orange-400'
+                : 'font-semibold hover:bg-orange-100'
             } ${isMobile ? 'border-b-2' : ''}`}
           >
             <Link
@@ -143,10 +145,10 @@ export default function MyApp({ Component, pageProps }) {
             </Link>
           </div>
           <div
-            className={`hover:bg-slate-200 h-14 hover:cursor-pointer w-full text-center items-center flex ${
+            className={`h-14 hover:cursor-pointer w-full text-center items-center flex ${
               asPath === '/chordFinder'
                 ? 'font-bold bg-orange-400'
-                : 'font-semibold'
+                : 'font-semibold hover:bg-orange-100'
             } ${isMobile ? 'border-b-2' : ''}`}
           >
             <Link
@@ -158,8 +160,10 @@ export default function MyApp({ Component, pageProps }) {
             </Link>
           </div>
           <div
-            className={`hover:bg-slate-200 h-14 hover:cursor-pointer w-full text-center items-center flex ${
-              asPath === '/tuner' ? 'font-bold bg-orange-400' : 'font-semibold'
+            className={`h-14 hover:cursor-pointer w-full text-center items-center flex ${
+              asPath === '/tuner'
+                ? 'font-bold bg-orange-400'
+                : 'font-semibold hover:bg-orange-100'
             } ${isMobile ? 'border-b-2' : ''}`}
           >
             <Link
@@ -171,10 +175,10 @@ export default function MyApp({ Component, pageProps }) {
             </Link>
           </div>
           <div
-            className={`hover:bg-slate-200 h-14 hover:cursor-pointer w-full text-center items-center flex ${
+            className={`h-14 hover:cursor-pointer w-full text-center items-center flex ${
               asPath === '/practice'
                 ? 'font-bold bg-orange-400'
-                : 'font-semibold'
+                : 'font-semibold hover:bg-orange-100'
             } ${isMobile ? 'border-b-2' : ''}`}
           >
             <Link
@@ -183,6 +187,21 @@ export default function MyApp({ Component, pageProps }) {
               onClick={() => closeIfMobile()}
             >
               Practice
+            </Link>
+          </div>
+          <div
+            className={`h-14 hover:cursor-pointer w-full text-center items-center flex ${
+              asPath === '/glossary'
+                ? 'font-bold bg-orange-400'
+                : 'font-semibold hover:bg-orange-100'
+            } ${isMobile ? 'border-b-2' : ''}`}
+          >
+            <Link
+              className="flex-1"
+              href="/glossary"
+              onClick={() => closeIfMobile()}
+            >
+              Glossary
             </Link>
           </div>
         </div>
@@ -199,15 +218,19 @@ export default function MyApp({ Component, pageProps }) {
         <div className="flex-initial w-full grow max-w-screen-lg min-h-screen">
           <Component {...pageProps} />
         </div>
-        <footer className={`border-t w- text-center`}>
-          <div className="mt-4">
+        <footer className={`border-t w- text-center h-20`}>
+          <div className="mt-4 m-auto">
             <a
+              className="text-orange-700 font-bold"
               href="https://shicks255.com"
               target="_blank"
               rel="noopener noreferrer"
             >
               &copy; Steven Hicks
             </a>
+          </div>
+          <div>
+            <Link href="/aboutMe">about me</Link>
           </div>
         </footer>
       </main>

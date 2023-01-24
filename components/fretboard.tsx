@@ -187,6 +187,7 @@ const Fretboard: React.FC<IProps> = (props: IProps) => {
             value={nonNoteOpacity}
             list="volumes"
             name="opacity"
+            id="opacity"
             onChange={(e) => setNonNoteOpacity(Number(e.target.value))}
           />
         </div>

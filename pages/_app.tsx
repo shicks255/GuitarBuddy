@@ -230,7 +230,7 @@ export default function MyApp({ Component, pageProps }) {
             </a>
           </div>
           <div>
-            <Link href="/aboutMe">about me</Link>
+            <Link href="/about">about</Link>
           </div>
         </footer>
       </main>

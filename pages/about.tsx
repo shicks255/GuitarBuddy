@@ -1,5 +1,4 @@
 import PageHeader from '../components/pageHeader';
-import Image from 'next/image';
 import PageImage from '../components/PageImage';
 
 const About = () => {
@@ -47,7 +46,7 @@ const About = () => {
       </PageImage>
       <PageImage
         imageFloat="RIGHT"
-        src="/pics/strat_1.jpg"
+        src="/pics/strat_1.webp"
         alt="My first strat"
       >
         A year or 2 later I got my own MiM Fender Strat in Midknight blue. I
@@ -72,7 +71,7 @@ const About = () => {
       </PageImage>
       <PageImage
         imageFloat="LEFT"
-        src="/pics/deluxe_strat.jpg"
+        src="/pics/deluxe_strat.webp"
         alt="American Strat"
       >
         After graduating college and getting my first real job, I rewarded
@@ -83,7 +82,7 @@ const About = () => {
         string. Fneder seems to have abandoned this, but it always felt very
         stable.
       </PageImage>
-      <PageImage imageFloat="RIGHT" src="/pics/les_paul.jpg" alt="Les Paul">
+      <PageImage imageFloat="RIGHT" src="/pics/les_paul.webp" alt="Les Paul">
         About 6 years later, after intense preparation I switched jobs and
         rewarded myself with a Gibson Les Paul Classic. I wanted something
         better suited for heavy music with humbuckers and I really liked this
@@ -94,7 +93,7 @@ const About = () => {
         it hard or moving around or accidentally smacking it against something.
         The Les Paul never gave me this confidence.
       </PageImage>
-      <PageImage imageFloat="LEFT" src="/pics/tele.jpg" alt="Telecaster">
+      <PageImage imageFloat="LEFT" src="/pics/tele.webp" alt="Telecaster">
         I eventually sold the Les Paul, and when selling it, I was told the neck
         had gone awry. This was dissapointing because I had only had it about a
         year. It is safe to say that was my first and probably last Gibson
@@ -118,7 +117,7 @@ const About = () => {
       </PageImage>
       <PageImage
         imageFloat="LEFT"
-        src="/pics/blues_deluxe.jpg"
+        src="/pics/blues_deluxe.webp"
         alt="Blues Deluxe"
       >
         A few weeks after moving into a new place for college I purchased my
@@ -138,7 +137,7 @@ const About = () => {
       </PageImage>
       <PageImage
         imageFloat="LEFT"
-        src="/pics/emperor.jpg"
+        src="/pics/emperor.webp"
         alt="Emperor cabinet"
       >
         It has a great tone, but is definitely heavy. What I actually ended up
@@ -164,7 +163,7 @@ const About = () => {
         needed for gigs since the venues are always miced, but it sure looks
         cool on stage.
       </PageImage>
-      <PageImage imageFloat="RIGHT" src="/pics/champ.jpg" alt="Champ">
+      <PageImage imageFloat="RIGHT" src="/pics/champ.webp" alt="Champ">
         My next amp was one I bought myself from a kit. It was a clone of the
         fender 5f1 champ, again from{' '}
         <a
@@ -179,7 +178,7 @@ const About = () => {
         great sounding extremely protable amp. Although only 5 watts, this is a
         really great practice amp with all kinds of squish and compression.
       </PageImage>
-      <PageImage imageFloat="LEFT" src="/pics/blondes.jpg" alt="Blondes">
+      <PageImage imageFloat="LEFT" src="/pics/blondes.webp" alt="Blondes">
         My next 2 amps are the real top dogs, and I bought them pretty close to
         the same time. After a while, I really got in the mood for a vintage
         Fender amp, something old and classic that has stood the test of time
@@ -187,7 +186,7 @@ const About = () => {
         bought a 1962 Blonde Tremolux, and a fwe months later a 1961 Blonde
         Bandmaster.
       </PageImage>
-      <PageImage imageFloat="RIGHT" src="/pics/blondes2.jpg" alt="blondes">
+      <PageImage imageFloat="RIGHT" src="/pics/blondes2.webp" alt="blondes">
         These amps needed a few fixes, for example 3 prong powerchord conversion
         on the tremolux and a few out of spec resistors along with other small
         things and maintenance, but it was a good learning oppourtinity. Both
@@ -229,6 +228,7 @@ const About = () => {
             <li>Joyo Phaser</li>
             <li>Joyo Ultimate Drive</li>
             <li>Joyo </li>
+            <li>Keely Compressor</li>
           </ul>
         </div>
         <div className="w-auto md:w-2/5">
@@ -264,7 +264,7 @@ const About = () => {
         which was a frustrating but very fun and informative experience. I will
         most likely build more in the future if I need to.
       </PageImage>
-      <PageImage imageFloat="RIGHT" src="/pics/board.jpg" alt="Pedals">
+      <PageImage imageFloat="RIGHT" src="/pics/board.webp" alt="Pedals">
         I like most effects, but find myself using reverb and tremolo the most.
         Delay is also one that can be very fun to mess around with. The amount
         of crunch or drive I use always varies. Recently I just plug straight

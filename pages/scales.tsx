@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Fretboard from '../components/Fretboard';
+import FretboardNew from '../components/FretboardNew';
 import PageHeaderNew from '../components/PageHeaderNew';
 import {
   generateScaleTones,
@@ -179,7 +179,7 @@ const Scales: React.FC = () => {
         </div>
       </div>
 
-      <Fretboard keyy={key} scale={scale} />
+      <FretboardNew keyy={key} scale={scale} />
       {key && scale && (
         <div className="rounded border px-6 pt-6 pb-2 mt-8">
           <div className="md:flex md:items-center mb-6 justify-start">

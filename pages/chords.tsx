@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { chordTypes } from '../chordTypes';
-import Fretboard from '../components/Fretboard';
+import FretboardNew from '../components/FretboardNew';
 import PageHeaderNew from '../components/PageHeaderNew';
 import { chordFamilies, chords, generateChord, pattern } from '../utils';
 
@@ -125,7 +125,7 @@ const Chords = () => {
       </div>
 
       <div>
-        <Fretboard
+        <FretboardNew
           keyy={key}
           scale={undefined}
           chord={chord}

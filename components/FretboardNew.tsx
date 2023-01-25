@@ -1,12 +1,10 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ISelectedNotes } from '../pages/chordFinder';
 import {
-  chords,
   genChord,
   generateChord,
   generateScaleTones,
   generateString,
-  pattern,
 } from '../utils';
 
 interface IProps {
@@ -18,7 +16,7 @@ interface IProps {
   setSelectedNotes?: Dispatch<SetStateAction<ISelectedNotes>>;
 }
 
-const Fretboard: React.FC<IProps> = (props: IProps) => {
+const FretboardNew: React.FC<IProps> = (props: IProps) => {
   const { keyy, scale, chord, chordType, notes, setSelectedNotes } = props;
 
   const [neckWood, setNeckWood] = useState('maple');
@@ -196,4 +194,4 @@ const Fretboard: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default Fretboard;
+export default FretboardNew;

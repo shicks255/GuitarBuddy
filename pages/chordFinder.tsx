@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Fretboard from '../components/Fretboard';
+import FretboardNew from '../components/FretboardNew';
 import PageHeaderNew from '../components/PageHeaderNew';
 import { chords, pattern } from '../utils';
 
@@ -195,7 +195,7 @@ const ChordFinder = () => {
 
       {candidates.length < 1 && <div>Please select 3 or more unique notes</div>}
 
-      <Fretboard notes={selectedNotes} setSelectedNotes={setSelectedNotes} />
+      <FretboardNew notes={selectedNotes} setSelectedNotes={setSelectedNotes} />
       <div className="mt-4">
         <button
           className="bg-orange-500 rounded-md hover:bg-orange-600"

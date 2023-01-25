@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "analyze": "cross-env ANALYZE=true next build",
     "dev": "next dev",
     "build": "next build",
     "format": "prettier --write --ignore-path .gitignore .",
@@ -8,6 +9,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^13.1.5",
+    "cross-env": "^7.0.3",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0"

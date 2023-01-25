@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { chordTypes } from '../chordTypes';
-import Fretboard from '../components/fretboard';
-import PageHeader from '../components/pageHeader';
+import Fretboard from '../components/Fretboard';
+import PageHeader from '../components/PageHeader';
 import { chordFamilies, chords, generateChord, pattern } from '../utils';
 
 const Chords = () => {

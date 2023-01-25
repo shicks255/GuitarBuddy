@@ -12,6 +12,11 @@ export interface ISelectedNotes {
   E: undefined | string;
 }
 
+interface x {
+  chord: string;
+  notes: string[];
+}
+
 const ChordFinder = () => {
   const [selectedNotes, setSelectedNotes] = useState<ISelectedNotes>({
     e: undefined,
@@ -21,7 +26,28 @@ const ChordFinder = () => {
     a: undefined,
     E: undefined,
   });
-  const [candidates, setCandidates] = useState([]);
+  const [candidates, setCandidates] = useState<x[]>([]);
+
+  const determineRoot = () => {
+    if (selectedNotes.E) {
+      return selectedNotes.E;
+    }
+    if (selectedNotes.a) {
+      return selectedNotes.a;
+    }
+    if (selectedNotes.d) {
+      return selectedNotes.d;
+    }
+    if (selectedNotes.g) {
+      return selectedNotes.g;
+    }
+    if (selectedNotes.b) {
+      return selectedNotes.b;
+    }
+    if (selectedNotes.e) {
+      return selectedNotes.e;
+    }
+  };
 
   const reset = () => {
     setSelectedNotes({
@@ -34,10 +60,29 @@ const ChordFinder = () => {
     });
   };
 
-  useEffect(() => {
+  const isValid = () => {
     if (
-      Object.values(selectedNotes).filter((e) => e !== undefined).length > 2
+      Object.values(selectedNotes).filter((e) => e !== undefined).length < 3
     ) {
+      return false;
+    }
+
+    const selected = new Set<string>();
+    Object.values(selectedNotes).forEach((not) => {
+      if (not && not !== undefined) {
+        selected.add(not);
+      }
+    });
+
+    if (selected.size < 3) {
+      return false;
+    }
+
+    return true;
+  };
+
+  useEffect(() => {
+    if (isValid()) {
       const combinations = [];
 
       // iterate through each note
@@ -71,14 +116,15 @@ const ChordFinder = () => {
         }
       });
 
-      const cands = [];
+      const cands: x[] = [];
+
       combinations.forEach((combo) => {
         if (Array.from(selected).every((n) => combo.notes.includes(n))) {
           cands.push(combo);
         }
       });
 
-      const finals = [];
+      let finals: x[] = [];
 
       if (cands.length > 0) {
         let bestMatch = cands[0];
@@ -95,12 +141,22 @@ const ChordFinder = () => {
             finals.push(can);
           }
         });
-        console.log(finals);
-        console.log(bestMatch);
-        setCandidates([bestMatch]);
-      }
 
-      //   console.log(cands);
+        if (finals.length > 0) {
+          const root = determineRoot();
+          finals = finals.sort((a: x, b: x) => {
+            if (a.notes[0] === root) {
+              return -1;
+            }
+            if (b.notes[0] === root) {
+              return 1;
+            }
+            return 0;
+          });
+        }
+
+        setCandidates(finals);
+      }
     } else {
       setCandidates([]);
     }
@@ -122,11 +178,22 @@ const ChordFinder = () => {
         candidates for the chord.
       </PageHeader>
 
-      <div className="h-8">
-        {candidates.map((c) => (
-          <div key={c.chord}>{c.chord}</div>
-        ))}
-      </div>
+      {candidates.length > 0 && (
+        <div className="rounded border px-4 mt-8">
+          This appears to be a {candidates[0].chord} chord made up of{' '}
+          {candidates[0].notes.join('-')}
+          {candidates.length > 1 && (
+            <div>
+              Based on the selected notes, this could also be
+              {candidates.slice(1).map((x) => {
+                return <> {x.chord}</>;
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {candidates.length < 1 && <div>Please select 3 or more unique notes</div>}
 
       <Fretboard notes={selectedNotes} setSelectedNotes={setSelectedNotes} />
       <div className="mt-4">

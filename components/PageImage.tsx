@@ -13,9 +13,17 @@ const PageImage: React.FC<IProps> = ({
   children,
   imageFloat,
 }: IProps) => {
-  const image = <Image width={300} height={300} src={src} alt={alt} />;
+  const image = (
+    <Image
+      width={300}
+      height={300}
+      src={src}
+      alt={alt}
+      className="rounded-md"
+    />
+  );
   return (
-    <div className="mb-2 flex border-2 flex-wrap md:flex-nowrap  p-2 rounded-lg items-center justify-center">
+    <div className="mb-2 flex border-2 flex-wrap md:flex-nowrap  p-2 rounded-xl items-center justify-center">
       {imageFloat === 'LEFT' && (
         <>
           {image}

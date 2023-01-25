@@ -1,4 +1,4 @@
-import PageHeader from '../components/pageHeader';
+import PageHeader from '../components/PageHeader';
 import PageImage from '../components/PageImage';
 
 const About = () => {
@@ -9,11 +9,11 @@ const About = () => {
       <p className="p-2">
         Hello, I&apos;m Steven. If you&apos;re on the this site you probably
         have some sort of interest or curiosity in music theory or guitar
-        playing I wanted to put together a site for myself that could be the
-        only thing I needed anytime I pick up my guitar. I strived to make this
-        site <span className="italic">simple</span> and{' '}
-        <span className="italic">easy to navigate</span> just as easily on
-        desktop or a mobile device.
+        playing. I wanted to put together a site for myself that could be the
+        only thing I needed to reference anytime I pick up my guitar. I strive
+        to make this site <span className="italic">simple</span> and{' '}
+        <span className="italic">easy to navigate</span> on both desktops and
+        mobile devices.
         <br />
       </p>
       <h2 className="font-semibold text-lg p-2">Me</h2>
@@ -49,9 +49,9 @@ const About = () => {
         src="/pics/strat_1.webp"
         alt="My first strat"
       >
-        A year or 2 later I got my own MiM Fender Strat in Midknight blue. I
+        A year or two later I got my own MiM Fender Strat in Midnight blue. I
         don&apos;t recall why I wanted something else besides the Ibanez, but I
-        would guess because most of my guitar heros at that time used strats.
+        would guess because most of my guitar heroes at that time used strats.
       </PageImage>
       <PageImage imageFloat="LEFT" src="/pics/martin.jpg" alt="My Martin">
         My first acoustic was another used blue Ibanez acoustic-electric. It got
@@ -61,13 +61,13 @@ const About = () => {
       <PageImage imageFloat="RIGHT" src="/pics/mexiStrat1.jpg" alt="My strat">
         When I was getting into heavier music I bought a Schecter C-1 Hellraiser
         which was great for a while, but eventually I ended up not being a big
-        fan of the active pickups. Also the neck seemed to give off too much
+        fan of the active pickups. Also, the neck seemed to give off too much
         friction after a while. My MiM strat underwent a few cosmetic and
         functional upgrades over the years. I added locking tuners and a set of
         fender samarium cobalt noiseless pickups. I also decided to paint it
         green and use a black pickgaurd. It seems a bit unusual and I liked the
         uniqueness of it. This strat served me very well for many years, but
-        unfortunately was stolen while I was at college.
+        unfortunately was stolen during my time at college.
       </PageImage>
       <PageImage
         imageFloat="LEFT"
@@ -79,7 +79,7 @@ const About = () => {
         configuration. This served me very well for a long time and I never had
         any complaints about it. One thing that was interesting was the string
         nut was a piece of metal with small ball bearings that would grip each
-        string. Fneder seems to have abandoned this, but it always felt very
+        string. Fender seems to have abandoned this, but it always felt very
         stable.
       </PageImage>
       <PageImage imageFloat="RIGHT" src="/pics/les_paul.webp" alt="Les Paul">
@@ -89,7 +89,7 @@ const About = () => {
         guitar at first. After a while though, I found myself less & less
         inspired to play it. I think part of it was the weight, and another part
         was that it always felt a bit fragile regardless of whether or not that
-        was the case. With my fenders, I was never at all worried about banging
+        was the case. With my Fenders, I was never at all worried about banging
         it hard or moving around or accidentally smacking it against something.
         The Les Paul never gave me this confidence.
       </PageImage>
@@ -97,8 +97,8 @@ const About = () => {
         I eventually sold the Les Paul, and when selling it, I was told the neck
         had gone awry. This was dissapointing because I had only had it about a
         year. It is safe to say that was my first and probably last Gibson
-        guitar. The reason I sold it was to help fund my more recent purchase, a
-        Ultra Lux Telecaser in Transparent Surf Green. I used to find Teles
+        guitar. The reason I sold it was to help fund my more recent purchase,
+        an Ultra Lux Telecaser in Transparent Surf Green. I used to find Teles
         really ugly when I was younger, but as I aged I started finding them to
         be a more timeless and classic look compared to strats. This tele is
         absolutely amazing and everything I could want in a guitar. I took a
@@ -132,7 +132,7 @@ const About = () => {
         effects. The combination of effects and amp modeling of different types
         make this a really versatile, pick-up-and-go amplifier. I tend to not
         use this amp very much these days, but I had no complaints ever. My next
-        purchase was Fender Twin Reverb Reissue from a bandmade. I needed
+        purchase was Fender Twin Reverb Reissue from a bandmate. I needed
         something clean and loud and this fit the bill.
       </PageImage>
       <PageImage
@@ -150,7 +150,7 @@ const About = () => {
         >
           Mojotone
         </a>{' '}
-        and put the amp chassis in there. I paid this with an{' '}
+        and put the amp chassis in there. I paired this with an{' '}
         <a
           href="https://emperorcabinets.com/"
           target="_blank"
@@ -164,8 +164,8 @@ const About = () => {
         cool on stage.
       </PageImage>
       <PageImage imageFloat="RIGHT" src="/pics/champ.webp" alt="Champ">
-        My next amp was one I bought myself from a kit. It was a clone of the
-        fender 5f1 champ, again from{' '}
+        My next amp was one I built myself from a kit. It was a clone of the
+        Fender 5f1 champ, again from{' '}
         <a
           href="https://www.mojotone.com/Tweed-Champ-5F1-Style-Amp-Kit"
           target="_blank"
@@ -175,7 +175,7 @@ const About = () => {
           Mojotone
         </a>{' '}
         This was another fun and very educational experience, and produced a
-        great sounding extremely protable amp. Although only 5 watts, this is a
+        great sounding extremely portable amp. Although only 5 watts, this is a
         really great practice amp with all kinds of squish and compression.
       </PageImage>
       <PageImage imageFloat="LEFT" src="/pics/blondes.webp" alt="Blondes">
@@ -183,26 +183,26 @@ const About = () => {
         the same time. After a while, I really got in the mood for a vintage
         Fender amp, something old and classic that has stood the test of time
         with handwired design that would always be easy to fix. This was when I
-        bought a 1962 Blonde Tremolux, and a fwe months later a 1961 Blonde
+        bought a 1962 Blonde Tremolux, and a few months later a 1961 Blonde
         Bandmaster.
       </PageImage>
       <PageImage imageFloat="RIGHT" src="/pics/blondes2.webp" alt="blondes">
-        These amps needed a few fixes, for example 3 prong powerchord conversion
+        These amps needed a few fixes, for example 3 prong powercord conversion
         on the tremolux and a few out of spec resistors along with other small
-        things and maintenance, but it was a good learning oppourtinity. Both
+        things and maintenance, but it was a good learning opportunity. Both
         amps are amazingly wonderful, and surprisngly different sounding from
         eachother. I find the Bandmaster a bit colder sounding but very
         punctual. It also has a very unique tremolo circuit, one that Fender
         only released for a short period. It is known as &apos;harmonic&apos;
-        tremolo, which instead of the entire signal oscillating in volume, it
+        tremolo, where instead of the entire signal oscillating in volume, it
         splits the signal so that the high notes increase and decrease in volume
         at the opposite time the low notes do. It sounds very phasey and creates
         a super pleasing sound. The Tremolux just knocks it out of the park. The
         tube rectification gives it a very warm and compressed sound. It&apos;s
         also on the smaller and lighter side, so not a pain to move it around. I
-        really like the Fender piggyback series, and have been extremely happy
-        with both of these amps. They should serve me well for another 60 years
-        I imagine.
+        really like these Fender piggyback amps, and have been extremely happy
+        with both of them. They should serve me well for another 60 years I
+        imagine.
       </PageImage>
       <h2 className="font-semibold text-lg p-2">Other Gear</h2>
       <p className="p-2">
@@ -247,7 +247,7 @@ const About = () => {
             <li>Wampler Clarksdale*</li>
             <li>Ernie Ball VP jr</li>
             <li>Dawner Prince Red Rox</li>
-            <li>Fender Starcaset Chorus</li>
+            <li>Fender Starcaster Chorus</li>
           </ul>
         </div>
       </div>
@@ -260,14 +260,14 @@ const About = () => {
           rel="noreferrer"
         >
           BYOC
-        </a>
+        </a>{' '}
         which was a frustrating but very fun and informative experience. I will
         most likely build more in the future if I need to.
       </PageImage>
       <PageImage imageFloat="RIGHT" src="/pics/board.webp" alt="Pedals">
         I like most effects, but find myself using reverb and tremolo the most.
         Delay is also one that can be very fun to mess around with. The amount
-        of crunch or drive I use always varies. Recently I just plug straight
+        of crunch or drive I use always varies. Lately, I just plug straight
         into one of my amps and jam around without any pedals at all.
       </PageImage>
     </div>

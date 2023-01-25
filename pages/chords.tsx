@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { chordTypes } from '../chordTypes';
 import Fretboard from '../components/Fretboard';
-import PageHeader from '../components/PageHeader';
+import PageHeaderNew from '../components/PageHeaderNew';
 import { chordFamilies, chords, generateChord, pattern } from '../utils';
 
 const Chords = () => {
@@ -24,7 +24,7 @@ const Chords = () => {
 
   return (
     <div className="p-4">
-      <PageHeader headline="Chords">
+      <PageHeaderNew headline="Chords">
         <p>
           Chords are made up of usually 3 or more notes stacked. The degrees
           between the notes determine what the chord is.
@@ -39,7 +39,7 @@ const Chords = () => {
           <br />
           Select one of the types for a commonly used position for the chord.
         </p>
-      </PageHeader>
+      </PageHeaderNew>
       <div className="md:flex md:items-center mb-6 mt-6 justify-start">
         <div className="md:w-12 flex-none">
           <label

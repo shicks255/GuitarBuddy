@@ -7,7 +7,7 @@ interface IProps {
   imageFloat: 'LEFT' | 'RIGHT';
 }
 
-const PageImage: React.FC<IProps> = ({
+const PageImageNew: React.FC<IProps> = ({
   src,
   alt,
   children,
@@ -40,4 +40,4 @@ const PageImage: React.FC<IProps> = ({
   );
 };
 
-export default PageImage;
+export default PageImageNew;

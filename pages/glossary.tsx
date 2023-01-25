@@ -1,10 +1,10 @@
-import PageHeader from '../components/PageHeader';
+import PageHeaderNew from '../components/PageHeaderNew';
 
 const Glossary: React.FC = () => {
   return (
     <div className="p-4">
       <div>
-        <PageHeader headline="Glossary" />
+        <PageHeaderNew headline="Glossary" />
         <ul className="list-disc">
           <li>Chord</li>
           <li>Scale</li>

@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import PageHeader from '../components/PageHeader';
+import PageHeaderNew from '../components/PageHeaderNew';
 
 const allFreqs = [
   16.35, 17.32, 18.35, 19.45, 20.6, 21.83, 23.12, 24.5, 25.96, 27.5, 29.14,
@@ -755,7 +755,7 @@ const Tuner: React.FC = () => {
 
   return (
     <div className="p-4">
-      <PageHeader headline="Tuner" />
+      <PageHeaderNew headline="Tuner" />
       <div className="">
         <input
           type="range"

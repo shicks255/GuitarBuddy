@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Fretboard from '../components/Fretboard';
-import PageHeader from '../components/PageHeader';
+import PageHeaderNew from '../components/PageHeaderNew';
 import {
   generateScaleTones,
   harmonicMinorDiatonics,
@@ -59,7 +59,7 @@ const Scales: React.FC = () => {
   return (
     <div className="p-4">
       <div>
-        <PageHeader headline="Scales">
+        <PageHeaderNew headline="Scales">
           <p>
             Scales are of critically importance in music theory, and serve as
             the basis for many other concepts
@@ -127,7 +127,7 @@ const Scales: React.FC = () => {
               </a>
             </li>
           </ul>
-        </PageHeader>
+        </PageHeaderNew>
         <div className="md:flex md:items-center mb-6 mt-6 justify-start">
           <div className="md:w-12 flex-none">
             <label

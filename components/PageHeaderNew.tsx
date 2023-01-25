@@ -5,7 +5,7 @@ interface IProps {
   children?: React.ReactNode;
 }
 
-const PageHeader: React.FC<IProps> = (props: IProps) => {
+const PageHeaderNew: React.FC<IProps> = (props: IProps) => {
   const { headline, children } = props;
   const [collapse, setCollapse] = useState(true);
 
@@ -41,4 +41,4 @@ const PageHeader: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-export default PageHeader;
+export default PageHeaderNew;

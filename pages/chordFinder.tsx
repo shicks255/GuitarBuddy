@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Fretboard from '../components/Fretboard';
-import PageHeader from '../components/PageHeader';
+import PageHeaderNew from '../components/PageHeaderNew';
 import { chords, pattern } from '../utils';
 
 export interface ISelectedNotes {
@@ -168,7 +168,7 @@ const ChordFinder = () => {
 
   return (
     <div className="p-4">
-      <PageHeader headline="Chord Finder">
+      <PageHeaderNew headline="Chord Finder">
         If you have a cool position that you like to play on guitar, or just
         want to explore, select a combination of notes on the fretboard below to
         see what the closest chord is.
@@ -176,7 +176,7 @@ const ChordFinder = () => {
         <br />
         Some fingerings can sometimes be ambiguous, so there may be multiple
         candidates for the chord.
-      </PageHeader>
+      </PageHeaderNew>
 
       {candidates.length > 0 && (
         <div className="rounded border px-4 mt-8">

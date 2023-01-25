@@ -1,10 +1,10 @@
-import PageHeader from '../components/PageHeader';
-import PageImage from '../components/PageImage';
+import PageHeaderNew from '../components/PageHeaderNew';
+import PageImageNew from '../components/PageImageNew';
 
 const About = () => {
   return (
     <div className="p-4">
-      <PageHeader headline="About" />
+      <PageHeaderNew headline="About" />
       <h2 className="font-semibold text-lg p-2">Guitar Pal</h2>
       <p className="p-2">
         Hello, I&apos;m Steven. If you&apos;re on the this site you probably
@@ -38,13 +38,13 @@ const About = () => {
         </a>
       </p>
       <h2 className="font-semibold text-lg p-2">My Guitars</h2>
-      <PageImage imageFloat="LEFT" src="/pics/guitars.jpg" alt="My guitar">
+      <PageImageNew imageFloat="LEFT" src="/pics/guitars.jpg" alt="My guitar">
         My girst guitar was a MiM Fender stratocaster I had to share with my
         brother. It wasn&apos;t long before my mother realized sharing the
         guitar was not going to work so I was able to get my own used Ibanez
         AX120.
-      </PageImage>
-      <PageImage
+      </PageImageNew>
+      <PageImageNew
         imageFloat="RIGHT"
         src="/pics/strat_1.webp"
         alt="My first strat"
@@ -52,13 +52,17 @@ const About = () => {
         A year or two later I got my own MiM Fender Strat in Midnight blue. I
         don&apos;t recall why I wanted something else besides the Ibanez, but I
         would guess because most of my guitar heroes at that time used strats.
-      </PageImage>
-      <PageImage imageFloat="LEFT" src="/pics/martin.jpg" alt="My Martin">
+      </PageImageNew>
+      <PageImageNew imageFloat="LEFT" src="/pics/martin.jpg" alt="My Martin">
         My first acoustic was another used blue Ibanez acoustic-electric. It got
         a lot of use and I still have it today, but it did not stay in the
         greatest shape. My next acoustic after that was a Martin.
-      </PageImage>
-      <PageImage imageFloat="RIGHT" src="/pics/mexiStrat1.jpg" alt="My strat">
+      </PageImageNew>
+      <PageImageNew
+        imageFloat="RIGHT"
+        src="/pics/mexiStrat1.jpg"
+        alt="My strat"
+      >
         When I was getting into heavier music I bought a Schecter C-1 Hellraiser
         which was great for a while, but eventually I ended up not being a big
         fan of the active pickups. Also, the neck seemed to give off too much
@@ -68,8 +72,8 @@ const About = () => {
         green and use a black pickgaurd. It seems a bit unusual and I liked the
         uniqueness of it. This strat served me very well for many years, but
         unfortunately was stolen during my time at college.
-      </PageImage>
-      <PageImage
+      </PageImageNew>
+      <PageImageNew
         imageFloat="LEFT"
         src="/pics/deluxe_strat.webp"
         alt="American Strat"
@@ -81,8 +85,8 @@ const About = () => {
         nut was a piece of metal with small ball bearings that would grip each
         string. Fender seems to have abandoned this, but it always felt very
         stable.
-      </PageImage>
-      <PageImage imageFloat="RIGHT" src="/pics/les_paul.webp" alt="Les Paul">
+      </PageImageNew>
+      <PageImageNew imageFloat="RIGHT" src="/pics/les_paul.webp" alt="Les Paul">
         About 6 years later, after intense preparation I switched jobs and
         rewarded myself with a Gibson Les Paul Classic. I wanted something
         better suited for heavy music with humbuckers and I really liked this
@@ -92,8 +96,8 @@ const About = () => {
         was the case. With my Fenders, I was never at all worried about banging
         it hard or moving around or accidentally smacking it against something.
         The Les Paul never gave me this confidence.
-      </PageImage>
-      <PageImage imageFloat="LEFT" src="/pics/tele.webp" alt="Telecaster">
+      </PageImageNew>
+      <PageImageNew imageFloat="LEFT" src="/pics/tele.webp" alt="Telecaster">
         I eventually sold the Les Paul, and when selling it, I was told the neck
         had gone awry. This was dissapointing because I had only had it about a
         year. It is safe to say that was my first and probably last Gibson
@@ -104,9 +108,9 @@ const About = () => {
         absolutely amazing and everything I could want in a guitar. I took a
         chance, buying it without ever playing one, but I find myself liking it
         more & more everytime I play.
-      </PageImage>
+      </PageImageNew>
       <h2 className="font-semibold text-lg p-2">Amps</h2>
-      <PageImage imageFloat="RIGHT" src="/pics/marshall.jpg" alt="Marshall">
+      <PageImageNew imageFloat="RIGHT" src="/pics/marshall.jpg" alt="Marshall">
         My first amps were the typical practice amps, some type of 15 watt solid
         state peavey. Other than this, I mainly used my father&apos;s Danelectro
         DS-50 from the 1960&apos;s. During my time in my second band in High
@@ -114,8 +118,8 @@ const About = () => {
         at the time before I knew much about amps, and it did a perfectly
         servicable job for what it was. It has been collecting dust since the
         late 2000&apos;s.
-      </PageImage>
-      <PageImage
+      </PageImageNew>
+      <PageImageNew
         imageFloat="LEFT"
         src="/pics/blues_deluxe.webp"
         alt="Blues Deluxe"
@@ -125,8 +129,8 @@ const About = () => {
         go-to amp. I think there are some mixed opinions on this amp in the
         online community, but personally I have always been really fond of this
         amp. It just has such a great sound.
-      </PageImage>
-      <PageImage imageFloat="RIGHT" src="/pics/twin.jpg" alt="Fender Twin">
+      </PageImageNew>
+      <PageImageNew imageFloat="RIGHT" src="/pics/twin.jpg" alt="Fender Twin">
         When I wanted something a little more portable, I bought a Fender Super
         Champ X2. This amp is pretty cool, a nice mix of tube power and digital
         effects. The combination of effects and amp modeling of different types
@@ -134,8 +138,8 @@ const About = () => {
         use this amp very much these days, but I had no complaints ever. My next
         purchase was Fender Twin Reverb Reissue from a bandmate. I needed
         something clean and loud and this fit the bill.
-      </PageImage>
-      <PageImage
+      </PageImageNew>
+      <PageImageNew
         imageFloat="LEFT"
         src="/pics/emperor.webp"
         alt="Emperor cabinet"
@@ -162,8 +166,8 @@ const About = () => {
         and is my current band practice and gigging rig. It is a bit louder than
         needed for gigs since the venues are always miced, but it sure looks
         cool on stage.
-      </PageImage>
-      <PageImage imageFloat="RIGHT" src="/pics/champ.webp" alt="Champ">
+      </PageImageNew>
+      <PageImageNew imageFloat="RIGHT" src="/pics/champ.webp" alt="Champ">
         My next amp was one I built myself from a kit. It was a clone of the
         Fender 5f1 champ, again from{' '}
         <a
@@ -177,16 +181,16 @@ const About = () => {
         This was another fun and very educational experience, and produced a
         great sounding extremely portable amp. Although only 5 watts, this is a
         really great practice amp with all kinds of squish and compression.
-      </PageImage>
-      <PageImage imageFloat="LEFT" src="/pics/blondes.webp" alt="Blondes">
+      </PageImageNew>
+      <PageImageNew imageFloat="LEFT" src="/pics/blondes.webp" alt="Blondes">
         My next 2 amps are the real top dogs, and I bought them pretty close to
         the same time. After a while, I really got in the mood for a vintage
         Fender amp, something old and classic that has stood the test of time
         with handwired design that would always be easy to fix. This was when I
         bought a 1962 Blonde Tremolux, and a few months later a 1961 Blonde
         Bandmaster.
-      </PageImage>
-      <PageImage imageFloat="RIGHT" src="/pics/blondes2.webp" alt="blondes">
+      </PageImageNew>
+      <PageImageNew imageFloat="RIGHT" src="/pics/blondes2.webp" alt="blondes">
         These amps needed a few fixes, for example 3 prong powercord conversion
         on the tremolux and a few out of spec resistors along with other small
         things and maintenance, but it was a good learning opportunity. Both
@@ -203,7 +207,7 @@ const About = () => {
         really like these Fender piggyback amps, and have been extremely happy
         with both of them. They should serve me well for another 60 years I
         imagine.
-      </PageImage>
+      </PageImageNew>
       <h2 className="font-semibold text-lg p-2">Other Gear</h2>
       <p className="p-2">
         I have never been a huge pedal and effects junkie but have had my share
@@ -251,7 +255,7 @@ const About = () => {
           </ul>
         </div>
       </div>
-      <PageImage imageFloat="LEFT" src="/pics/pedals.jpg" alt="Pedals">
+      <PageImageNew imageFloat="LEFT" src="/pics/pedals.jpg" alt="Pedals">
         I also made a homemade Boost pedal from{' '}
         <a
           href="https://buildyourownclone.com/"
@@ -263,13 +267,13 @@ const About = () => {
         </a>{' '}
         which was a frustrating but very fun and informative experience. I will
         most likely build more in the future if I need to.
-      </PageImage>
-      <PageImage imageFloat="RIGHT" src="/pics/board.webp" alt="Pedals">
+      </PageImageNew>
+      <PageImageNew imageFloat="RIGHT" src="/pics/board.webp" alt="Pedals">
         I like most effects, but find myself using reverb and tremolo the most.
         Delay is also one that can be very fun to mess around with. The amount
         of crunch or drive I use always varies. Lately, I just plug straight
         into one of my amps and jam around without any pedals at all.
-      </PageImage>
+      </PageImageNew>
     </div>
   );
 };

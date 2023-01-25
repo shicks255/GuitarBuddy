@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import Fretboard from '../components/fretboard';
-import PageHeader from '../components/pageHeader';
+import Fretboard from '../components/Fretboard';
+import PageHeader from '../components/PageHeader';
 import { chords, pattern } from '../utils';
 
 export interface ISelectedNotes {

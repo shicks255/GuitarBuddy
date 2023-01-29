@@ -156,6 +156,7 @@ const ChordFinder = () => {
         }
 
         setCandidates(finals);
+        console.log(finals);
       }
     } else {
       setCandidates([]);
@@ -179,21 +180,32 @@ const ChordFinder = () => {
       </PageHeaderNew>
 
       {candidates.length > 0 && (
-        <div className="rounded border px-4 mt-8">
-          This appears to be a {candidates[0].chord} chord made up of{' '}
-          {candidates[0].notes.join('-')}
+        <div className="rounded border px-4 mt-4">
+          This appears to be a{' '}
+          <span className="font-bold mx-2 text-lg">{candidates[0].chord}</span>{' '}
+          chord made up of {candidates[0].notes.join(' - ')}
           {candidates.length > 1 && (
             <div>
               Based on the selected notes, this could also be
               {candidates.slice(1).map((x) => {
-                return <> {x.chord}</>;
+                return (
+                  <>
+                    {' '}
+                    <span className="font-semibold">{x.chord}</span>
+                    made up of {x.notes.join(' - ')}
+                  </>
+                );
               })}
             </div>
           )}
         </div>
       )}
 
-      {candidates.length < 1 && <div>Please select 3 or more unique notes</div>}
+      {candidates.length < 1 && (
+        <div className="italic px-4 mt-4">
+          Please select 3 or more unique notes
+        </div>
+      )}
 
       <FretboardNew notes={selectedNotes} setSelectedNotes={setSelectedNotes} />
       <div className="mt-4">

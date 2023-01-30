@@ -101,7 +101,7 @@ export default function MyApp({ Component, pageProps }) {
         <div className="flex-1 justify-self-center">
           <Image
             className="w-full md:w-auto h-full cursor-pointer"
-            src="/banner_red.png"
+            src="/banner_red_new.png"
             width={784}
             alt="banner"
             height={161}

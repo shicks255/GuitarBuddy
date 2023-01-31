@@ -106,6 +106,9 @@ const HiHat = async (
   vol: number,
   sample: Sampler
 ) => {
+  if (vol === 0) {
+    return;
+  }
   if (true) {
     sample.triggerAttackRelease(['A3'], 0.3, time);
   } else {
@@ -199,6 +202,84 @@ const Cymbal = async (ctx: AudioContext, time: number, vol: number) => {
     time + decay + fxAmount / 50
   );
 };
+
+const Bass = (
+  ctx: AudioContext,
+  time: number,
+  vol: number,
+  note: { note: string; duration: string }
+) => {
+  const s = new Tone.Synth().toDestination();
+  s.triggerAttackRelease(note.note, Tone.Time(note.duration).toSeconds(), time);
+  //   s.oscillator.type = 'sawtooth';
+};
+
+const bass = [
+  {
+    note: 'C3',
+    duration: '16n',
+  },
+  {
+    note: 'C3',
+    duration: '16n',
+  },
+  {
+    note: 'C3',
+    duration: '16n',
+  },
+  {
+    note: 'C3',
+    duration: '16n',
+  },
+  {
+    note: 'A2',
+    duration: '16n',
+  },
+  {
+    note: 'A2',
+    duration: '16n',
+  },
+  {
+    note: 'A2',
+    duration: '16n',
+  },
+  {
+    note: 'A2',
+    duration: '16n',
+  },
+  {
+    note: 'B2',
+    duration: '16n',
+  },
+  {
+    note: 'B2',
+    duration: '16n',
+  },
+  {
+    note: 'B2',
+    duration: '16n',
+  },
+  {
+    note: 'B2',
+    duration: '16n',
+  },
+  {
+    note: 'B2',
+    duration: '16n',
+  },
+  {
+    note: 'B2',
+    duration: '16n',
+  },
+  {
+    note: 'B2',
+    duration: '16n',
+  },
+  {
+    note: 'B2',
+    duration: '16n',
+  },
+];
 
 const Rythms = () => {
   const initialSteps = [
@@ -312,6 +393,10 @@ const Rythms = () => {
     const loop = new Tone.Sequence(
       (time, col) => {
         setStepp(col);
+        const bassNote = bass[col];
+        if (bassNote) {
+          Bass(ctx.current, time, cymbalVol, bassNote);
+        }
         steps.forEach((row, i) => {
           if (row[col]) {
             if (i === 0) {
@@ -382,9 +467,96 @@ const Rythms = () => {
     <div>
       <PageHeaderNew headline="Rythms" />
       <div className="flex mb-6">
-        <button onClick={() => start()}>Play</button>
-        <button onClick={() => stop()}>Stop</button>
-        <button onClick={() => clear()}>Clear</button>
+        <button
+          className={`${
+            isPlaying ? 'hover:cursor-default' : 'hover:cursor-pointer'
+          }`}
+          onClick={() => start()}
+        >
+          {isPlaying && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          )}
+          {!isPlaying && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
+              />
+            </svg>
+          )}
+        </button>
+        <button
+          className={`${
+            isPlaying ? 'hover:cursor-pointer' : 'hover:cursor-default'
+          }`}
+          onClick={() => stop()}
+        >
+          {!isPlaying && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M4.5 7.5a3 3 0 013-3h9a3 3 0 013 3v9a3 3 0 01-3 3h-9a3 3 0 01-3-3v-9z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          )}
+          {isPlaying && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5.25 7.5A2.25 2.25 0 017.5 5.25h9a2.25 2.25 0 012.25 2.25v9a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25v-9z"
+              />
+            </svg>
+          )}
+        </button>
+        <button onClick={() => clear()}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
         <div className="flex flex-col items-center">
           <span>Tempo</span>
           <div>{tempo} BPM</div>
@@ -402,8 +574,8 @@ const Rythms = () => {
       </div>
       {steps.map((row, rindx) => {
         return (
-          <div key={rindx} className="flex gap-2 mb-2">
-            <div className="flex flex-col">
+          <div key={rindx} className="flex gap-2 mb-2 w-full">
+            <div className="flex flex-col w-full">
               {rindx === 0 ? (
                 <InstrumentControl
                   name="Cymbal"
@@ -432,17 +604,21 @@ const Rythms = () => {
                   volControl={setKickVol}
                 />
               ) : null}
-              <div className="flex gap-2">
+              <div className="flex gap-2 w-full flex-initial">
                 {row.map((col, cindx) => {
                   return (
                     <div
                       key={cindx}
                       className={`w-20 h-20 border-2 ${
                         col ? 'bg-sky-400' : ''
-                      } ${cindx === stepp ? '' : ''}`}
+                      } ${
+                        cindx === stepp && isPlaying && col
+                          ? 'shadow-[1px_1px_25px_3px_rgba(0,0,0,0.7)]'
+                          : ''
+                      }`}
                       onClick={() => updateSteps(rindx, cindx)}
                     >
-                      {cindx === stepp && <div>ACT</div>}
+                      {cindx === stepp && <div className=""></div>}
                     </div>
                   );
                 })}
@@ -463,22 +639,77 @@ interface IProps {
 
 const InstrumentControl: React.FC<IProps> = (props: IProps) => {
   const { name, vol, volControl } = props;
+  const [show, setShow] = useState(true);
+
   return (
     <div className="flex gap-4 p-4">
       <div className="font-semibold text-lg">{name}</div>
-      <div>Vol</div>
-      <div>
-        <input
-          type="range"
-          min="0.0"
-          max="1.0"
-          step=".1"
-          value={vol}
-          list="volumes"
-          name="volume"
-          onChange={(e) => volControl(Number(e.target.value))}
-        />
+      <div onClick={() => setShow((cur) => !cur)}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z"
+          />
+        </svg>
       </div>
+      {show && (
+        <div className="flex gap-4">
+          <div>
+            {vol === 0 && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6l4.72-4.72a.75.75 0 011.28.531V19.94a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.506-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.395C2.806 8.757 3.63 8.25 4.51 8.25H6.75z"
+                />
+              </svg>
+            )}
+            {vol > 0 && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z"
+                />
+              </svg>
+            )}
+          </div>
+          <div>
+            <input
+              type="range"
+              min="0.0"
+              max="1.0"
+              step=".1"
+              value={vol}
+              list="volumes"
+              name="volume"
+              onChange={(e) => volControl(Number(e.target.value))}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

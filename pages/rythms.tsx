@@ -2,6 +2,8 @@ import { SetStateAction, useEffect, useRef, useState } from 'react';
 import PageHeaderNew from '../components/PageHeaderNew';
 import * as Tone from 'tone';
 import { Sampler } from 'tone/build/esm/instrument';
+import { patterns } from '../patterns';
+import { pattern as keys } from '../utils';
 
 const Kick = async (
   ctx: AudioContext,
@@ -214,73 +216,6 @@ const Bass = (
   //   s.oscillator.type = 'sawtooth';
 };
 
-const bass = [
-  {
-    note: 'C3',
-    duration: '16n',
-  },
-  {
-    note: 'C3',
-    duration: '16n',
-  },
-  {
-    note: 'C3',
-    duration: '16n',
-  },
-  {
-    note: 'C3',
-    duration: '16n',
-  },
-  {
-    note: 'A2',
-    duration: '16n',
-  },
-  {
-    note: 'A2',
-    duration: '16n',
-  },
-  {
-    note: 'A2',
-    duration: '16n',
-  },
-  {
-    note: 'A2',
-    duration: '16n',
-  },
-  {
-    note: 'B2',
-    duration: '16n',
-  },
-  {
-    note: 'B2',
-    duration: '16n',
-  },
-  {
-    note: 'B2',
-    duration: '16n',
-  },
-  {
-    note: 'B2',
-    duration: '16n',
-  },
-  {
-    note: 'B2',
-    duration: '16n',
-  },
-  {
-    note: 'B2',
-    duration: '16n',
-  },
-  {
-    note: 'B2',
-    duration: '16n',
-  },
-  {
-    note: 'B2',
-    duration: '16n',
-  },
-];
-
 const Rythms = () => {
   const initialSteps = [
     [
@@ -361,13 +296,54 @@ const Rythms = () => {
   const [steps, setSteps] = useState(initialSteps);
   const [stepp, setStepp] = useState(0);
   const ctx = useRef(undefined);
+  const bass = useRef(undefined);
 
   const [cymbalVol, setCymbalVol] = useState(1);
   const [hatVol, setHatVol] = useState(1);
   const [snareVol, setSnareVol] = useState(1);
   const [kickVol, setKickVol] = useState(1);
 
+  const [pattern, setPattern] = useState<undefined | string>();
+  const [key, setKey] = useState(keys[0]);
+
   const [sample, setSample] = useState<undefined | Sampler>();
+
+  useEffect(() => {
+    if (!bass.current) {
+      bass.current = new Tone.Synth().toDestination();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (pattern) {
+      const pat = patterns.filter((x) => x.name === pattern)[0];
+      setSteps(() => {
+        return [
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+          ],
+          [...pat.hat],
+          [...pat.snare],
+          [...pat.kick],
+        ];
+      });
+    }
+  }, [pattern]);
 
   useEffect(() => {
     if (!sample) {
@@ -390,12 +366,22 @@ const Rythms = () => {
     Tone.Transport.bpm.value = tempo;
     Tone.Transport.loop = true;
     Tone.Transport.loopEnd = '1m';
+    const pat = patterns.filter((x) => x.name === pattern)[0];
+
     const loop = new Tone.Sequence(
       (time, col) => {
         setStepp(col);
-        const bassNote = bass[col];
-        if (bassNote) {
-          Bass(ctx.current, time, cymbalVol, bassNote);
+        if (pat) {
+          const bassNote = pat.bass[col];
+          if (bassNote && bassNote.duration !== 0) {
+            console.log(`${col}-${bassNote}`);
+            //   Bass(ctx.current, time, cymbalVol, bassNote);
+            bass.current.triggerAttackRelease(
+              bassNote.note,
+              Tone.Time(bassNote.duration).toSeconds(),
+              time
+            );
+          }
         }
         steps.forEach((row, i) => {
           if (row[col]) {
@@ -440,7 +426,17 @@ const Rythms = () => {
       loop.dispose();
       //   loop2.dispose();
     };
-  }, [isPlaying, tempo, steps, cymbalVol, hatVol, snareVol, kickVol, sample]);
+  }, [
+    isPlaying,
+    tempo,
+    steps,
+    cymbalVol,
+    hatVol,
+    snareVol,
+    kickVol,
+    sample,
+    pattern,
+  ]);
 
   const start = () => {
     setIsPlaying(true);
@@ -571,6 +567,35 @@ const Rythms = () => {
             onChange={(e) => setTempo(Number(e.target.value))}
           />
         </div>
+      </div>
+      <div>
+        <label>Pattern</label>
+        <select
+          name="rythm"
+          value={pattern}
+          onChange={(e) => setPattern(e.target.value)}
+        >
+          <option></option>
+          {patterns.map((pattern) => {
+            return (
+              <option value={pattern.name} key={pattern.name}>
+                {pattern.name}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+      <div>
+        <label>Key</label>
+        <select name="key" value={key} onChange={(e) => setKey(e.target.value)}>
+          {keys.map((key) => {
+            return (
+              <option value={key} key={key}>
+                {key}
+              </option>
+            );
+          })}
+        </select>
       </div>
       {steps.map((row, rindx) => {
         return (

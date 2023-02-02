@@ -176,17 +176,17 @@ export default function MyApp({ Component, pageProps }) {
           </div>
           <div
             className={`h-14 hover:cursor-pointer w-full text-center items-center flex ${
-              asPath === '/rythms'
+              asPath === '/rhythms'
                 ? 'font-bold bg-orange-400'
                 : 'font-semibold hover:bg-orange-100'
             } ${isMobile ? 'border-b-2' : ''}`}
           >
             <Link
               className="flex-1"
-              href="/rythms"
+              href="/rhythms"
               onClick={() => closeIfMobile()}
             >
-              Rythms
+              Rhythms
             </Link>
           </div>
           <div

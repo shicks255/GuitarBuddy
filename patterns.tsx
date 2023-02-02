@@ -57,67 +57,67 @@ const patterns = [
     ],
     bass: [
       {
-        note: 'E3',
+        note: 0,
         duration: '8n',
       },
       {
-        note: 'E3',
+        note: 0,
         duration: 0,
       },
       {
-        note: 'E3',
+        note: 0,
         duration: '8n',
       },
       {
-        note: 'E3',
+        note: 0,
         duration: 0,
       },
       {
-        note: 'C3',
+        note: -4,
         duration: '8n',
       },
       {
-        note: 'C3',
+        note: -4,
         duration: 0,
       },
       {
-        note: 'C3',
+        note: -4,
         duration: '8n',
       },
       {
-        note: 'C3',
+        note: -4,
         duration: 0,
       },
       {
-        note: 'D3',
+        note: -2,
         duration: '8n',
       },
       {
-        note: 'D3',
+        note: -2,
         duration: 0,
       },
       {
-        note: 'D3',
+        note: -2,
         duration: '8n',
       },
       {
-        note: 'D3',
+        note: -2,
         duration: 0,
       },
       {
-        note: 'D3',
+        note: -2,
         duration: '8n',
       },
       {
-        note: 'D3',
+        note: -2,
         duration: 0,
       },
       {
-        note: 'D3',
+        note: -2,
         duration: '8n',
       },
       {
-        note: 'D3',
+        note: -2,
         duration: 0,
       },
     ],
@@ -180,68 +180,191 @@ const patterns = [
     ],
     bass: [
       {
-        note: 'E3',
+        note: 0,
         duration: '16n',
       },
       {
-        note: 'E3',
+        note: 0,
         duration: 0,
       },
       {
-        note: 'B2',
-        duration: '16n',
-      },
-      {
-        note: 'E3',
+        note: 0,
         duration: 0,
       },
       {
-        note: 'E3',
-        duration: '16n',
-      },
-      {
-        note: 'B2',
-        duration: '16n',
-      },
-      {
-        note: 'C#3',
-        duration: '16n',
-      },
-      {
-        note: 'D#3',
-        duration: '16n',
-      },
-      {
-        note: 'E3',
-        duration: '16n',
-      },
-      {
-        note: 'E3',
+        note: 0,
         duration: 0,
       },
       {
-        note: 'B2',
+        note: -5,
         duration: '16n',
       },
       {
-        note: 'E3',
+        note: 0,
         duration: 0,
       },
       {
-        note: 'E3',
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: 0,
         duration: '16n',
       },
       {
-        note: 'B2',
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: -5,
         duration: '16n',
       },
       {
-        note: 'C#3',
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: -3,
         duration: '16n',
       },
       {
-        note: 'D#3',
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: -1,
         duration: '16n',
+      },
+      {
+        note: 0,
+        duration: 0,
+      },
+    ],
+  },
+  {
+    name: 'Jazz',
+    time: '4/4',
+    hat: [
+      true,
+      false,
+      true,
+      false,
+      true,
+      false,
+      true,
+      false,
+      true,
+      false,
+      true,
+      false,
+      true,
+      false,
+      true,
+      false,
+    ],
+    snare: [
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      true,
+      false,
+    ],
+    kick: [
+      true,
+      false,
+      false,
+      true,
+      true,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      true,
+      true,
+      false,
+      false,
+    ],
+    bass: [
+      {
+        note: 2,
+        duration: '16n',
+      },
+      {
+        note: 4,
+        duration: '16n',
+      },
+      {
+        note: 5,
+        duration: '16n',
+      },
+      {
+        note: 6,
+        duration: '16n',
+      },
+      {
+        note: 7,
+        duration: '8n',
+      },
+      {
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: 0,
+        duration: '8n',
+      },
+      {
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: 0,
+        duration: '8n',
+      },
+      {
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: 0,
+        duration: 0,
       },
     ],
   },

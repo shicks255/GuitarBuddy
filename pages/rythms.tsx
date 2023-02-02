@@ -205,15 +205,88 @@ const Cymbal = async (ctx: AudioContext, time: number, vol: number) => {
   );
 };
 
-const Bass = (
-  ctx: AudioContext,
-  time: number,
-  vol: number,
-  note: { note: string; duration: string }
-) => {
-  const s = new Tone.Synth().toDestination();
-  s.triggerAttackRelease(note.note, Tone.Time(note.duration).toSeconds(), time);
-  //   s.oscillator.type = 'sawtooth';
+// const Bass = (
+//   ctx: AudioContext,
+//   time: number,
+//   vol: number,
+//   note: { note: string; duration: string }
+// ) => {
+//   const s = new Tone.Synth().toDestination();
+//   s.triggerAttackRelease(note.note, Tone.Time(note.duration).toSeconds(), time);
+//   //   s.oscillator.type = 'sawtooth';
+// };
+
+const calculateBass = (key: string, cents: number) => {
+  let octave = '3';
+  if (cents === 0) {
+    return `${key}${octave}`;
+  }
+
+  const start = keys.indexOf(key);
+  let next = start + cents;
+
+  if (next < 0) {
+    next += 12;
+  }
+
+  if (next > 13) {
+    next += -12;
+  }
+
+  if (cents < 0) {
+    if (start === 0 && Math.abs(cents) >= 5) {
+      octave = '2';
+    }
+    if (start === 1 && Math.abs(cents) > 7) {
+      octave = '2';
+    }
+    if (start === 2 && Math.abs(cents) > 8) {
+      octave = '2';
+    }
+    if (start === 3 && Math.abs(cents) > 9) {
+      octave = '2';
+    }
+    if (start === 4 && Math.abs(cents) > 10) {
+      octave = '2';
+    }
+    if (start === 5 && Math.abs(cents) > 11) {
+      octave = '2';
+    }
+    if (start === 6 && Math.abs(cents) > 12) {
+      octave = '2';
+    }
+    if (start === 7 && Math.abs(cents) > 12) {
+      octave = '2';
+    }
+    if (start === 8 && Math.abs(cents) > 0) {
+      octave = '2';
+    }
+    if (start === 9 && Math.abs(cents) > 1) {
+      octave = '2';
+    }
+    if (start === 10 && Math.abs(cents) > 2) {
+      octave = '2';
+    }
+    if (start === 11 && Math.abs(cents) > 3) {
+      octave = '2';
+    }
+    if (start === 12 && Math.abs(cents) > 4) {
+      octave = '2';
+    }
+  }
+
+  if (cents > 1) {
+    let startingDistanceFromC = Math.abs(8 - start);
+    if (startingDistanceFromC > 6) {
+      startingDistanceFromC -= 12;
+    }
+    if (Math.abs(startingDistanceFromC) < Math.abs(next)) {
+      octave = '4';
+    }
+  }
+
+  const note = keys[next];
+  return `${note}${octave}`;
 };
 
 const Rythms = () => {
@@ -374,10 +447,10 @@ const Rythms = () => {
         if (pat) {
           const bassNote = pat.bass[col];
           if (bassNote && bassNote.duration !== 0) {
-            console.log(`${col}-${bassNote}`);
-            //   Bass(ctx.current, time, cymbalVol, bassNote);
+            const note = calculateBass(key, Number(bassNote.note));
+            console.log(note);
             bass.current.triggerAttackRelease(
-              bassNote.note,
+              note,
               Tone.Time(bassNote.duration).toSeconds(),
               time
             );
@@ -436,6 +509,7 @@ const Rythms = () => {
     kickVol,
     sample,
     pattern,
+    key,
   ]);
 
   const start = () => {

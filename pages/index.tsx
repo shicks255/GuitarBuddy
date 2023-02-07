@@ -57,16 +57,23 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div
-          onClick={() => push('/practice')}
-          className="flex m-auto flex-wrap w-full md:flex-nowrap place-content-center place-items-center"
-        >
-          <div className="rounded-lg border-2 border-slate-400 p-4 w-full text-center flex-col md:basis-1/2 h-36 cursor-pointer hover:bg-slate-100 transition hover:scale-110">
+        <div className="flex m-auto flex-wrap w-full md:flex-nowrap place-content-center place-items-center">
+          <div
+            onClick={() => push('/practice')}
+            className="rounded-lg border-2 border-slate-400 p-4 w-full text-center flex-col md:basis-1/2 h-36 md:ml-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
+          >
             <h2 className="font-semibold text-xl">Practice</h2>
             <p className="mt-2 font-light">
               Level up your fretboard knowledge with different practice
               excersizes.
             </p>
+          </div>
+          <div
+            onClick={() => push('/rhythms')}
+            className="rounded-lg border-2 border-slate-400 p-4 w-full text-center flex-col md:basis-1/2 h-36 md:ml-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
+          >
+            <h2 className="font-semibold text-xl">Rhythms</h2>
+            <p className="mt-2 font-light">Create some rhythms</p>
           </div>
         </div>
       </main>

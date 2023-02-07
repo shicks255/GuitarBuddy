@@ -270,19 +270,49 @@ const calculateBass = (key: string, cents: number) => {
     if (start === 11 && Math.abs(cents) > 3) {
       octave = '2';
     }
-    if (start === 12 && Math.abs(cents) > 4) {
-      octave = '2';
+  }
+
+  if (cents > 0) {
+    if (start === 0 && Math.abs(cents) > 7) {
+      octave = '4';
+    }
+    if (start === 1 && Math.abs(cents) > 6) {
+      octave = '4';
+    }
+    if (start === 2 && Math.abs(cents) > 5) {
+      octave = '4';
+    }
+    if (start === 3 && Math.abs(cents) > 4) {
+      octave = '4';
+    }
+    if (start === 4 && Math.abs(cents) > 3) {
+      octave = '4';
+    }
+    if (start === 5 && Math.abs(cents) > 2) {
+      octave = '4';
+    }
+    if (start === 6 && Math.abs(cents) > 1) {
+      octave = '4';
+    }
+    if (start === 7 && Math.abs(cents) > 0) {
+      octave = '4';
+    }
+    if (start === 8 && Math.abs(cents) > 11) {
+      octave = '4';
+    }
+    if (start === 9 && Math.abs(cents) > 10) {
+      octave = '4';
+    }
+    if (start === 10 && Math.abs(cents) > 9) {
+      octave = '4';
+    }
+    if (start === 11 && Math.abs(cents) > 8) {
+      octave = '4';
     }
   }
 
-  if (cents > 1) {
-    let startingDistanceFromC = Math.abs(8 - start);
-    if (startingDistanceFromC > 6) {
-      startingDistanceFromC -= 12;
-    }
-    if (Math.abs(startingDistanceFromC) < Math.abs(next)) {
-      octave = '4';
-    }
+  if (next > 11) {
+    next -= 12;
   }
 
   const note = keys[next];
@@ -368,6 +398,8 @@ const Rythms = () => {
   const [tempo, setTempo] = useState(120);
   const [steps, setSteps] = useState(initialSteps);
   const [stepp, setStepp] = useState(0);
+  // const [bassStep, setBassStep] = useState(0);
+  const bassStep = useRef(0);
   const ctx = useRef(undefined);
   const bass = useRef(undefined);
 
@@ -444,16 +476,24 @@ const Rythms = () => {
     const loop = new Tone.Sequence(
       (time, col) => {
         setStepp(col);
+
         if (pat) {
-          const bassNote = pat.bass[col];
+          const bassNote = pat.bass[bassStep.current + col];
           if (bassNote && bassNote.duration !== 0) {
+            console.log(bassNote);
             const note = calculateBass(key, Number(bassNote.note));
-            console.log(note);
             bass.current.triggerAttackRelease(
               note,
               Tone.Time(bassNote.duration).toSeconds(),
               time
             );
+          }
+        }
+        if (pat.bass.length > 16) {
+          if (col === 15 && bassStep.current === 0) {
+            bassStep.current = 16;
+          } else if (col == 15 && bassStep.current === 16) {
+            bassStep.current = 0;
           }
         }
         steps.forEach((row, i) => {
@@ -503,6 +543,7 @@ const Rythms = () => {
     isPlaying,
     tempo,
     steps,
+    bassStep,
     cymbalVol,
     hatVol,
     snareVol,
@@ -519,6 +560,7 @@ const Rythms = () => {
   const stop = () => {
     setIsPlaying(false);
     setStepp(0);
+    bassStep.current = 0;
   };
 
   const updateSteps = (row, col) => {

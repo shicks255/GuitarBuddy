@@ -304,19 +304,35 @@ const patterns = [
     bass: [
       {
         note: 2,
-        duration: '16n',
+        duration: '8n',
+      },
+      {
+        note: 7,
+        duration: 0,
       },
       {
         note: 4,
-        duration: '16n',
+        duration: '8n',
+      },
+      {
+        note: 7,
+        duration: 0,
       },
       {
         note: 5,
-        duration: '16n',
+        duration: '8n',
+      },
+      {
+        note: 7,
+        duration: 0,
       },
       {
         note: 6,
-        duration: '16n',
+        duration: '8n',
+      },
+      {
+        note: 7,
+        duration: 0,
       },
       {
         note: 7,
@@ -327,15 +343,79 @@ const patterns = [
         duration: 0,
       },
       {
-        note: 0,
-        duration: 0,
+        note: 9,
+        duration: '8n',
       },
       {
         note: 0,
         duration: 0,
       },
       {
+        note: 10,
+        duration: '8n',
+      },
+      {
         note: 0,
+        duration: 0,
+      },
+      {
+        note: 11,
+        duration: '8n',
+      },
+      {
+        note: 0,
+        duration: 0,
+      }, //test
+      {
+        note: 12,
+        duration: '8n',
+      },
+      {
+        note: 12,
+        duration: 0,
+      },
+      {
+        note: 10,
+        duration: '8n',
+      },
+      {
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: 9,
+        duration: '8n',
+      },
+      {
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: 7,
+        duration: '8n',
+      },
+      {
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: 5,
+        duration: '8n',
+      },
+      {
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: 4,
+        duration: '8n',
+      },
+      {
+        note: 0,
+        duration: 0,
+      },
+      {
+        note: 2,
         duration: '8n',
       },
       {
@@ -344,23 +424,7 @@ const patterns = [
       },
       {
         note: 0,
-        duration: 0,
-      },
-      {
-        note: 0,
-        duration: 0,
-      },
-      {
-        note: 0,
         duration: '8n',
-      },
-      {
-        note: 0,
-        duration: 0,
-      },
-      {
-        note: 0,
-        duration: 0,
       },
       {
         note: 0,

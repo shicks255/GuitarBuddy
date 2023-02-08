@@ -5,6 +5,10 @@ import { Sampler } from 'tone/build/esm/instrument';
 import { patterns } from '../patterns';
 import { pattern as keys } from '../utils';
 
+const Bass = async (note: string, time: number, sample: Sampler) => {
+  sample.triggerAttackRelease([note], 0.3, time);
+};
+
 const Kick = async (
   ctx: AudioContext,
   time: number,
@@ -57,7 +61,7 @@ const Snare = async (
   sample: Sampler
 ) => {
   if (true) {
-    sample.triggerAttackRelease(['A2'], 0.4, time);
+    sample.triggerAttackRelease(['B1'], 0.4, time);
   } else {
     const noise = ctx.createBufferSource();
 
@@ -112,7 +116,7 @@ const HiHat = async (
     return;
   }
   if (true) {
-    sample.triggerAttackRelease(['A3'], 0.3, time);
+    sample.triggerAttackRelease(['C1'], 0.3, time);
   } else {
     const oscEnvelope = ctx.createGain();
     const bndPass = ctx.createBiquadFilter();
@@ -407,17 +411,45 @@ const Rythms = () => {
   const [hatVol, setHatVol] = useState(1);
   const [snareVol, setSnareVol] = useState(1);
   const [kickVol, setKickVol] = useState(1);
+  const [bassVol, setBassVol] = useState(1);
 
   const [pattern, setPattern] = useState<undefined | string>();
   const [key, setKey] = useState(keys[0]);
 
-  const [sample, setSample] = useState<undefined | Sampler>();
+  const [kickSample, setKickSample] = useState<undefined | Sampler>();
+  const [snareSample, setSnareSample] = useState<undefined | Sampler>();
+  const [hatSample, setHatSample] = useState<undefined | Sampler>();
+  const [bassSample, setBassSample] = useState<undefined | Sampler>();
 
   useEffect(() => {
     if (!bass.current) {
       bass.current = new Tone.Synth().toDestination();
     }
   }, []);
+
+  useEffect(() => {
+    if (kickSample) {
+      kickSample.volume.value = kickVol;
+    }
+    if (snareSample) {
+      snareSample.volume.value = snareVol;
+    }
+    if (hatSample) {
+      hatSample.volume.value = hatVol;
+    }
+    if (bassSample) {
+      bassSample.volume.value = bassVol;
+    }
+  }, [
+    hatVol,
+    snareVol,
+    kickVol,
+    bassVol,
+    kickSample,
+    snareSample,
+    hatSample,
+    bassSample,
+  ]);
 
   useEffect(() => {
     if (pattern) {
@@ -451,17 +483,53 @@ const Rythms = () => {
   }, [pattern]);
 
   useEffect(() => {
-    if (!sample) {
+    if (!bassSample) {
       const sampler = new Tone.Sampler({
         urls: {
-          A1: 'kick.wav',
-          A2: 'snare.wav',
-          A3: 'hit.wav',
+          'A#2': 'bass/As2.mp3',
+          'A#3': 'bass/As3.mp3',
+          'A#4': 'bass/As4.mp3',
+          'C#2': 'bass/Cs2.mp3',
+          'C#3': 'bass/Cs3.mp3',
+          'C#4': 'bass/Cs4.mp3',
+          E2: 'bass/E2.mp3',
+          E3: 'bass/E3.mp3',
+          E4: 'bass/E4.mp3',
+          G2: 'bass/G2.mp3',
+          G3: 'bass/G3.mp3',
+          G4: 'bass/G4.mp3',
         },
         baseUrl: '/',
         onload: () => {},
       }).toDestination();
-      setSample(sampler);
+      setBassSample(sampler);
+    }
+    if (!kickSample) {
+      const sampler = new Tone.Sampler({
+        urls: {
+          A1: 'kick.wav',
+        },
+        baseUrl: '/',
+      }).toDestination();
+      setKickSample(sampler);
+    }
+    if (!snareSample) {
+      const sampler = new Tone.Sampler({
+        urls: {
+          A1: 'snare.wav',
+        },
+        baseUrl: '/',
+      }).toDestination();
+      setSnareSample(sampler);
+    }
+    if (!kickSample) {
+      const sampler = new Tone.Sampler({
+        urls: {
+          A1: 'hit.wav',
+        },
+        baseUrl: '/',
+      }).toDestination();
+      setHatSample(sampler);
     }
 
     if (!ctx.current) {
@@ -480,20 +548,21 @@ const Rythms = () => {
         if (pat) {
           const bassNote = pat.bass[bassStep.current + col];
           if (bassNote && bassNote.duration !== 0) {
-            console.log(bassNote);
+            // console.log(bassNote);
             const note = calculateBass(key, Number(bassNote.note));
-            bass.current.triggerAttackRelease(
-              note,
-              Tone.Time(bassNote.duration).toSeconds(),
-              time
-            );
+            Bass(note, time, bassSample);
+            // bass.current.triggerAttackRelease(
+            //   note,
+            //   Tone.Time(bassNote.duration).toSeconds(),
+            //   time
+            // );
           }
-        }
-        if (pat.bass.length > 16) {
-          if (col === 15 && bassStep.current === 0) {
-            bassStep.current = 16;
-          } else if (col == 15 && bassStep.current === 16) {
-            bassStep.current = 0;
+          if (pat.bass.length > 16) {
+            if (col === 15 && bassStep.current === 0) {
+              bassStep.current = 16;
+            } else if (col == 15 && bassStep.current === 16) {
+              bassStep.current = 0;
+            }
           }
         }
         steps.forEach((row, i) => {
@@ -502,13 +571,13 @@ const Rythms = () => {
               Cymbal(ctx.current, time, cymbalVol);
             }
             if (i === 1) {
-              HiHat(ctx.current, time, hatVol, sample);
+              HiHat(ctx.current, time, hatVol, hatSample);
             }
             if (i === 2) {
-              Snare(ctx.current, time, snareVol, sample);
+              Snare(ctx.current, time, snareVol, snareSample);
             }
             if (i === 3) {
-              Kick(ctx.current, time, kickVol, sample);
+              Kick(ctx.current, time, kickVol, kickSample);
             }
           }
         });
@@ -548,9 +617,12 @@ const Rythms = () => {
     hatVol,
     snareVol,
     kickVol,
-    sample,
     pattern,
     key,
+    bassSample,
+    kickSample,
+    hatSample,
+    snareSample,
   ]);
 
   const start = () => {
@@ -840,9 +912,9 @@ const InstrumentControl: React.FC<IProps> = (props: IProps) => {
           <div>
             <input
               type="range"
-              min="0.0"
-              max="1.0"
-              step=".1"
+              min="-10"
+              max="40"
+              step="1"
               value={vol}
               list="volumes"
               name="volume"

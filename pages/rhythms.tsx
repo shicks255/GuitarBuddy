@@ -5,8 +5,15 @@ import { Sampler } from 'tone/build/esm/instrument';
 import { patterns } from '../patterns';
 import { pattern as keys } from '../utils';
 
-const Bass = async (note: string, time: number, sample: Sampler) => {
-  sample.triggerAttackRelease([note], 0.3, time);
+const Bass = async (
+  note: string,
+  time: number,
+  sample: Sampler,
+  vol: number
+) => {
+  if (vol > -40) {
+    sample.triggerAttackRelease([note], 0.3, time);
+  }
 };
 
 const Kick = async (
@@ -16,7 +23,13 @@ const Kick = async (
   sample: Sampler
 ) => {
   if (true) {
-    sample.triggerAttackRelease(['A1'], 0.3, time);
+    if (vol > -10) {
+      if (time > 0) {
+        sample.triggerAttackRelease(['A1'], 0.3, time);
+      } else {
+        sample.triggerAttackRelease(['A1'], 0.3);
+      }
+    }
   } else {
     const osc = ctx.createOscillator();
     osc.type = 'sine';
@@ -61,7 +74,13 @@ const Snare = async (
   sample: Sampler
 ) => {
   if (true) {
-    sample.triggerAttackRelease(['B1'], 0.4, time);
+    if (vol > -10) {
+      if (time > 0) {
+        sample.triggerAttackRelease(['B1'], 0.4, time);
+      } else {
+        sample.triggerAttackRelease(['B1'], 0.4);
+      }
+    }
   } else {
     const noise = ctx.createBufferSource();
 
@@ -116,7 +135,13 @@ const HiHat = async (
     return;
   }
   if (true) {
-    sample.triggerAttackRelease(['C1'], 0.3, time);
+    if (vol > -10) {
+      if (time > 0) {
+        sample.triggerAttackRelease(['C1'], 0.3, time);
+      } else {
+        sample.triggerAttackRelease(['C1'], 0.3);
+      }
+    }
   } else {
     const oscEnvelope = ctx.createGain();
     const bndPass = ctx.createBiquadFilter();
@@ -148,6 +173,23 @@ const HiHat = async (
     oscEnvelope.gain.exponentialRampToValueAtTime(1 * vol, time + 0.067 * 0.9);
     oscEnvelope.gain.exponentialRampToValueAtTime(0.3 * vol, time + 0.1 * 0.9);
     oscEnvelope.gain.exponentialRampToValueAtTime(0.00001 * vol, time + 0.9);
+  }
+};
+
+const Ride = async (
+  ctx: AudioContext,
+  time: number,
+  vol: number,
+  sample: Sampler
+) => {
+  if (vol < -10) {
+    return;
+  }
+
+  if (time > 0) {
+    sample.triggerAttackRelease(['E2'], 1, time);
+  } else {
+    sample.triggerAttackRelease(['E2'], 1);
   }
 };
 
@@ -397,12 +439,29 @@ const Rythms = () => {
       false,
       false,
     ],
+    [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+    ],
   ];
   const [isPlaying, setIsPlaying] = useState(false);
   const [tempo, setTempo] = useState(120);
   const [steps, setSteps] = useState(initialSteps);
   const [stepp, setStepp] = useState(0);
-  // const [bassStep, setBassStep] = useState(0);
   const bassStep = useRef(0);
   const ctx = useRef(undefined);
   const bass = useRef(undefined);
@@ -412,6 +471,7 @@ const Rythms = () => {
   const [snareVol, setSnareVol] = useState(1);
   const [kickVol, setKickVol] = useState(1);
   const [bassVol, setBassVol] = useState(1);
+  const [rideVol, setRideVol] = useState(1);
 
   const [pattern, setPattern] = useState<undefined | string>();
   const [key, setKey] = useState(keys[0]);
@@ -420,6 +480,7 @@ const Rythms = () => {
   const [snareSample, setSnareSample] = useState<undefined | Sampler>();
   const [hatSample, setHatSample] = useState<undefined | Sampler>();
   const [bassSample, setBassSample] = useState<undefined | Sampler>();
+  const [rideSample, setRideSample] = useState<undefined | Sampler>();
 
   useEffect(() => {
     if (!bass.current) {
@@ -440,6 +501,9 @@ const Rythms = () => {
     if (bassSample) {
       bassSample.volume.value = bassVol;
     }
+    if (rideSample) {
+      rideSample.volume.value = rideVol;
+    }
   }, [
     hatVol,
     snareVol,
@@ -449,6 +513,8 @@ const Rythms = () => {
     snareSample,
     hatSample,
     bassSample,
+    rideSample,
+    rideVol,
   ]);
 
   useEffect(() => {
@@ -474,6 +540,7 @@ const Rythms = () => {
             false,
             false,
           ],
+          [...pat.ride],
           [...pat.hat],
           [...pat.snare],
           [...pat.kick],
@@ -531,6 +598,15 @@ const Rythms = () => {
       }).toDestination();
       setHatSample(sampler);
     }
+    if (!rideSample) {
+      const sampler = new Tone.Sampler({
+        urls: {
+          E1: 'ride.wav',
+        },
+        baseUrl: '/',
+      }).toDestination();
+      setRideSample(sampler);
+    }
 
     if (!ctx.current) {
       ctx.current = new AudioContext();
@@ -548,14 +624,8 @@ const Rythms = () => {
         if (pat) {
           const bassNote = pat.bass[bassStep.current + col];
           if (bassNote && bassNote.duration !== 0) {
-            // console.log(bassNote);
             const note = calculateBass(key, Number(bassNote.note));
-            Bass(note, time, bassSample);
-            // bass.current.triggerAttackRelease(
-            //   note,
-            //   Tone.Time(bassNote.duration).toSeconds(),
-            //   time
-            // );
+            Bass(note, time, bassSample, bassVol);
           }
           if (pat.bass.length > 16) {
             if (col === 15 && bassStep.current === 0) {
@@ -571,12 +641,15 @@ const Rythms = () => {
               Cymbal(ctx.current, time, cymbalVol);
             }
             if (i === 1) {
-              HiHat(ctx.current, time, hatVol, hatSample);
+              Ride(ctx.current, time, rideVol, rideSample);
             }
             if (i === 2) {
-              Snare(ctx.current, time, snareVol, snareSample);
+              HiHat(ctx.current, time, hatVol, hatSample);
             }
             if (i === 3) {
+              Snare(ctx.current, time, snareVol, snareSample);
+            }
+            if (i === 4) {
               Kick(ctx.current, time, kickVol, kickSample);
             }
           }
@@ -617,12 +690,15 @@ const Rythms = () => {
     hatVol,
     snareVol,
     kickVol,
+    bassVol,
+    rideVol,
     pattern,
     key,
     bassSample,
     kickSample,
     hatSample,
     snareSample,
+    rideSample,
   ]);
 
   const start = () => {
@@ -755,6 +831,54 @@ const Rythms = () => {
             onChange={(e) => setTempo(Number(e.target.value))}
           />
         </div>
+        <div className="ml-4 flex flex-col items-center">
+          <span>Bass Vol</span>
+          <div>
+            {' '}
+            {bassVol === -40 && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6l4.72-4.72a.75.75 0 011.28.531V19.94a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.506-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.395C2.806 8.757 3.63 8.25 4.51 8.25H6.75z"
+                />
+              </svg>
+            )}
+            {bassVol > -40 && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z"
+                />
+              </svg>
+            )}
+          </div>
+          <input
+            type="range"
+            min="-40"
+            max="10"
+            step="1"
+            value={bassVol}
+            list="volumes"
+            name="volume"
+            onChange={(e) => setBassVol(Number(e.target.value))}
+          />
+        </div>
       </div>
       <div>
         <label>Pattern</label>
@@ -794,27 +918,39 @@ const Rythms = () => {
                   name="Cymbal"
                   vol={cymbalVol}
                   volControl={setCymbalVol}
+                  sampleFunction={() => Cymbal(ctx.current, 0, 1)}
                 />
               ) : null}
               {rindx === 1 ? (
                 <InstrumentControl
-                  name="HiHat"
-                  vol={hatVol}
-                  volControl={setHatVol}
+                  name="Ride"
+                  vol={rideVol}
+                  volControl={setRideVol}
+                  sampleFunction={() => Ride(ctx.current, 0, 1, rideSample)}
                 />
               ) : null}
               {rindx === 2 ? (
                 <InstrumentControl
-                  name="Snare"
-                  vol={snareVol}
-                  volControl={setSnareVol}
+                  name="HiHat"
+                  vol={hatVol}
+                  volControl={setHatVol}
+                  sampleFunction={() => HiHat(ctx.current, 0, 1, hatSample)}
                 />
               ) : null}
               {rindx === 3 ? (
                 <InstrumentControl
+                  name="Snare"
+                  vol={snareVol}
+                  volControl={setSnareVol}
+                  sampleFunction={() => Snare(ctx.current, 0, 1, snareSample)}
+                />
+              ) : null}
+              {rindx === 4 ? (
+                <InstrumentControl
                   name="Kick"
                   vol={kickVol}
                   volControl={setKickVol}
+                  sampleFunction={() => Kick(ctx.current, 0, 1, kickSample)}
                 />
               ) : null}
               <div className="flex gap-2 w-full flex-initial">
@@ -848,15 +984,21 @@ interface IProps {
   name: string;
   vol: number;
   volControl: React.Dispatch<SetStateAction<number>>;
+  sampleFunction?: () => void;
 }
 
 const InstrumentControl: React.FC<IProps> = (props: IProps) => {
-  const { name, vol, volControl } = props;
+  const { name, vol, volControl, sampleFunction } = props;
   const [show, setShow] = useState(true);
 
   return (
     <div className="flex gap-4 p-4">
-      <div className="font-semibold text-lg">{name}</div>
+      <div
+        className="font-semibold text-lg hover:cursor-pointer"
+        onClick={sampleFunction ? () => sampleFunction() : null}
+      >
+        {name}
+      </div>
       <div onClick={() => setShow((cur) => !cur)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -876,7 +1018,7 @@ const InstrumentControl: React.FC<IProps> = (props: IProps) => {
       {show && (
         <div className="flex gap-4">
           <div>
-            {vol === 0 && (
+            {vol === -10 && (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -892,7 +1034,7 @@ const InstrumentControl: React.FC<IProps> = (props: IProps) => {
                 />
               </svg>
             )}
-            {vol > 0 && (
+            {vol > -10 && (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

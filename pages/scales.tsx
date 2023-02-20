@@ -2,23 +2,33 @@ import { useState } from 'react';
 import FretboardNew from '../components/FretboardNew';
 import PageHeaderNew from '../components/PageHeaderNew';
 import {
+  dorian,
   generateScaleTones,
   harmonicMinorDiatonics,
   harmonicMinorScale,
+  locrian,
+  lydian,
   majorDiatonics,
   majorScale,
   melodicMinorDiatonics,
   melodicMinorScale,
+  mixolydian,
   natMinorDiatonics,
   naturalMinorScale,
   pattern,
-} from '../utils';
+  phrygian,
+} from '../utils/utils';
 
 const scaleAbbrev = {
   major: 'Major',
   natMinor: 'Natural Minor',
   melodMinor: 'Melodic Minor',
   harmMinor: 'Harmonic Minor',
+  dorian: 'Dorian',
+  phrygian: 'Phrygian',
+  lydian: 'Lydian',
+  mixolydian: 'Mixolydian',
+  locrian: 'Locrian',
 };
 
 const Scales: React.FC = () => {
@@ -36,6 +46,21 @@ const Scales: React.FC = () => {
   }
   if (scale === 'natMinor') {
     selectedScale = naturalMinorScale;
+  }
+  if (scale === 'dorian') {
+    selectedScale = dorian;
+  }
+  if (scale === 'phrygian') {
+    selectedScale = phrygian;
+  }
+  if (scale === 'lydian') {
+    selectedScale = lydian;
+  }
+  if (scale === 'mixolydian') {
+    selectedScale = mixolydian;
+  }
+  if (scale === 'locrian') {
+    selectedScale = locrian;
   }
 
   const tones = generateScaleTones(key, scale);
@@ -162,7 +187,7 @@ const Scales: React.FC = () => {
               Scale
             </label>
           </div>
-          <div className="md:w-2/3">
+          <div className="md:w-2/3 flex-auto">
             <select
               name="scaleSelect"
               value={scale}
@@ -174,6 +199,11 @@ const Scales: React.FC = () => {
               <option value="natMinor">Natural Minor</option>
               <option value="melodMinor">Melodic Minor</option>
               <option value="harmMinor">Harmonic Minor</option>
+              <option value="dorian">Dorian</option>
+              <option value="phrygian">Phrygian</option>
+              <option value="lydian">Lydian</option>
+              <option value="mixolydian">Mixolydian</option>
+              <option value="locrian">Locrian</option>
             </select>
           </div>
         </div>

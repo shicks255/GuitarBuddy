@@ -5,7 +5,7 @@ import {
   generateChord,
   generateScaleTones,
   generateString,
-} from '../utils';
+} from '../utils/utils';
 
 interface IProps {
   keyy?: string;
@@ -19,10 +19,14 @@ interface IProps {
 const FretboardNew: React.FC<IProps> = (props: IProps) => {
   const { keyy, scale, chord, chordType, notes, setSelectedNotes } = props;
 
+  // console.log(keyy);
+  // console.log(chord);
+  // console.log(chordType);
+
   const [neckWood, setNeckWood] = useState('maple');
   const [nonNoteOpacity, setNonNoteOpacity] = useState(30);
 
-  const neckStyle = neckWood === 'rosewood' ? 'bg-yellow-900' : 'bg-yellow-50';
+  const neckStyle = neckWood === 'rosewood' ? 'bg-amber-900' : 'bg-amber-100';
   const scaleTones = scale ? generateScaleTones(keyy, scale) : [];
   const chordTones = chord ? generateChord(keyy, chord) : [];
 

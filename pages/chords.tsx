@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { chordTypes } from '../chordTypes';
+import { chordTypes } from '../utils/chordTypes';
 import FretboardNew from '../components/FretboardNew';
 import PageHeaderNew from '../components/PageHeaderNew';
-import { chordFamilies, chords, generateChord, pattern } from '../utils';
+import { chordFamilies, chords, generateChord, pattern } from '../utils/utils';
 
 const Chords = () => {
   const [key, setKey] = useState('');

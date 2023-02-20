@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import FretboardNew from '../components/FretboardNew';
 import PageHeaderNew from '../components/PageHeaderNew';
-import { chords, pattern } from '../utils';
+import { chords, pattern } from '../utils/utils';
 
 export interface ISelectedNotes {
   e: undefined | string;
@@ -186,16 +186,20 @@ const ChordFinder = () => {
           chord made up of {candidates[0].notes.join(' - ')}
           {candidates.length > 1 && (
             <div>
-              Based on the selected notes, this could also be
-              {candidates.slice(1).map((x) => {
-                return (
-                  <>
-                    {' '}
-                    <span className="font-semibold">{x.chord}</span>
-                    made up of {x.notes.join(' - ')}
-                  </>
-                );
-              })}
+              Based on the selected notes, this could also be:
+              <br />
+              <div className="ml-4">
+                {candidates.slice(1).map((x) => {
+                  return (
+                    <>
+                      {' '}
+                      <span className="font-semibold">{x.chord} </span>
+                      made up of {x.notes.join(' - ')}
+                      <br />
+                    </>
+                  );
+                })}
+              </div>
             </div>
           )}
         </div>

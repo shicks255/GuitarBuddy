@@ -2,13 +2,21 @@ import { SetStateAction, useEffect, useRef, useState } from 'react';
 import PageHeaderNew from '../components/PageHeaderNew';
 import * as Tone from 'tone';
 import { Sampler } from 'tone/build/esm/instrument';
-import { patterns } from '../patterns';
-import { pattern as keys } from '../utils';
+import { patterns } from '../utils/patterns';
+import { pattern as keys } from '../utils/utils';
 import PlayingIcon from '../components/icons/PlayingIcon';
 import StopIcon from '../components/icons/StopIcon';
 import ClearIcon from '../components/icons/ClearIcon';
 import SpeakerIcon from '../components/icons/SpeakerIcon';
 import WrenchIcon from '../components/icons/WrenchIcon';
+import {
+  kickMap,
+  snareMap,
+  rideMap,
+  hatMap,
+  crashMap,
+  bassMap,
+} from '../utils/sampleMaps';
 
 const Bass = async (
   note: string,
@@ -21,107 +29,104 @@ const Bass = async (
   }
 };
 
-const Kick = async (time: number, vol: number, sample: Sampler) => {
+const Kick = async (
+  time: number,
+  vol: number,
+  sample: Sampler,
+  file: string
+) => {
   if (vol > -10) {
+    const note = Object.entries(kickMap).find((i) => {
+      return i[1] === file;
+    });
+    const notee = note[0];
     if (time > 0) {
-      sample.triggerAttackRelease(['A1'], 0.3, time);
+      sample.triggerAttackRelease([notee], 0.3, time);
     } else {
-      sample.triggerAttackRelease(['A1'], 0.3);
+      sample.triggerAttackRelease([notee], 0.3);
     }
   }
 };
 
-const Snare = async (time: number, vol: number, sample: Sampler) => {
+const Snare = async (
+  time: number,
+  vol: number,
+  sample: Sampler,
+  file: string
+) => {
   if (vol > -10) {
+    const note = Object.entries(snareMap).find((i) => {
+      return i[1] === file;
+    });
+    const notee = note[0];
     if (time > 0) {
-      sample.triggerAttackRelease(['B1'], 0.4, time);
+      sample.triggerAttackRelease([notee], 0.4, time);
     } else {
-      sample.triggerAttackRelease(['B1'], 0.4);
+      sample.triggerAttackRelease([notee], 0.4);
     }
   }
 };
 
-const HiHat = async (time: number, vol: number, sample: Sampler) => {
+const HiHat = async (
+  time: number,
+  vol: number,
+  sample: Sampler,
+  file: string
+) => {
   if (vol === 0) {
     return;
   }
+  const note = Object.entries(hatMap).find((i) => {
+    return i[1] === file;
+  });
+  const notee = note[0];
   if (vol > -10) {
     if (time > 0) {
-      sample.triggerAttackRelease(['C1'], 0.3, time);
+      sample.triggerAttackRelease([notee], 0.3, time);
     } else {
-      sample.triggerAttackRelease(['C1'], 0.3);
+      sample.triggerAttackRelease(notee, 0.3);
     }
   }
 };
 
-const Ride = async (time: number, vol: number, sample: Sampler) => {
+const Ride = async (
+  time: number,
+  vol: number,
+  sample: Sampler,
+  file: string
+) => {
   if (vol < -10) {
     return;
   }
-
+  const note = Object.entries(rideMap).find((i) => {
+    return i[1] === file;
+  });
+  const notee = note[0];
   if (time > 0) {
-    sample.triggerAttackRelease(['E2'], 1, time);
+    sample.triggerAttackRelease([notee], 1, time);
   } else {
-    sample.triggerAttackRelease(['E2'], 1);
+    sample.triggerAttackRelease([notee], 1);
   }
 };
 
-const Cymbal = async (ctx: AudioContext, time: number, vol: number) => {
-  const noise = ctx.createBufferSource();
-  const bufferSize = ctx.sampleRate;
-  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-  const output = buffer.getChannelData(0);
-
-  for (let i = 0; i < bufferSize; i++) {
-    output[i] = Math.random() * 2 - 1;
+const Crash = async (
+  time: number,
+  vol: number,
+  sample: Sampler,
+  file: string
+) => {
+  if (vol < -10) {
+    return;
   }
-
-  noise.buffer = buffer;
-
-  const noiseEnvelope = ctx.createGain();
-  const noiseFilter = ctx.createBiquadFilter();
-  noiseFilter.type = 'highpass';
-  noiseFilter.frequency.value = 2000;
-
-  const oscEnvelope = ctx.createGain();
-  const bndPass = ctx.createBiquadFilter();
-  bndPass.type = 'bandpass';
-  bndPass.frequency.value = 20000;
-  bndPass.Q.value = 0.2;
-
-  const hipass = ctx.createBiquadFilter();
-  hipass.type = 'highpass';
-  hipass.frequency.value = 5000;
-  noise.connect(noiseFilter);
-  noiseFilter.connect(noiseEnvelope);
-  bndPass.connect(hipass);
-  hipass.connect(oscEnvelope);
-  noiseEnvelope.connect(ctx.destination);
-  oscEnvelope.connect(ctx.destination);
-
-  const ratios = [1, 1.342, 1.2312, 1.6532, 1.9523, 2.1523];
-  ratios.forEach((rat) => {
-    const osc = ctx.createOscillator();
-    osc.type = 'square';
-    osc.frequency.value = rat * 130.81;
-    osc.connect(bndPass);
-    osc.start(time);
-    osc.stop(time * 1.5);
+  const note = Object.entries(crashMap).find((i) => {
+    return i[1] === file;
   });
-
-  const decay = 1.5;
-  const fxAmount = 0;
-
-  oscEnvelope.gain.setValueAtTime(0.00001 * vol, time);
-  oscEnvelope.gain.exponentialRampToValueAtTime(1 * vol, time);
-  oscEnvelope.gain.exponentialRampToValueAtTime(
-    0.3 * vol,
-    time + 0.1 * decay + fxAmount / 100
-  );
-  oscEnvelope.gain.exponentialRampToValueAtTime(
-    0.00001 * vol,
-    time + decay + fxAmount / 50
-  );
+  const notee = note[0];
+  if (time > 0) {
+    sample.triggerAttackRelease([notee], 3, time);
+  } else {
+    sample.triggerAttackRelease([notee], 3);
+  }
 };
 
 const calculateBass = (key: string, cents: number) => {
@@ -328,7 +333,7 @@ const Rythms = () => {
   const ctx = useRef(undefined);
   const bass = useRef(undefined);
 
-  const [cymbalVol, setCymbalVol] = useState(1);
+  const [crashVol, setCrashVol] = useState(1);
   const [hatVol, setHatVol] = useState(1);
   const [snareVol, setSnareVol] = useState(1);
   const [kickVol, setKickVol] = useState(1);
@@ -343,6 +348,13 @@ const Rythms = () => {
   const [hatSample, setHatSample] = useState<undefined | Sampler>();
   const [bassSample, setBassSample] = useState<undefined | Sampler>();
   const [rideSample, setRideSample] = useState<undefined | Sampler>();
+  const [crashSample, setCrashSample] = useState<undefined | Sampler>();
+
+  const [snare, setSnare] = useState('snare.wav');
+  const [kick, setKick] = useState('kick.wav');
+  const [hat, setHat] = useState('hit.wav');
+  const [ride, setRide] = useState('ride.wav');
+  const [crash, setCrash] = useState('Crash-03.wav');
 
   useEffect(() => {
     if (!bass.current) {
@@ -366,6 +378,53 @@ const Rythms = () => {
     if (rideSample) {
       rideSample.volume.value = rideVol;
     }
+    if (crashSample) {
+      crashSample.volume.value = crashVol;
+    }
+
+    if (!bassSample) {
+      const sampler = new Tone.Sampler({
+        urls: bassMap,
+        baseUrl: '/sounds/bass/',
+        onload: () => {},
+      }).toDestination();
+      setBassSample(sampler);
+    }
+    if (!kickSample) {
+      const sampler = new Tone.Sampler({
+        urls: kickMap,
+        baseUrl: '/sounds/kick/',
+      }).toDestination();
+      setKickSample(sampler);
+    }
+    if (!snareSample) {
+      const sampler = new Tone.Sampler({
+        urls: snareMap,
+        baseUrl: '/sounds/snare/',
+      }).toDestination();
+      setSnareSample(sampler);
+    }
+    if (!hatSample) {
+      const sampler = new Tone.Sampler({
+        urls: hatMap,
+        baseUrl: '/sounds/hat/',
+      }).toDestination();
+      setHatSample(sampler);
+    }
+    if (!rideSample) {
+      const sampler = new Tone.Sampler({
+        urls: rideMap,
+        baseUrl: '/sounds/ride/',
+      }).toDestination();
+      setRideSample(sampler);
+    }
+    if (!crashSample) {
+      const sampler = new Tone.Sampler({
+        urls: crashMap,
+        baseUrl: '/sounds/crash/',
+      }).toDestination();
+      setCrashSample(sampler);
+    }
   }, [
     hatVol,
     snareVol,
@@ -377,6 +436,8 @@ const Rythms = () => {
     bassSample,
     rideSample,
     rideVol,
+    crashSample,
+    crashVol,
   ]);
 
   useEffect(() => {
@@ -412,64 +473,6 @@ const Rythms = () => {
   }, [pattern]);
 
   useEffect(() => {
-    if (!bassSample) {
-      const sampler = new Tone.Sampler({
-        urls: {
-          'A#2': 'bass/As2.mp3',
-          'A#3': 'bass/As3.mp3',
-          'A#4': 'bass/As4.mp3',
-          'C#2': 'bass/Cs2.mp3',
-          'C#3': 'bass/Cs3.mp3',
-          'C#4': 'bass/Cs4.mp3',
-          E2: 'bass/E2.mp3',
-          E3: 'bass/E3.mp3',
-          E4: 'bass/E4.mp3',
-          G2: 'bass/G2.mp3',
-          G3: 'bass/G3.mp3',
-          G4: 'bass/G4.mp3',
-        },
-        baseUrl: '/',
-        onload: () => {},
-      }).toDestination();
-      setBassSample(sampler);
-    }
-    if (!kickSample) {
-      const sampler = new Tone.Sampler({
-        urls: {
-          A1: 'kick.wav',
-        },
-        baseUrl: '/',
-      }).toDestination();
-      setKickSample(sampler);
-    }
-    if (!snareSample) {
-      const sampler = new Tone.Sampler({
-        urls: {
-          A1: 'snare.wav',
-        },
-        baseUrl: '/',
-      }).toDestination();
-      setSnareSample(sampler);
-    }
-    if (!kickSample) {
-      const sampler = new Tone.Sampler({
-        urls: {
-          A1: 'hit.wav',
-        },
-        baseUrl: '/',
-      }).toDestination();
-      setHatSample(sampler);
-    }
-    if (!rideSample) {
-      const sampler = new Tone.Sampler({
-        urls: {
-          E1: 'ride.wav',
-        },
-        baseUrl: '/',
-      }).toDestination();
-      setRideSample(sampler);
-    }
-
     if (!ctx.current) {
       ctx.current = new AudioContext();
     }
@@ -500,19 +503,19 @@ const Rythms = () => {
         steps.forEach((row, i) => {
           if (row[col]) {
             if (i === 0) {
-              Cymbal(ctx.current, time, cymbalVol);
+              Crash(time, crashVol, crashSample, crash);
             }
             if (i === 1) {
-              Ride(time, rideVol, rideSample);
+              Ride(time, rideVol, rideSample, ride);
             }
             if (i === 2) {
-              HiHat(time, hatVol, hatSample);
+              HiHat(time, hatVol, hatSample, hat);
             }
             if (i === 3) {
-              Snare(time, snareVol, snareSample);
+              Snare(time, snareVol, snareSample, snare);
             }
             if (i === 4) {
-              Kick(time, kickVol, kickSample);
+              Kick(time, kickVol, kickSample, kick);
             }
           }
         });
@@ -538,7 +541,7 @@ const Rythms = () => {
     tempo,
     steps,
     bassStep,
-    cymbalVol,
+    crashVol,
     hatVol,
     snareVol,
     kickVol,
@@ -551,6 +554,12 @@ const Rythms = () => {
     hatSample,
     snareSample,
     rideSample,
+    crashSample,
+    snare,
+    kick,
+    hat,
+    ride,
+    crash,
   ]);
 
   const start = () => {
@@ -629,34 +638,52 @@ const Rythms = () => {
           />
         </div>
       </div>
-      <div>
-        <label>Pattern</label>
-        <select
-          name="rythm"
-          value={pattern}
-          onChange={(e) => setPattern(e.target.value)}
-        >
-          <option></option>
-          {patterns.map((pattern) => {
-            return (
-              <option value={pattern.name} key={pattern.name}>
-                {pattern.name}
-              </option>
-            );
-          })}
-        </select>
+      <div className="md:flex md:items-center mb-6 justify-start">
+        <div className="md:w-12 flex-none">
+          <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+            Pattern
+          </label>
+        </div>
+        <div className="md:w-2/3 flex-auto md:ml-4">
+          <select
+            name="rythm"
+            value={pattern}
+            onChange={(e) => setPattern(e.target.value)}
+            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+          >
+            <option></option>
+            {patterns.map((pattern) => {
+              return (
+                <option value={pattern.name} key={pattern.name}>
+                  {pattern.name}
+                </option>
+              );
+            })}
+          </select>
+        </div>
       </div>
-      <div>
-        <label>Key</label>
-        <select name="key" value={key} onChange={(e) => setKey(e.target.value)}>
-          {keys.map((key) => {
-            return (
-              <option value={key} key={key}>
-                {key}
-              </option>
-            );
-          })}
-        </select>
+      <div className="md:flex md:items-center mb-6 justify-start">
+        <div className="md:w-12 flex-none">
+          <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+            Key
+          </label>
+        </div>
+        <div className="md:w-2/3 flex-auto md:ml-4">
+          <select
+            name="key"
+            value={key}
+            onChange={(e) => setKey(e.target.value)}
+            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+          >
+            {keys.map((key) => {
+              return (
+                <option value={key} key={key}>
+                  {key}
+                </option>
+              );
+            })}
+          </select>
+        </div>
       </div>
       {steps.map((row, rindx) => {
         return (
@@ -664,43 +691,85 @@ const Rythms = () => {
             <div className="flex flex-col w-full">
               {rindx === 0 ? (
                 <InstrumentControl
-                  name="Cymbal"
-                  vol={cymbalVol}
-                  volControl={setCymbalVol}
-                  sampleFunction={() => Cymbal(ctx.current, 0, 1)}
-                />
+                  name="Crash"
+                  vol={crashVol}
+                  volControl={setCrashVol}
+                  sampleFunction={() => Crash(0, 1, crashSample, crash)}
+                >
+                  <select
+                    value={crash}
+                    onChange={(e) => setCrash(e.target.value)}
+                  >
+                    {Object.values(crashMap).map((file) => {
+                      return <option key={file}>{file}</option>;
+                    })}
+                  </select>
+                </InstrumentControl>
               ) : null}
               {rindx === 1 ? (
                 <InstrumentControl
                   name="Ride"
                   vol={rideVol}
                   volControl={setRideVol}
-                  sampleFunction={() => Ride(0, 1, rideSample)}
-                />
+                  sampleFunction={() => Ride(0, 1, rideSample, ride)}
+                >
+                  <select
+                    value={ride}
+                    onChange={(e) => setRide(e.target.value)}
+                  >
+                    {Object.values(rideMap).map((file) => {
+                      return <option key={file}>{file}</option>;
+                    })}
+                  </select>
+                </InstrumentControl>
               ) : null}
               {rindx === 2 ? (
                 <InstrumentControl
                   name="HiHat"
                   vol={hatVol}
                   volControl={setHatVol}
-                  sampleFunction={() => HiHat(0, 1, hatSample)}
-                />
+                  sampleFunction={() => HiHat(0, 1, hatSample, hat)}
+                >
+                  <select value={hat} onChange={(e) => setHat(e.target.value)}>
+                    {Object.values(hatMap).map((file) => {
+                      return <option key={file}>{file}</option>;
+                    })}
+                  </select>
+                </InstrumentControl>
               ) : null}
               {rindx === 3 ? (
                 <InstrumentControl
                   name="Snare"
                   vol={snareVol}
                   volControl={setSnareVol}
-                  sampleFunction={() => Snare(0, 1, snareSample)}
-                />
+                  sampleFunction={() => Snare(0, 1, snareSample, snare)}
+                >
+                  <select
+                    value={snare}
+                    onChange={(e) => setSnare(e.target.value)}
+                  >
+                    {Object.values(snareMap).map((file) => {
+                      return <option key={file}>{file}</option>;
+                    })}
+                  </select>
+                </InstrumentControl>
               ) : null}
               {rindx === 4 ? (
                 <InstrumentControl
                   name="Kick"
                   vol={kickVol}
                   volControl={setKickVol}
-                  sampleFunction={() => Kick(0, 1, kickSample)}
-                />
+                  sampleFunction={() => Kick(0, 1, kickSample, kick)}
+                >
+                  <select
+                    value={kick}
+                    onChange={(e) => setKick(e.target.value)}
+                  >
+                    {Object.values(kickMap).map((file) => {
+                      return <option key={file}>{file}</option>;
+                    })}
+                  </select>
+                </InstrumentControl>
               ) : null}
               <div className="flex gap-2 w-full flex-initial">
                 {row.map((col, cindx) => {
@@ -734,10 +803,13 @@ interface IProps {
   vol: number;
   volControl: React.Dispatch<SetStateAction<number>>;
   sampleFunction?: () => void;
+  setFunction?: React.Dispatch<SetStateAction<string>>;
+  children: React.ReactNode;
 }
 
 const InstrumentControl: React.FC<IProps> = (props: IProps) => {
-  const { name, vol, volControl, sampleFunction } = props;
+  const { name, vol, volControl, sampleFunction, setFunction, children } =
+    props;
   const [show, setShow] = useState(true);
 
   return (
@@ -768,6 +840,7 @@ const InstrumentControl: React.FC<IProps> = (props: IProps) => {
               onChange={(e) => volControl(Number(e.target.value))}
             />
           </div>
+          <div>{children}</div>
         </div>
       )}
     </div>

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { chordTypes } from './chordTypes';
-import { ISelectedNotes } from './pages/chordFinder';
-import { INote } from './types/note';
+import { ISelectedNotes } from '../pages/chordFinder';
+import { INote } from '../types/note';
 
 /* eslint-disable react/jsx-key */
 export const pattern = [
@@ -235,6 +235,12 @@ export const naturalMinorScale = [2, 1, 2, 2, 1, 2];
 export const harmonicMinorScale = [2, 1, 2, 2, 3, 1];
 export const melodicMinorScale = [2, 1, 2, 2, 2, 2];
 
+export const dorian = [2, 1, 2, 2, 2, 1];
+export const phrygian = [1, 2, 2, 2, 1, 2];
+export const lydian = [2, 2, 2, 1, 2, 2];
+export const mixolydian = [2, 2, 1, 2, 2, 1];
+export const locrian = [1, 2, 2, 1, 2, 2];
+
 export const majorDiatonics = ['maj', 'min', 'min', 'maj', 'maj', 'min', 'dim'];
 export const natMinorDiatonics = [
   'min',
@@ -300,7 +306,7 @@ export function generateString(
   }
 
   let height = 'h-[3px]';
-  if (start === 'e' || start === 'E') {
+  if (start === 'e') {
     height = 'h-[0.5px]';
   }
   if (start === 'b') {
@@ -315,11 +321,14 @@ export function generateString(
   if (start === 'a') {
     height = 'h-[2.5px]';
   }
+  if (start === 'E') {
+    height = 'h-[3px]';
+  }
 
   return notes.map((note, indx) => {
     let extraClass = '';
     if (indx === 0) {
-      extraClass += 'flex-none w-4 rounded font-bold';
+      extraClass += 'w-4 rounded font-bold';
     }
 
     let notee = note;
@@ -395,7 +404,7 @@ export function generateString(
         ) : (
           ''
         )}
-        <div className={`top-2 h-6 w-full absolute z-50 ${extra}`}>
+        <div className={`top-2 h-6 top-2 w-full absolute z-50 ${extra}`}>
           <div className={`${noteStyle}`} onClick={() => updateSelectedNotes()}>
             {notee}
           </div>
@@ -442,6 +451,21 @@ export function generateScaleTones(key: string, scale: string) {
   }
   if (scale === 'melodMinor') {
     selectedScale = melodicMinorScale;
+  }
+  if (scale === 'dorian') {
+    selectedScale = dorian;
+  }
+  if (scale === 'phrygian') {
+    selectedScale = phrygian;
+  }
+  if (scale === 'lydian') {
+    selectedScale = lydian;
+  }
+  if (scale === 'mixolydian') {
+    selectedScale = mixolydian;
+  }
+  if (scale === 'locrian') {
+    selectedScale = locrian;
   }
 
   selectedScale.forEach((deg, indx) => {

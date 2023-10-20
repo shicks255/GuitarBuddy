@@ -2,18 +2,15 @@ import { useState } from 'react';
 import FretboardNew from '../components/FretboardNew';
 import PageHeaderNew from '../components/PageHeaderNew';
 import {
+  scaleDefinitions,
   dorian,
   generateScaleTones,
-  harmonicMinorDiatonics,
   harmonicMinorScale,
   locrian,
   lydian,
-  majorDiatonics,
   majorScale,
-  melodicMinorDiatonics,
   melodicMinorScale,
   mixolydian,
-  natMinorDiatonics,
   naturalMinorScale,
   pattern,
   phrygian,
@@ -34,52 +31,8 @@ const scaleAbbrev = {
 const Scales: React.FC = () => {
   const [key, setKey] = useState<string | undefined>(undefined);
   const [scale, setScale] = useState<string | undefined>(undefined);
-  let selectedScale = undefined;
-  if (scale === 'major') {
-    selectedScale = majorScale;
-  }
-  if (scale === 'harmMinor') {
-    selectedScale = harmonicMinorScale;
-  }
-  if (scale === 'melodMinor') {
-    selectedScale = melodicMinorScale;
-  }
-  if (scale === 'natMinor') {
-    selectedScale = naturalMinorScale;
-  }
-  if (scale === 'dorian') {
-    selectedScale = dorian;
-  }
-  if (scale === 'phrygian') {
-    selectedScale = phrygian;
-  }
-  if (scale === 'lydian') {
-    selectedScale = lydian;
-  }
-  if (scale === 'mixolydian') {
-    selectedScale = mixolydian;
-  }
-  if (scale === 'locrian') {
-    selectedScale = locrian;
-  }
 
-  const tones = generateScaleTones(key, scale);
-
-  const diatonics = tones.map((tone, index) => {
-    let d = majorDiatonics;
-    if (scale === 'natMinor') {
-      d = natMinorDiatonics;
-    }
-    if (scale === 'harmMinor') {
-      d = harmonicMinorDiatonics;
-    }
-    if (scale === 'melodMinor') {
-      d = melodicMinorDiatonics;
-    }
-
-    const x = d[index];
-    return `${tone.note} ${x}`;
-  });
+  const tones = generateScaleTones(key, scaleDefinitions[scale]?.pattern);
 
   return (
     <div className="p-4">
@@ -209,7 +162,7 @@ const Scales: React.FC = () => {
         </div>
       </div>
 
-      <FretboardNew keyy={key} scale={scale} />
+      <FretboardNew keyy={key} scale={scaleDefinitions[scale]?.pattern} />
       {key && scale && (
         <div className="rounded border px-6 pt-6 pb-2 mt-8">
           <div className="md:flex md:items-center mb-6 justify-start">
@@ -222,7 +175,7 @@ const Scales: React.FC = () => {
               Scale Degrees:
             </div>
             <div>
-              {selectedScale
+              {scaleDefinitions[scale].pattern
                 .map((note) => {
                   if (note === 1) {
                     return 'h';
@@ -238,11 +191,29 @@ const Scales: React.FC = () => {
             </div>
             <div>{tones.map((tone) => tone.note).join(' - ')}</div>
           </div>
-          <div className="md:flex md:items-center justify-start">
+          <div className="md:flex md:items-center mb-6 justify-start">
             <div className="block text-gray-500 font-bold md:text-right md:mb-0 pr-4">
               Diatonic Chords:
             </div>
-            <div>{diatonics.map((d) => d).join(' - ')}</div>
+            <div>
+              {tones.map((tone, index) => (
+                <span key={tone.note} className="mr-4 ml-4">
+                  {tone.note} {scaleDefinitions[scale][index + 1].triad}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="md:flex md:items-center justify-start">
+            <div className="block text-gray-500 font-bold md:text-right md:mb-0 pr-4">
+              Extended Diatonic Chords:
+            </div>
+            <div>
+              {tones.map((tone, index) => (
+                <span key={tone.note} className="mr-4 ml-4">
+                  {tone.note} {scaleDefinitions[scale][index + 1].ext}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       )}

@@ -232,7 +232,7 @@ export const chordFamilies = [
 
 export const majorScale = [2, 2, 1, 2, 2, 2];
 export const naturalMinorScale = [2, 1, 2, 2, 1, 2];
-export const harmonicMinorScale = [2, 1, 2, 2, 3, 1];
+export const harmonicMinorScale = [2, 1, 2, 2, 3];
 export const melodicMinorScale = [2, 1, 2, 2, 2, 2];
 
 export const dorian = [2, 1, 2, 2, 2, 1];
@@ -241,7 +241,299 @@ export const lydian = [2, 2, 2, 1, 2, 2];
 export const mixolydian = [2, 2, 1, 2, 2, 1];
 export const locrian = [1, 2, 2, 1, 2, 2];
 
-export const majorDiatonics = ['maj', 'min', 'min', 'maj', 'maj', 'min', 'dim'];
+export const scaleDefinitions = {
+  major: {
+    pattern: [2, 2, 1, 2, 2, 2],
+    1: {
+      triad: 'Maj',
+      ext: 'Maj7',
+    },
+    2: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    3: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    4: {
+      triad: 'Maj',
+      ext: 'Maj7',
+    },
+    5: {
+      triad: 'Maj',
+      ext: 'Dom7',
+    },
+    6: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    7: {
+      triad: 'dim',
+      ext: 'min7b5',
+    },
+  },
+  natMinor: {
+    pattern: [2, 1, 2, 2, 1, 2],
+    1: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    2: {
+      triad: 'dim',
+      ext: 'min7b5',
+    },
+    3: {
+      triad: 'Maj',
+      ext: 'Maj7',
+    },
+    4: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    5: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    6: {
+      triad: 'Maj',
+      ext: 'Maj7',
+    },
+    7: {
+      triad: 'Maj',
+      ext: 'Dom7',
+    },
+  },
+  melodMinor: {
+    pattern: [2, 1, 2, 2, 2, 2],
+    1: {
+      triad: 'min',
+      ext: 'minMaj7',
+    },
+    2: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    3: {
+      triad: 'Aug',
+      ext: 'Maj7#5',
+    },
+    4: {
+      triad: 'Maj',
+      ext: 'Dom7',
+    },
+    5: {
+      triad: 'Maj',
+      ext: 'Dom7',
+    },
+    6: {
+      triad: 'Dim',
+      ext: 'min7b5',
+    },
+    7: {
+      triad: 'Dim',
+      ext: 'min7b5',
+    },
+  },
+  harmMinor: {
+    pattern: [2, 1, 2, 2, 2, 1],
+    1: {
+      triad: 'min',
+      ext: 'minMaj7',
+    },
+    2: {
+      triad: 'dim',
+      ext: 'min7b5',
+    },
+    3: {
+      triad: 'Aug',
+      ext: 'Maj7#5',
+    },
+    4: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    5: {
+      triad: 'Maj',
+      ext: 'Dom7',
+    },
+    6: {
+      triad: 'Maj',
+      ext: 'Maj7',
+    },
+    7: {
+      triad: 'dim',
+      ext: 'diminished7',
+    },
+  },
+  dorian: {
+    pattern: [2, 1, 2, 2, 2, 1],
+    1: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    2: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    3: {
+      triad: 'Maj',
+      ext: 'Maj7',
+    },
+    4: {
+      triad: 'Maj',
+      ext: 'Dom7',
+    },
+    5: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    6: {
+      triad: 'dim',
+      ext: 'min7b5',
+    },
+    7: {
+      triad: 'Maj',
+      ext: 'Maj7',
+    },
+  },
+  phrygian: {
+    pattern: [1, 2, 2, 2, 1, 2],
+    1: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    2: {
+      triad: 'Maj',
+      ext: 'Maj7',
+    },
+    3: {
+      triad: 'Maj',
+      ext: 'Dom7',
+    },
+    4: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    5: {
+      triad: 'dim',
+      ext: 'min7b5',
+    },
+    6: {
+      triad: 'Maj',
+      ext: 'Maj7',
+    },
+    7: {
+      triad: 'min',
+      ext: 'min7',
+    },
+  },
+  lydian: {
+    pattern: [2, 2, 2, 1, 2, 2],
+    1: {
+      triad: 'Maj',
+      ext: 'Maj7',
+    },
+    2: {
+      triad: 'Maj',
+      ext: 'Dom7',
+    },
+    3: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    4: {
+      triad: 'dim',
+      ext: 'min7b5',
+    },
+    5: {
+      triad: 'Maj',
+      ext: 'Maj7',
+    },
+    6: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    7: {
+      triad: 'min',
+      ext: 'min7',
+    },
+  },
+  mixolydian: {
+    pattern: [2, 2, 1, 2, 2, 1],
+    1: {
+      triad: 'Maj',
+      ext: 'Dom7',
+    },
+    2: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    3: {
+      triad: 'dim',
+      ext: 'min7b5',
+    },
+    4: {
+      triad: 'Maj',
+      ext: 'Maj7',
+    },
+    5: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    6: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    7: {
+      triad: 'Maj',
+      ext: 'Maj7',
+    },
+  },
+  locrian: {
+    pattern: [1, 2, 2, 1, 2, 2],
+    1: {
+      triad: 'dim',
+      ext: 'min7b5',
+    },
+    2: {
+      triad: 'Maj',
+      ext: 'Maj7',
+    },
+    3: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    4: {
+      triad: 'min',
+      ext: 'min7',
+    },
+    5: {
+      triad: 'Maj',
+      ext: 'Maj7',
+    },
+    6: {
+      triad: 'Maj',
+      ext: 'Dom7',
+    },
+    7: {
+      triad: 'min',
+      ext: 'min7',
+    },
+  },
+};
+
+export const majorDiatonics = ['Maj', 'min', 'min', 'Maj', 'Maj', 'min', 'dim'];
+export const majorDiatonicsExtended = [
+  'Maj7',
+  'min7',
+  'min7',
+  'Maj7',
+  'Maj7',
+  'min',
+  'Half dim',
+];
+
 export const natMinorDiatonics = [
   'min',
   'dim',
@@ -327,9 +619,6 @@ export function generateString(
 
   return notes.map((note, indx) => {
     let extraClass = '';
-    if (indx === 0) {
-      extraClass += 'w-4 rounded font-bold';
-    }
 
     let notee = note;
     // if (indx > 0 && tones.length === 0) {
@@ -341,12 +630,12 @@ export function generateString(
       tones.length &&
       tones.findIndex((tone) => tone.note === note.toLowerCase()) >= 0
     ) {
-      extra += 'text-red-600';
+      extra += 'text-yellow-900';
       notee = tones.find((tone) => tone.note === note.toLowerCase()).position;
     }
 
     if (selectedNote === note) {
-      extra += 'text-red-600';
+      extra += 'text-yellow-900';
     }
 
     let noteStyle = 'bg-blue-200 w-6 h-6 m-auto rounded-full ';
@@ -377,7 +666,12 @@ export function generateString(
         tones.find((tone) => tone.note === note).root) ||
       selectedNote === note
     ) {
-      extra += ' font-bold text-lg';
+      extra += ' font-bold text-lg text-blue-900';
+      noteStyle += ' bg-amber-300';
+    }
+
+    if (indx === 0) {
+      extraClass += 'w-4 rounded font-bold';
     }
 
     const thing =
@@ -425,8 +719,8 @@ export function generateString(
   });
 }
 
-export function generateScaleTones(key: string, scale: string) {
-  if (!key || key.length === 0 || !scale) {
+export function generateScaleTones(key: string, scalePattern?: number[]) {
+  if (!key || key.length === 0 || !scalePattern) {
     return [];
   }
 
@@ -439,36 +733,7 @@ export function generateScaleTones(key: string, scale: string) {
     },
   ];
 
-  let selectedScale = [];
-  if (scale === 'major') {
-    selectedScale = majorScale;
-  }
-  if (scale === 'natMinor') {
-    selectedScale = naturalMinorScale;
-  }
-  if (scale === 'harmMinor') {
-    selectedScale = harmonicMinorScale;
-  }
-  if (scale === 'melodMinor') {
-    selectedScale = melodicMinorScale;
-  }
-  if (scale === 'dorian') {
-    selectedScale = dorian;
-  }
-  if (scale === 'phrygian') {
-    selectedScale = phrygian;
-  }
-  if (scale === 'lydian') {
-    selectedScale = lydian;
-  }
-  if (scale === 'mixolydian') {
-    selectedScale = mixolydian;
-  }
-  if (scale === 'locrian') {
-    selectedScale = locrian;
-  }
-
-  selectedScale.forEach((deg, indx) => {
+  scalePattern.forEach((deg, indx) => {
     let x = patternStart + deg;
     if (x > 11) {
       x = x - 12;

@@ -1,20 +1,7 @@
 import { useState } from 'react';
 import FretboardNew from '../components/FretboardNew';
 import PageHeaderNew from '../components/PageHeaderNew';
-import {
-  scaleDefinitions,
-  dorian,
-  generateScaleTones,
-  harmonicMinorScale,
-  locrian,
-  lydian,
-  majorScale,
-  melodicMinorScale,
-  mixolydian,
-  naturalMinorScale,
-  pattern,
-  phrygian,
-} from '../utils/utils';
+import { scaleDefinitions, generateScaleTones, pattern } from '../utils/utils';
 
 const scaleAbbrev = {
   major: 'Major',
@@ -162,7 +149,7 @@ const Scales: React.FC = () => {
         </div>
       </div>
 
-      <FretboardNew keyy={key} scale={scaleDefinitions[scale]?.pattern} />
+      <FretboardNew keyy={key} scale={scale} />
       {key && scale && (
         <div className="rounded border px-6 pt-6 pb-2 mt-8">
           <div className="md:flex md:items-center mb-6 justify-start">
@@ -179,6 +166,9 @@ const Scales: React.FC = () => {
                 .map((note) => {
                   if (note === 1) {
                     return 'h';
+                  }
+                  if (note === 3) {
+                    return 'w1/2';
                   }
                   return 'w';
                 })

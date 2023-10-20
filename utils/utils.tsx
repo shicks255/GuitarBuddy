@@ -336,7 +336,7 @@ export const scaleDefinitions = {
     },
   },
   harmMinor: {
-    pattern: [2, 1, 2, 2, 2, 1],
+    pattern: [2, 1, 2, 2, 1, 3],
     1: {
       triad: 'min',
       ext: 'minMaj7',

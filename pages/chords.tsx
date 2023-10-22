@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { chordTypes } from '../utils/chordTypes';
+import { allChords } from '../utils/allChords';
 import FretboardNew from '../components/FretboardNew';
 import PageHeaderNew from '../components/PageHeaderNew';
 import { chordFamilies, chords, generateChord, pattern } from '../utils/utils';
@@ -18,7 +18,7 @@ const Chords = () => {
     setChord(newChord);
   };
 
-  const types = chordTypes.filter((c) => c.name === chord).map((c) => c.type);
+  const types = allChords.filter((c) => c.name === chord).map((c) => c.type);
 
   const chordTones = generateChord(key, chord);
 

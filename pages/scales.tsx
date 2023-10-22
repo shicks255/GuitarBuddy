@@ -187,9 +187,12 @@ const Scales: React.FC = () => {
             </div>
             <div>
               {tones.map((tone, index) => (
-                <span key={tone.note} className="mr-4 ml-4">
-                  {tone.note} {scaleDefinitions[scale][index + 1].triad}
-                </span>
+                <div key={tone.note} className="mt-2 mb-2">
+                  <span>{scaleDefinitions[scale][index + 1].numeral}</span>
+                  <span key={tone.note} className="mr-4 ml-4">
+                    {tone.note} {scaleDefinitions[scale][index + 1].triad}
+                  </span>
+                </div>
               ))}
             </div>
           </div>
@@ -199,9 +202,12 @@ const Scales: React.FC = () => {
             </div>
             <div>
               {tones.map((tone, index) => (
-                <span key={tone.note} className="mr-4 ml-4">
-                  {tone.note} {scaleDefinitions[scale][index + 1].ext}
-                </span>
+                <div key={tone.note} className="mt-2 mb-2">
+                  <span>{scaleDefinitions[scale][index + 1].numeral}</span>
+                  <span key={tone.note} className="mr-4 ml-4">
+                    {tone.note} {scaleDefinitions[scale][index + 1].ext}
+                  </span>
+                </div>
               ))}
             </div>
           </div>

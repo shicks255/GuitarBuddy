@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import FretboardNew from '../components/FretboardNew';
 import PageHeaderNew from '../components/PageHeaderNew';
 import { chords, pattern } from '../utils/utils';
-import { chordTypes } from '../utils/chordTypes';
+import { allChords } from '../utils/allChords';
 
 interface IChord {
   name: string;
@@ -113,7 +113,7 @@ const Answers: React.FC<IProps> = React.memo((props: IProps) => {
 const randomChord = () => {
   const key = pattern[getRandom(pattern.length - 1)];
   const chord = chords[getRandom(chords.length - 1)];
-  const types = chordTypes.filter((x) => {
+  const types = allChords.filter((x) => {
     return x.name === chord.name;
   });
 

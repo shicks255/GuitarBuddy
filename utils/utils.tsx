@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { chordTypes } from './chordTypes';
+import { allChords } from './allChords';
 import { ISelectedNotes } from '../pages/chordFinder';
 import { INote } from '../types/note';
 
@@ -38,7 +38,7 @@ const degreeMap = {
 };
 
 export const genChord = (index, key, chord, type) => {
-  const t = chordTypes.find((c) => c.type === type && c.name === chord);
+  const t = allChords.find((c) => c.type === type && c.name === chord);
 
   if (t) {
     const degree = t.pattern[index];
@@ -247,30 +247,37 @@ export const scaleDefinitions = {
     1: {
       triad: 'Maj',
       ext: 'Maj7',
+      numeral: 'I',
     },
     2: {
       triad: 'min',
       ext: 'min7',
+      numeral: 'ii',
     },
     3: {
       triad: 'min',
       ext: 'min7',
+      numeral: 'iii',
     },
     4: {
       triad: 'Maj',
       ext: 'Maj7',
+      numeral: 'IV',
     },
     5: {
       triad: 'Maj',
       ext: 'Dom7',
+      numeral: 'V',
     },
     6: {
       triad: 'min',
       ext: 'min7',
+      numeral: 'vi',
     },
     7: {
       triad: 'dim',
       ext: 'min7b5',
+      numeral: 'vii°',
     },
   },
   natMinor: {
@@ -278,30 +285,37 @@ export const scaleDefinitions = {
     1: {
       triad: 'min',
       ext: 'min7',
+      numeral: 'i',
     },
     2: {
       triad: 'dim',
       ext: 'min7b5',
+      numeral: 'ii°',
     },
     3: {
       triad: 'Maj',
       ext: 'Maj7',
+      numeral: 'III',
     },
     4: {
       triad: 'min',
       ext: 'min7',
+      numeral: 'iv',
     },
     5: {
       triad: 'min',
       ext: 'min7',
+      numeral: 'v',
     },
     6: {
       triad: 'Maj',
       ext: 'Maj7',
+      numeral: 'VI',
     },
     7: {
       triad: 'Maj',
       ext: 'Dom7',
+      numeral: 'VII',
     },
   },
   melodMinor: {
@@ -309,30 +323,37 @@ export const scaleDefinitions = {
     1: {
       triad: 'min',
       ext: 'minMaj7',
+      numeral: 'i',
     },
     2: {
       triad: 'min',
       ext: 'min7',
+      numeral: 'ii',
     },
     3: {
       triad: 'Aug',
       ext: 'Maj7#5',
+      numeral: 'III+',
     },
     4: {
       triad: 'Maj',
       ext: 'Dom7',
+      numeral: 'IV',
     },
     5: {
       triad: 'Maj',
       ext: 'Dom7',
+      numeral: 'V',
     },
     6: {
       triad: 'Dim',
       ext: 'min7b5',
+      numeral: 'vi°',
     },
     7: {
       triad: 'Dim',
       ext: 'min7b5',
+      numeral: 'vii°',
     },
   },
   harmMinor: {
@@ -340,30 +361,37 @@ export const scaleDefinitions = {
     1: {
       triad: 'min',
       ext: 'minMaj7',
+      numeral: 'i',
     },
     2: {
       triad: 'dim',
       ext: 'min7b5',
+      numeral: 'ii°',
     },
     3: {
       triad: 'Aug',
       ext: 'Maj7#5',
+      numeral: 'III+',
     },
     4: {
       triad: 'min',
       ext: 'min7',
+      numeral: 'iv',
     },
     5: {
       triad: 'Maj',
       ext: 'Dom7',
+      numeral: 'V',
     },
     6: {
       triad: 'Maj',
       ext: 'Maj7',
+      numeral: 'VI',
     },
     7: {
       triad: 'dim',
       ext: 'diminished7',
+      numeral: 'vii°',
     },
   },
   dorian: {
@@ -522,45 +550,6 @@ export const scaleDefinitions = {
     },
   },
 };
-
-export const majorDiatonics = ['Maj', 'min', 'min', 'Maj', 'Maj', 'min', 'dim'];
-export const majorDiatonicsExtended = [
-  'Maj7',
-  'min7',
-  'min7',
-  'Maj7',
-  'Maj7',
-  'min',
-  'Half dim',
-];
-
-export const natMinorDiatonics = [
-  'min',
-  'dim',
-  'maj',
-  'min',
-  'min',
-  'maj',
-  'maj',
-];
-export const harmonicMinorDiatonics = [
-  'min',
-  'dim',
-  'aug',
-  'min',
-  'maj',
-  'maj',
-  'dim',
-];
-export const melodicMinorDiatonics = [
-  'min',
-  'min',
-  'maj',
-  'maj',
-  'min',
-  'dim',
-  'maj',
-];
 
 // opacity-[0]
 // opacity-[.10]

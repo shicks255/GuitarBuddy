@@ -1,4 +1,4 @@
-export const chordTypes = [
+export const allChords = [
   {
     name: 'major',
     type: 'barre1',

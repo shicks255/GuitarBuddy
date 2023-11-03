@@ -98,7 +98,7 @@ const randomChord: () => IChordToGuess = () => {
   const key = noteSequence[getRandom(noteSequence.length - 1)];
   const chord = chords[getRandom(chords.length - 1)];
   const shapes = chordShapes.filter((x) => {
-    return x.name === chord.name;
+    return x.type === chord.name;
   });
 
   if (!shapes || shapes.length === 0) {

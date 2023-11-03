@@ -3,7 +3,6 @@ import PageHeader from '../components/PageHeader';
 import * as Tone from 'tone';
 import { Sampler } from 'tone/build/esm/instrument';
 import { patterns } from '../utils/patterns';
-import { pattern as keys } from '../utils/utils';
 import PlayingIcon from '../components/icons/PlayingIcon';
 import StopIcon from '../components/icons/StopIcon';
 import ClearIcon from '../components/icons/ClearIcon';
@@ -17,6 +16,7 @@ import {
   crashMap,
   bassMap,
 } from '../utils/sampleMaps';
+import { noteSequence } from '../utils/musicConstants';
 
 const Bass = async (
   note: string,
@@ -135,7 +135,7 @@ const calculateBass = (key: string, cents: number) => {
     return `${key}${octave}`;
   }
 
-  const start = keys.indexOf(key);
+  const start = noteSequence.indexOf(key);
   let next = start + cents;
 
   if (next < 0) {
@@ -228,7 +228,7 @@ const calculateBass = (key: string, cents: number) => {
     next -= 12;
   }
 
-  const note = keys[next];
+  const note = noteSequence[next];
   return `${note}${octave}`;
 };
 
@@ -341,7 +341,7 @@ const Rythms = () => {
   const [rideVol, setRideVol] = useState(1);
 
   const [pattern, setPattern] = useState<undefined | string>();
-  const [key, setKey] = useState(keys[0]);
+  const [key, setKey] = useState(noteSequence[0]);
 
   const [kickSample, setKickSample] = useState<undefined | Sampler>();
   const [snareSample, setSnareSample] = useState<undefined | Sampler>();
@@ -675,7 +675,7 @@ const Rythms = () => {
             onChange={(e) => setKey(e.target.value)}
             className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
           >
-            {keys.map((key) => {
+            {noteSequence.map((key) => {
               return (
                 <option value={key} key={key}>
                   {key}

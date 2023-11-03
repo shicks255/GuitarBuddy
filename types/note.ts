@@ -1,5 +1,5 @@
 export interface INote {
   note: string;
-  position: string;
+  degree: string;
   root?: boolean;
 }

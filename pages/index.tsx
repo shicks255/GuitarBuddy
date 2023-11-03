@@ -15,7 +15,7 @@ export default function Home() {
         </p>
         <div className="flex m-auto flex-wrap w-full md:flex-nowrap place-content-center place-items-center">
           <div
-            onClick={() => push('/scales')}
+            onClick={() => push('/Scales')}
             className="rounded-lg border-2 border-slate-400 p-4 w-full text-center flex-col md:basis-1/2 h-36 md:mr-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
           >
             <h2 className="font-semibold text-xl">Scales</h2>
@@ -25,7 +25,7 @@ export default function Home() {
             </p>
           </div>
           <div
-            onClick={() => push('/chords')}
+            onClick={() => push('/Chords')}
             className="rounded-lg border-2 border-slate-400 p-4 w-full text-center flex-col md:basis-1/2 h-36 ml-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
           >
             <h2 className="font-semibold text-xl">Chords</h2>
@@ -37,7 +37,7 @@ export default function Home() {
         </div>
         <div className="flex m-auto flex-wrap w-full md:flex-nowrap place-content-center place-items-center">
           <div
-            onClick={() => push('/chordFinder')}
+            onClick={() => push('/ChordFinder')}
             className="rounded-lg border-2 border-slate-400 p-4 w-full text-center flex-col md:basis-1/2 h-36 md:mr-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
           >
             <h2 className="font-semibold text-xl">Chord Finder</h2>
@@ -47,7 +47,7 @@ export default function Home() {
             </p>
           </div>
           <div
-            onClick={() => push('/tuner')}
+            onClick={() => push('/Tuner')}
             className="rounded-lg border-2 border-slate-400 p-4 w-full text-center flex-col md:basis-1/2 h-36 md:ml-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
           >
             <h2 className="font-semibold text-xl">Tuner</h2>
@@ -59,7 +59,7 @@ export default function Home() {
         </div>
         <div className="flex m-auto flex-wrap w-full md:flex-nowrap place-content-center place-items-center">
           <div
-            onClick={() => push('/practice')}
+            onClick={() => push('/Practice')}
             className="rounded-lg border-2 border-slate-400 p-4 w-full text-center flex-col md:basis-1/2 h-36 md:ml-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
           >
             <h2 className="font-semibold text-xl">Practice</h2>
@@ -69,7 +69,7 @@ export default function Home() {
             </p>
           </div>
           <div
-            onClick={() => push('/rhythms')}
+            onClick={() => push('/Rhythms')}
             className="rounded-lg border-2 border-slate-400 p-4 w-full text-center flex-col md:basis-1/2 h-36 md:ml-1 mb-2 cursor-pointer hover:bg-slate-100 transition hover:scale-110"
           >
             <h2 className="font-semibold text-xl">Rhythms</h2>

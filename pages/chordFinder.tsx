@@ -1,18 +1,11 @@
 import { useEffect, useState } from 'react';
-import FretboardNew from '../components/FretboardNew';
-import PageHeaderNew from '../components/PageHeaderNew';
-import { chords, pattern } from '../utils/utils';
+import Fretboard from '../components/Fretboard';
+import PageHeader from '../components/PageHeader';
+import FretboardOptions from '../components/FretboardOptions';
+import { ISelectedNotes } from '../types/SelectedNotes';
+import { chords, noteSequence } from '../utils/musicConstants';
 
-export interface ISelectedNotes {
-  e: undefined | string;
-  b: undefined | string;
-  g: undefined | string;
-  d: undefined | string;
-  a: undefined | string;
-  E: undefined | string;
-}
-
-interface x {
+interface ICandidates {
   chord: string;
   notes: string[];
 }
@@ -26,7 +19,7 @@ const ChordFinder = () => {
     a: undefined,
     E: undefined,
   });
-  const [candidates, setCandidates] = useState<x[]>([]);
+  const [candidates, setCandidates] = useState<ICandidates[]>([]);
 
   const determineRoot = () => {
     if (selectedNotes.E) {
@@ -86,20 +79,20 @@ const ChordFinder = () => {
       const combinations = [];
 
       // iterate through each note
-      pattern.forEach((note, indx) => {
+      noteSequence.forEach((note, indx) => {
         // iterate through each chord
         chords.forEach((chord) => {
           const chordNotes = [note];
           const { formula } = chord;
 
-          let patternStart = pattern.findIndex((x) => x === note);
+          let patternStart = noteSequence.findIndex((x) => x === note);
           formula.forEach((degree) => {
             patternStart += degree;
             if (patternStart > 11) {
               patternStart -= 12;
             }
 
-            chordNotes.push(pattern[patternStart]);
+            chordNotes.push(noteSequence[patternStart]);
           });
 
           combinations.push({
@@ -116,7 +109,7 @@ const ChordFinder = () => {
         }
       });
 
-      const cands: x[] = [];
+      const cands: ICandidates[] = [];
 
       combinations.forEach((combo) => {
         if (Array.from(selected).every((n) => combo.notes.includes(n))) {
@@ -124,7 +117,7 @@ const ChordFinder = () => {
         }
       });
 
-      let finals: x[] = [];
+      let finals: ICandidates[] = [];
 
       if (cands.length > 0) {
         let bestMatch = cands[0];
@@ -144,7 +137,7 @@ const ChordFinder = () => {
 
         if (finals.length > 0) {
           const root = determineRoot();
-          finals = finals.sort((a: x, b: x) => {
+          finals = finals.sort((a: ICandidates, b: ICandidates) => {
             if (a.notes[0] === root) {
               return -1;
             }
@@ -169,7 +162,7 @@ const ChordFinder = () => {
 
   return (
     <div className="p-4">
-      <PageHeaderNew headline="Chord Finder">
+      <PageHeader headline="Chord Finder">
         If you have a cool position that you like to play on guitar, or just
         want to explore, select a combination of notes on the fretboard below to
         see what the closest chord is.
@@ -177,7 +170,7 @@ const ChordFinder = () => {
         <br />
         Some fingerings can sometimes be ambiguous, so there may be multiple
         candidates for the chord.
-      </PageHeaderNew>
+      </PageHeader>
 
       {candidates.length > 0 && (
         <div className="rounded border px-4 mt-4">
@@ -211,7 +204,8 @@ const ChordFinder = () => {
         </div>
       )}
 
-      <FretboardNew notes={selectedNotes} setSelectedNotes={setSelectedNotes} />
+      <FretboardOptions showNeckWoodOptions showOpacitySlider />
+      <Fretboard notes={selectedNotes} setSelectedNotes={setSelectedNotes} />
       <div className="mt-4">
         <button
           className="bg-orange-500 rounded-md hover:bg-orange-600"

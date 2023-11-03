@@ -1,555 +1,6 @@
-import { Dispatch, SetStateAction } from 'react';
-import { allChords } from './allChords';
-import { ISelectedNotes } from '../pages/chordFinder';
-import { INote } from '../types/note';
-
-/* eslint-disable react/jsx-key */
-export const pattern = [
-  'e',
-  'f',
-  'f#',
-  'g',
-  'g#',
-  'a',
-  'a#',
-  'b',
-  'c',
-  'c#',
-  'd',
-  'd#',
-];
-
-const degreeMap = {
-  1: '1',
-  2: 'b2',
-  3: '2',
-  4: 'b3',
-  5: '3',
-  6: '4',
-  7: '1',
-  8: '5',
-  9: '#5',
-  10: '6',
-  11: 'b7',
-  12: '7',
-  13: '1',
-  14: '1',
-  15: '9',
-};
-
-export const genChord = (index, key, chord, type) => {
-  const t = allChords.find((c) => c.type === type && c.name === chord);
-
-  if (t) {
-    const degree = t.pattern[index];
-    if (degree === 0) {
-      return [];
-    }
-    let patternStart = pattern.findIndex((note) => note === key);
-
-    let notes = [];
-    let move = 1;
-    while (notes.length === 0) {
-      if (patternStart > 11) {
-        patternStart = 0;
-      }
-
-      if (move === degree) {
-        notes.push({
-          note: pattern[patternStart],
-          position: degreeMap[degree],
-        });
-      }
-
-      patternStart += 1;
-      move += 1;
-    }
-
-    console.log(notes);
-
-    return notes;
-  }
-
-  return [];
-};
-
-export const chords = [
-  {
-    name: 'major',
-    pattern: ['1', '3', '5'],
-    formula: [4, 3],
-    family: 'Major',
-  },
-  {
-    name: 'major6',
-    pattern: ['1', '3', '5', '6'],
-    formula: [4, 3, 2],
-    family: 'Major',
-  },
-  {
-    name: 'major6/9',
-    pattern: ['1', '3', '5', '6', '9'],
-    formula: [4, 3, 2, 5],
-    family: 'Major',
-  },
-  {
-    name: 'major7',
-    pattern: ['1', '3', '5', '7'],
-    formula: [4, 3, 4],
-    family: 'Major',
-  },
-  {
-    name: 'major9',
-    pattern: ['1', '3', '5', '7', '9'],
-    formula: [4, 3, 4, 3],
-    family: 'Major',
-  },
-  {
-    name: 'major11',
-    pattern: ['1', '3', '5', '7', '9', '11'],
-    formula: [4, 3, 4, 3, 3],
-    family: 'Major',
-  },
-  {
-    name: 'minor',
-    pattern: ['1', 'b3', '5'],
-    formula: [3, 4],
-    family: 'Minor',
-  },
-  {
-    name: 'minor6',
-    pattern: ['1', 'b3', '5', '6'],
-    formula: [3, 4, 2],
-    family: 'Minor',
-  },
-  {
-    name: 'minor7',
-    pattern: ['1', 'b3', '5', 'b7'],
-    formula: [3, 4, 3],
-    family: 'Minor',
-  },
-  {
-    name: 'minor9',
-    pattern: ['1', 'b3', '5', 'b7', '9'],
-    formula: [3, 4, 3, 4],
-    family: 'Minor',
-  },
-  {
-    name: 'minor11',
-    pattern: ['1', 'b3', '5', 'b7', '9', '11'],
-    formula: [3, 4, 3, 4, 3],
-    family: 'Minor',
-  },
-  {
-    name: 'dom7',
-    pattern: ['1', '3', '5', 'b7'],
-    formula: [4, 3, 3],
-    family: 'Dominant',
-  },
-  {
-    name: 'dom7b5',
-    pattern: ['1', '3', 'b5', '7'],
-    formula: [4, 2, 4],
-    family: 'Dominant',
-  },
-  {
-    name: 'dom9',
-    pattern: ['1', '3', '5', 'b7', '9'],
-    formula: [4, 3, 3, 4],
-    family: 'Dominant',
-  },
-  {
-    name: 'dom11',
-    pattern: ['1', '3', '5', 'b7', '9', '11'],
-    formula: [4, 3, 3, 4, 3],
-    family: 'Dominant',
-  },
-  {
-    name: 'dim',
-    pattern: ['1', 'b3', 'b5'],
-    formula: [3, 3],
-    family: 'Diminished',
-  },
-  {
-    name: 'dim7',
-    pattern: ['1', 'b3', 'b5', 'bb7'],
-    formula: [3, 3, 3],
-    family: 'Diminished',
-  },
-  {
-    name: 'aug',
-    pattern: ['1', '3', '#5'],
-    formula: [4, 4],
-    family: 'Augmented',
-  },
-  {
-    name: 'aug7',
-    pattern: ['1', '3', '#5', 'b7'],
-    formula: [4, 4, 2],
-    family: 'Augmented',
-  },
-  {
-    name: 'sus2',
-    pattern: ['1', '2', '5'],
-    formula: [2, 5],
-    family: 'Suspended',
-  },
-  {
-    name: 'sus4',
-    pattern: ['1', '4', '5'],
-    formula: [5, 2],
-    family: 'Suspended',
-  },
-  {
-    name: '7sus4',
-    pattern: ['1', '4', '5', 'b7'],
-    formula: [5, 2, 3],
-    family: 'Suspended',
-  },
-  {
-    name: 'add9',
-    pattern: ['1', '3', '5', '9'],
-    formula: [4, 3, 7],
-    family: 'Other',
-  },
-  {
-    name: 'add11',
-    pattern: ['1', '3', '5', '11'],
-    formula: [4, 3, 10],
-    family: 'Other',
-  },
-];
-
-export const chordFamilies = [
-  'Major',
-  'Minor',
-  'Dominant',
-  'Augmented',
-  'Diminished',
-  'Suspended',
-  'Other',
-];
-
-export const majorScale = [2, 2, 1, 2, 2, 2];
-export const naturalMinorScale = [2, 1, 2, 2, 1, 2];
-export const harmonicMinorScale = [2, 1, 2, 2, 3];
-export const melodicMinorScale = [2, 1, 2, 2, 2, 2];
-
-export const dorian = [2, 1, 2, 2, 2, 1];
-export const phrygian = [1, 2, 2, 2, 1, 2];
-export const lydian = [2, 2, 2, 1, 2, 2];
-export const mixolydian = [2, 2, 1, 2, 2, 1];
-export const locrian = [1, 2, 2, 1, 2, 2];
-
-export const scaleDefinitions = {
-  major: {
-    pattern: [2, 2, 1, 2, 2, 2],
-    1: {
-      triad: 'Maj',
-      ext: 'Maj7',
-      numeral: 'I',
-    },
-    2: {
-      triad: 'min',
-      ext: 'min7',
-      numeral: 'ii',
-    },
-    3: {
-      triad: 'min',
-      ext: 'min7',
-      numeral: 'iii',
-    },
-    4: {
-      triad: 'Maj',
-      ext: 'Maj7',
-      numeral: 'IV',
-    },
-    5: {
-      triad: 'Maj',
-      ext: 'Dom7',
-      numeral: 'V',
-    },
-    6: {
-      triad: 'min',
-      ext: 'min7',
-      numeral: 'vi',
-    },
-    7: {
-      triad: 'dim',
-      ext: 'min7b5',
-      numeral: 'vii°',
-    },
-  },
-  natMinor: {
-    pattern: [2, 1, 2, 2, 1, 2],
-    1: {
-      triad: 'min',
-      ext: 'min7',
-      numeral: 'i',
-    },
-    2: {
-      triad: 'dim',
-      ext: 'min7b5',
-      numeral: 'ii°',
-    },
-    3: {
-      triad: 'Maj',
-      ext: 'Maj7',
-      numeral: 'III',
-    },
-    4: {
-      triad: 'min',
-      ext: 'min7',
-      numeral: 'iv',
-    },
-    5: {
-      triad: 'min',
-      ext: 'min7',
-      numeral: 'v',
-    },
-    6: {
-      triad: 'Maj',
-      ext: 'Maj7',
-      numeral: 'VI',
-    },
-    7: {
-      triad: 'Maj',
-      ext: 'Dom7',
-      numeral: 'VII',
-    },
-  },
-  melodMinor: {
-    pattern: [2, 1, 2, 2, 2, 2],
-    1: {
-      triad: 'min',
-      ext: 'minMaj7',
-      numeral: 'i',
-    },
-    2: {
-      triad: 'min',
-      ext: 'min7',
-      numeral: 'ii',
-    },
-    3: {
-      triad: 'Aug',
-      ext: 'Maj7#5',
-      numeral: 'III+',
-    },
-    4: {
-      triad: 'Maj',
-      ext: 'Dom7',
-      numeral: 'IV',
-    },
-    5: {
-      triad: 'Maj',
-      ext: 'Dom7',
-      numeral: 'V',
-    },
-    6: {
-      triad: 'Dim',
-      ext: 'min7b5',
-      numeral: 'vi°',
-    },
-    7: {
-      triad: 'Dim',
-      ext: 'min7b5',
-      numeral: 'vii°',
-    },
-  },
-  harmMinor: {
-    pattern: [2, 1, 2, 2, 1, 3],
-    1: {
-      triad: 'min',
-      ext: 'minMaj7',
-      numeral: 'i',
-    },
-    2: {
-      triad: 'dim',
-      ext: 'min7b5',
-      numeral: 'ii°',
-    },
-    3: {
-      triad: 'Aug',
-      ext: 'Maj7#5',
-      numeral: 'III+',
-    },
-    4: {
-      triad: 'min',
-      ext: 'min7',
-      numeral: 'iv',
-    },
-    5: {
-      triad: 'Maj',
-      ext: 'Dom7',
-      numeral: 'V',
-    },
-    6: {
-      triad: 'Maj',
-      ext: 'Maj7',
-      numeral: 'VI',
-    },
-    7: {
-      triad: 'dim',
-      ext: 'diminished7',
-      numeral: 'vii°',
-    },
-  },
-  dorian: {
-    pattern: [2, 1, 2, 2, 2, 1],
-    1: {
-      triad: 'min',
-      ext: 'min7',
-    },
-    2: {
-      triad: 'min',
-      ext: 'min7',
-    },
-    3: {
-      triad: 'Maj',
-      ext: 'Maj7',
-    },
-    4: {
-      triad: 'Maj',
-      ext: 'Dom7',
-    },
-    5: {
-      triad: 'min',
-      ext: 'min7',
-    },
-    6: {
-      triad: 'dim',
-      ext: 'min7b5',
-    },
-    7: {
-      triad: 'Maj',
-      ext: 'Maj7',
-    },
-  },
-  phrygian: {
-    pattern: [1, 2, 2, 2, 1, 2],
-    1: {
-      triad: 'min',
-      ext: 'min7',
-    },
-    2: {
-      triad: 'Maj',
-      ext: 'Maj7',
-    },
-    3: {
-      triad: 'Maj',
-      ext: 'Dom7',
-    },
-    4: {
-      triad: 'min',
-      ext: 'min7',
-    },
-    5: {
-      triad: 'dim',
-      ext: 'min7b5',
-    },
-    6: {
-      triad: 'Maj',
-      ext: 'Maj7',
-    },
-    7: {
-      triad: 'min',
-      ext: 'min7',
-    },
-  },
-  lydian: {
-    pattern: [2, 2, 2, 1, 2, 2],
-    1: {
-      triad: 'Maj',
-      ext: 'Maj7',
-    },
-    2: {
-      triad: 'Maj',
-      ext: 'Dom7',
-    },
-    3: {
-      triad: 'min',
-      ext: 'min7',
-    },
-    4: {
-      triad: 'dim',
-      ext: 'min7b5',
-    },
-    5: {
-      triad: 'Maj',
-      ext: 'Maj7',
-    },
-    6: {
-      triad: 'min',
-      ext: 'min7',
-    },
-    7: {
-      triad: 'min',
-      ext: 'min7',
-    },
-  },
-  mixolydian: {
-    pattern: [2, 2, 1, 2, 2, 1],
-    1: {
-      triad: 'Maj',
-      ext: 'Dom7',
-    },
-    2: {
-      triad: 'min',
-      ext: 'min7',
-    },
-    3: {
-      triad: 'dim',
-      ext: 'min7b5',
-    },
-    4: {
-      triad: 'Maj',
-      ext: 'Maj7',
-    },
-    5: {
-      triad: 'min',
-      ext: 'min7',
-    },
-    6: {
-      triad: 'min',
-      ext: 'min7',
-    },
-    7: {
-      triad: 'Maj',
-      ext: 'Maj7',
-    },
-  },
-  locrian: {
-    pattern: [1, 2, 2, 1, 2, 2],
-    1: {
-      triad: 'dim',
-      ext: 'min7b5',
-    },
-    2: {
-      triad: 'Maj',
-      ext: 'Maj7',
-    },
-    3: {
-      triad: 'min',
-      ext: 'min7',
-    },
-    4: {
-      triad: 'min',
-      ext: 'min7',
-    },
-    5: {
-      triad: 'Maj',
-      ext: 'Maj7',
-    },
-    6: {
-      triad: 'Maj',
-      ext: 'Dom7',
-    },
-    7: {
-      triad: 'min',
-      ext: 'min7',
-    },
-  },
-};
+import { chordShapes } from './chordShapes';
+import { INote } from '../types/Note';
+import { chords, degreeSequence, noteSequence } from './musicConstants';
 
 // opacity-[0]
 // opacity-[.10]
@@ -562,162 +13,30 @@ export const scaleDefinitions = {
 // opacity-[.80]
 // opacity-[.90]
 
-export function generateString(
-  start: string,
-  high: boolean = false,
-  tones?: any[],
-  isRosewood?: boolean,
-  opacity?: number,
-  selectedNotes?: ISelectedNotes,
-  setSelectedNotes?: Dispatch<SetStateAction<ISelectedNotes>>
-) {
-  let patternStart = pattern.findIndex((note) => note === start.toLowerCase());
+// ml-[0px]
+// ml-[10px]
+// ml-[20px]
+// ml-[30px]
+// ml-[40px]
+// ml-[50px]
+// ml-[60px]
+// ml-[70px]
 
-  let notes = [];
-
-  const selectedNote = selectedNotes && selectedNotes[start];
-
-  while (notes.length < 13) {
-    if (patternStart > 11) {
-      patternStart = 0;
-    }
-
-    notes.push(pattern[patternStart]);
-    patternStart += 1;
-  }
-
-  let height = 'h-[3px]';
-  if (start === 'e') {
-    height = 'h-[0.5px]';
-  }
-  if (start === 'b') {
-    height = 'h-[1px]';
-  }
-  if (start === 'g') {
-    height = 'h-[1.5px]';
-  }
-  if (start === 'd') {
-    height = 'h-[2px]';
-  }
-  if (start === 'a') {
-    height = 'h-[2.5px]';
-  }
-  if (start === 'E') {
-    height = 'h-[3px]';
-  }
-
-  return notes.map((note, indx) => {
-    let extraClass = '';
-
-    let notee = note;
-    // if (indx > 0 && tones.length === 0) {
-    //   notee = null;
-    // }
-    let extra = '';
-    if (
-      tones &&
-      tones.length &&
-      tones.findIndex((tone) => tone.note === note.toLowerCase()) >= 0
-    ) {
-      extra += 'text-yellow-900';
-      notee = tones.find((tone) => tone.note === note.toLowerCase()).position;
-    }
-
-    if (selectedNote === note) {
-      extra += 'text-yellow-900';
-    }
-
-    let noteStyle = 'bg-blue-200 w-6 h-6 m-auto rounded-full ';
-    if (
-      (tones &&
-        tones.length > 0 &&
-        tones.findIndex((tone) => tone.note === note.toLowerCase()) < 0 &&
-        indx > 0) ||
-      tones.length === 0
-    ) {
-      if (opacity) {
-        noteStyle += `opacity-[.${opacity}]`;
-      } else if (opacity === 0) {
-        noteStyle += 'opacity-[0]';
-      } else {
-        noteStyle += 'opacity-30';
-      }
-    } else {
-      noteStyle += 'opacity-90';
-    }
-
-    if (selectedNote === note) {
-      noteStyle += ' opacity-90';
-    }
-
-    if (
-      (tones.findIndex((tone) => tone.note === note) >= 0 &&
-        tones.find((tone) => tone.note === note).root) ||
-      selectedNote === note
-    ) {
-      extra += ' font-bold text-lg text-blue-900';
-      noteStyle += ' bg-amber-300';
-    }
-
-    if (indx === 0) {
-      extraClass += 'w-4 rounded font-bold';
-    }
-
-    const thing =
-      start === 'g' &&
-      (indx === 3 || indx === 5 || indx === 7 || indx === 9 || indx === 12);
-    const thing2 =
-      start === 'd' &&
-      (indx === 3 || indx === 5 || indx === 7 || indx === 9 || indx === 12);
-
-    const inlayColor = isRosewood ? 'bg-white' : 'bg-black';
-
-    const updateSelectedNotes = () => {
-      if (selectedNote === note) {
-        setSelectedNotes({ ...selectedNotes, [start]: undefined });
-      } else {
-        setSelectedNotes({ ...selectedNotes, [start]: notee });
-      }
-    };
-
-    return (
-      <div className={`flex-1 relative text-center ${extraClass}`}>
-        {indx > 0 ? (
-          <div className={`${height} w-full bg-slate-400 top-5 absolute`} />
-        ) : (
-          ''
-        )}
-        <div className={`top-2 h-6 top-2 w-full absolute z-50 ${extra}`}>
-          <div className={`${noteStyle}`} onClick={() => updateSelectedNotes()}>
-            {notee}
-          </div>
-        </div>
-        {indx > 0 ? <div className="h-[40px] w-1 bg-slate-300" /> : ''}
-        {thing && (
-          <div
-            className={`h-1 w-2 ${inlayColor} inset-x-1/2 bottom-0 rounded-tl-full rounded-tr-full m-auto absolute`}
-          />
-        )}
-        {thing2 && (
-          <div
-            className={`h-1 w-2 ${inlayColor} inset-x-1/2 top-0  rounded-bl-full rounded-br-full m-auto absolute`}
-          />
-        )}
-      </div>
-    );
-  });
-}
-
-export function generateScaleTones(key: string, scalePattern?: number[]) {
+export function generateScaleTones(
+  key: string,
+  scalePattern?: number[]
+): INote[] {
   if (!key || key.length === 0 || !scalePattern) {
     return [];
   }
 
-  let patternStart = pattern.findIndex((note) => note.toLowerCase() === key);
+  let patternStart = noteSequence.findIndex(
+    (note) => note.toLowerCase() === key
+  );
   let notes: INote[] = [
     {
       note: key,
-      position: '1',
+      degree: '1',
       root: true,
     },
   ];
@@ -731,8 +50,8 @@ export function generateScaleTones(key: string, scalePattern?: number[]) {
     patternStart = x;
 
     notes.push({
-      note: pattern[x],
-      position: indx + 2 + '',
+      note: noteSequence[x],
+      degree: indx + 2 + '',
       root: false,
     });
   });
@@ -740,14 +59,49 @@ export function generateScaleTones(key: string, scalePattern?: number[]) {
   return notes;
 }
 
-export function generateChord(key?: string, chord?: string) {
+export const generateChordShape = (index, key, chord, number): INote[] => {
+  const t = chordShapes.find((c) => c.number === number && c.type === chord);
+
+  if (t) {
+    const degree = t.pattern[index];
+    if (degree === 0) {
+      return [];
+    }
+    let patternStart = noteSequence.findIndex((note) => note === key);
+
+    let notes = [];
+    let move = 1;
+    while (notes.length === 0) {
+      if (patternStart > 11) {
+        patternStart = 0;
+      }
+
+      if (move === degree) {
+        notes.push({
+          note: noteSequence[patternStart],
+          degree: degreeSequence[degree],
+        });
+      }
+
+      patternStart += 1;
+      move += 1;
+    }
+
+    return notes;
+  }
+
+  return [];
+};
+
+export function generateChord(key?: string, chord?: string): INote[] {
   const c = chords.find((x) => x.name === chord);
 
-  let patternStart = pattern.findIndex((note) => note === key);
+  let patternStart = noteSequence.findIndex((note) => note === key);
   const notes = [
     {
       note: key,
-      position: '1',
+      degree: '1',
+      root: true,
     },
   ];
 
@@ -764,8 +118,9 @@ export function generateChord(key?: string, chord?: string) {
     patternStart = x;
 
     notes.push({
-      note: pattern[x],
-      position: c.pattern[indx + 1],
+      note: noteSequence[x],
+      degree: c.pattern[indx + 1],
+      root: false,
     });
   });
 

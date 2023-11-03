@@ -1,28 +1,12 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState } from 'react';
-import FretboardNew from '../components/FretboardNew';
-import PageHeaderNew from '../components/PageHeaderNew';
-import { chords, pattern } from '../utils/utils';
-import { allChords } from '../utils/allChords';
-
-interface IChord {
-  name: string;
-  pattern: string[];
-  formula: number[];
-  family: string;
-}
-
-interface IType {
-  name: string;
-  type: string;
-  pattern: number[];
-}
-
-interface IChordd {
-  key: string;
-  name: string;
-  type?: string;
-}
+import Fretboard from '../components/Fretboard';
+import PageHeader from '../components/PageHeader';
+import { chordShapes } from '../utils/chordShapes';
+import { IChordToGuess } from '../types/ChordToGuess';
+import { chords, noteSequence } from '../utils/musicConstants';
+import FretboardSlice from '../components/FretboardSlice';
+import { IChord } from '../types/Chord';
 
 const getRandom = (size: number) => {
   const min = 0;
@@ -42,10 +26,10 @@ const randomOrder = (array: number[]) => {
 };
 
 interface IProps {
-  c: IChordd;
-  w1: IChordd;
-  w2: IChordd;
-  w3: IChordd;
+  c: IChordToGuess;
+  w1: IChordToGuess;
+  w2: IChordToGuess;
+  w3: IChordToGuess;
 }
 
 const Answers: React.FC<IProps> = React.memo((props: IProps) => {
@@ -110,29 +94,29 @@ const Answers: React.FC<IProps> = React.memo((props: IProps) => {
   );
 });
 
-const randomChord = () => {
-  const key = pattern[getRandom(pattern.length - 1)];
+const randomChord: () => IChordToGuess = () => {
+  const key = noteSequence[getRandom(noteSequence.length - 1)];
   const chord = chords[getRandom(chords.length - 1)];
-  const types = allChords.filter((x) => {
+  const shapes = chordShapes.filter((x) => {
     return x.name === chord.name;
   });
 
-  if (!types || types.length === 0) {
+  if (!shapes || shapes.length === 0) {
     return randomChord();
   }
 
   return {
     key: key,
+    chord: shapes[getRandom(shapes.length - 1)],
     name: chord.name,
-    type: types[getRandom(types.length - 1)].type,
   };
 };
 
 const Practice = () => {
-  const [chord, setChord] = useState<IChordd | undefined>();
-  const [wrongChord1, setWrongChord1] = useState<IChordd | undefined>();
-  const [wrongChord2, setWrongChord2] = useState<IChordd | undefined>();
-  const [wrongChord3, setWrongChord3] = useState<IChordd | undefined>();
+  const [chord, setChord] = useState<IChordToGuess | undefined>();
+  const [wrongChord1, setWrongChord1] = useState<IChordToGuess | undefined>();
+  const [wrongChord2, setWrongChord2] = useState<IChordToGuess | undefined>();
+  const [wrongChord3, setWrongChord3] = useState<IChordToGuess | undefined>();
 
   const prepareQuestion = () => {
     setChord(randomChord());
@@ -143,7 +127,7 @@ const Practice = () => {
 
   return (
     <div className="p-4">
-      <PageHeaderNew headline="Practice"></PageHeaderNew>
+      <PageHeader headline="Practice"></PageHeader>
       Chord Naming Interval Naming Note Naming
       <button onClick={() => prepareQuestion()}>Start</button>
       {chord && (
@@ -157,10 +141,10 @@ const Practice = () => {
               w3={wrongChord3}
             />
           </div>
-          <FretboardNew
+          <FretboardSlice
             chord={chord.name}
             keyy={chord.key}
-            chordType={chord.type}
+            chordShape={chord.chord}
           />
         </>
       )}

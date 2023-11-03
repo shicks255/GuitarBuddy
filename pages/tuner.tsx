@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
-import PageHeaderNew from '../components/PageHeaderNew';
+import PageHeader from '../components/PageHeader';
+import { noteSequence } from '../utils/musicConstants';
 
 const allFreqs = [
   16.35, 17.32, 18.35, 19.45, 20.6, 21.83, 23.12, 24.5, 25.96, 27.5, 29.14,
@@ -482,23 +483,6 @@ const Tuner: React.FC = () => {
   const [vol, setVol] = useState('0.4');
   const [duration, setDuration] = useState(1);
 
-  const pattern_old = [
-    'A',
-    'A#/Bb',
-    'B',
-    'C',
-    'C#/Db',
-    'D',
-    'D#/Eb',
-    'E',
-    'F',
-    'F#/Gb',
-    'G',
-    'G#/Ab',
-  ];
-
-  const pattern = ['E', 'B', 'G', 'D', 'A', 'E'];
-
   const noteFrequencies = [330, 247, 196, 147, 110, 82];
 
   const findFundyFreqy = (buffer, sampleRate) => {
@@ -573,7 +557,6 @@ const Tuner: React.FC = () => {
   };
 
   const findFundFreq = (buffer, sampleRate) => {
-    // console.log(buffer);
     let offsetSums = new Array(buffer.length).fill(0);
 
     for (let offset = 8; offset < buffer.length; offset++) {
@@ -741,21 +724,17 @@ const Tuner: React.FC = () => {
                 cCtx.fill();
                 cCtx.stroke();
               }
-
-              // console.log(note);
             }
           };
 
           draw();
-          console.log(dataArray);
-          console.log(analyzer);
         });
     }
   };
 
   return (
     <div className="p-4">
-      <PageHeaderNew headline="Tuner" />
+      <PageHeader headline="Tuner" />
       <div className="">
         <input
           type="range"
@@ -776,7 +755,7 @@ const Tuner: React.FC = () => {
         />
         <label htmlFor="duration">Note duration</label>
         <div className="flex">
-          {pattern.map((note, indx) => {
+          {noteSequence.map((note, indx) => {
             return (
               <div
                 className="w-8 text-center bg-blue-200 p-1 m-2 rounded hover:cursor-pointer"

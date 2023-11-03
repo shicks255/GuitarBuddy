@@ -1,5 +1,5 @@
 import { SetStateAction, useEffect, useRef, useState } from 'react';
-import PageHeaderNew from '../components/PageHeaderNew';
+import PageHeader from '../components/PageHeader';
 import * as Tone from 'tone';
 import { Sampler } from 'tone/build/esm/instrument';
 import { patterns } from '../utils/patterns';
@@ -586,7 +586,7 @@ const Rythms = () => {
 
   return (
     <div>
-      <PageHeaderNew headline="Rythms" />
+      <PageHeader headline="Rythms" />
       <div className="flex mb-6">
         <button
           className={`${

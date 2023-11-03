@@ -1,10 +1,10 @@
-import PageHeaderNew from '../components/PageHeaderNew';
+import PageHeader from '../components/PageHeader';
 import PageImageNew from '../components/PageImageNew';
 
 const About = () => {
   return (
     <div className="p-4">
-      <PageHeaderNew headline="About" />
+      <PageHeader headline="About" />
       <h2 className="font-semibold text-lg p-2">Guitar Pal</h2>
       <p className="p-2">
         Hello, I&apos;m Steven. If you&apos;re on the this site you probably

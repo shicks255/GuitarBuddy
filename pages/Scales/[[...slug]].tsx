@@ -63,7 +63,7 @@ const Scales: React.FC = () => {
         c = 'minor7♭5';
         break;
       case 'minMaj7':
-        c = 'minMaj7'; //add
+        c = 'minMaj7';
         break;
       case 'Maj7♯5':
         c = 'major7♯5'; //add
@@ -268,20 +268,22 @@ const Scales: React.FC = () => {
           {scaleDefinition?.otherNames && (
             <div className="md:flex md:items-center mb-6 justify-start">
               <div className="block text-gray-600 font-bold md:text-right mb-1 md:mb-0 pr-4">
-                Other Names: {scaleDefinition?.otherNames?.join(', ')}
+                Other Names
               </div>
+              <div className="">{scaleDefinition?.otherNames?.join(', ')}</div>
             </div>
           )}
-          {scaleDefinition.details && (
+          {scaleDefinition?.details && (
             <div className="md:flex md:items-center mb-6 justify-start">
               <div className="block text-gray-600 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 Other Notes: {scaleDefinition?.details.join(', ')}
               </div>
+              <div>{scaleDefinition?.details.join(', ')}</div>
             </div>
           )}
           <div className="md:flex md:items-center mb-6 justify-start">
             <div className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-              Scale Degrees:
+              Scale Degrees
             </div>
             <div>
               {scaleDefinition?.pattern
@@ -299,13 +301,13 @@ const Scales: React.FC = () => {
           </div>
           <div className="md:flex md:items-center mb-6 justify-start">
             <div className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-              Notes:
+              Notes
             </div>
             <div>{tones.map((tone) => tone.note).join(' - ')}</div>
           </div>
           <div className="md:flex md:items-center mb-6 justify-start">
             <div className="block text-gray-500 font-bold md:text-right md:mb-0 pr-4">
-              Diatonic Chords:
+              Diatonic Chords
             </div>
             <div>
               {tones.map((tone, index) => (
@@ -316,7 +318,7 @@ const Scales: React.FC = () => {
                   <span>{scaleDefinition[index + 1]?.numeral}</span>
                   <span
                     key={tone.note}
-                    className="mr-4 ml-4 text-blue-500"
+                    className="mr-4 ml-4 text-blue-500 cursor-pointer hover:text-teal-400"
                     onClick={() =>
                       goToChord(tone.note, scaleDefinition[index + 1]?.triad)
                     }
@@ -329,7 +331,7 @@ const Scales: React.FC = () => {
           </div>
           <div className="md:flex md:items-center justify-start">
             <div className="block text-gray-500 font-bold md:text-right md:mb-0 pr-4">
-              Extended Diatonic Chords:
+              Extended Diatonic Chords
             </div>
             <div>
               {tones.map((tone, index) => (
@@ -340,7 +342,7 @@ const Scales: React.FC = () => {
                   <span>{scaleDefinition[index + 1]?.numeral}</span>
                   <span
                     key={tone.note}
-                    className="mr-4 ml-4 text-blue-500"
+                    className="mr-4 ml-4 text-blue-500 cursor-pointer hover:text-teal-400"
                     onClick={() =>
                       goToChord(tone.note, scaleDefinition[index + 1]?.ext)
                     }

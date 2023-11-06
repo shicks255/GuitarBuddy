@@ -1,5 +1,5 @@
 import { chordShapes } from './chordShapes';
-import { INote } from '../types/INote';
+import { INote } from '../types/Note';
 import { chords, degreeSequence, noteSequence } from './musicConstants';
 
 // opacity-[0]

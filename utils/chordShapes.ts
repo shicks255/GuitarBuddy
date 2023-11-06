@@ -212,6 +212,18 @@ export const chordShapes: IChordShape[] = [
     pattern: [1, 8, 5, 12, 0, 0],
   },
   {
+    type: 'major7♯5',
+    number: 1,
+    tags: ['Movable'],
+    pattern: [0, 0, 12, 9, 5, 1],
+  },
+  {
+    type: 'major7♯5',
+    number: 2,
+    tags: ['Movable'],
+    pattern: [0, 12, 9, 5, 1, 0],
+  },
+  {
     type: 'major9',
     number: 1,
     tags: ['Movable'],
@@ -646,5 +658,17 @@ export const chordShapes: IChordShape[] = [
     number: 2,
     tags: ['Movable'],
     pattern: [0, 15, 8, 5, 1, 0],
+  },
+  {
+    type: 'minMaj7',
+    number: 1,
+    tags: ['Movable'],
+    pattern: [0, 0, 4, 12, 8, 1],
+  },
+  {
+    type: 'minMaj7',
+    number: 2,
+    tags: ['Movable'],
+    pattern: [0, 4, 12, 8, 1, 0],
   },
 ];

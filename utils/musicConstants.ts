@@ -24,7 +24,7 @@ export const degreeSequence = {
   6: '4',
   7: 'b5',
   8: '5',
-  9: '#5',
+  9: '♯5',
   10: '6',
   11: 'b7',
   12: '7',
@@ -57,6 +57,12 @@ export const chords: IChord[] = [
     name: 'major7',
     pattern: ['1', '3', '5', '7'],
     formula: [4, 3, 4],
+    family: 'Major',
+  },
+  {
+    name: 'major7♯5',
+    pattern: ['1', '3', '♯5', '7'],
+    formula: [4, 4, 3],
     family: 'Major',
   },
   {
@@ -149,13 +155,13 @@ export const chords: IChord[] = [
   },
   {
     name: 'aug',
-    pattern: ['1', '3', '#5'],
+    pattern: ['1', '3', '♯5'],
     formula: [4, 4],
     family: 'Augmented',
   },
   {
     name: 'aug7',
-    pattern: ['1', '3', '#5', '♭7'],
+    pattern: ['1', '3', '♯5', '♭7'],
     formula: [4, 4, 2],
     family: 'Augmented',
   },
@@ -189,6 +195,12 @@ export const chords: IChord[] = [
     formula: [4, 3, 10],
     family: 'Other',
   },
+  {
+    name: 'minMaj7',
+    pattern: ['1', '♭3', '5', '7'],
+    formula: [3, 4, 4],
+    family: 'Other',
+  },
 ];
 
 export const chordFamilies = [
@@ -200,14 +212,3 @@ export const chordFamilies = [
   'Suspended',
   'Other',
 ];
-
-// export const majorScale = [2, 2, 1, 2, 2, 2];
-// export const naturalMinorScale = [2, 1, 2, 2, 1, 2];
-// export const harmonicMinorScale = [2, 1, 2, 2, 3];
-// export const melodicMinorScale = [2, 1, 2, 2, 2, 2];
-
-// export const dorian = [2, 1, 2, 2, 2, 1];
-// export const phrygian = [1, 2, 2, 2, 1, 2];
-// export const lydian = [2, 2, 2, 1, 2, 2];
-// export const mixolydian = [2, 2, 1, 2, 2, 1];
-// export const locrian = [1, 2, 2, 1, 2, 2];

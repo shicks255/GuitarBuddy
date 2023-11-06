@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { INote } from '../types/INote';
+import { INote } from '../types/Note';
 import { useVisualContext } from './VisualContext';
 import { dotColors, noteStyles, stringHeights } from '../utils/visualConstants';
 import { noteSequence } from '../utils/musicConstants';

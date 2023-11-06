@@ -105,7 +105,7 @@ export const scaleDefinitions: IScale[] = [
     },
     3: {
       triad: 'Aug',
-      ext: 'Maj7#5',
+      ext: 'Maj7♯5',
       numeral: 'III+',
     },
     4: {
@@ -145,7 +145,7 @@ export const scaleDefinitions: IScale[] = [
     },
     3: {
       triad: 'Aug',
-      ext: 'Maj7#5',
+      ext: 'Maj7♯5',
       numeral: 'III+',
     },
     4: {
@@ -387,15 +387,15 @@ export const scaleDefinitions: IScale[] = [
     modeNumber: 2,
   },
   {
-    name: 'Ionian #5',
-    key: 'ionian_#5',
+    name: 'Ionian ♯5',
+    key: 'ionian_♯5',
     pattern: [2, 2, 1, 3, 1, 2],
     modeFamily: 'Harmonic Minor',
     modeNumber: 3,
   },
   {
-    name: 'Dorian #11',
-    key: 'dorian_#11',
+    name: 'Dorian ♯11',
+    key: 'dorian_♯11',
     pattern: [2, 1, 3, 1, 2, 1],
     modeFamily: 'Harmonic Minor',
     modeNumber: 4,
@@ -408,8 +408,8 @@ export const scaleDefinitions: IScale[] = [
     modeNumber: 5,
   },
   {
-    name: 'Lydian #2',
-    key: 'lydian_#2',
+    name: 'Lydian ♯2',
+    key: 'lydian_♯2',
     pattern: [3, 1, 2, 1, 2, 2],
     modeFamily: 'Harmonic Minor',
     modeNumber: 6,
@@ -427,7 +427,7 @@ export const scaleDefinitions: IScale[] = [
     pattern: [1, 2, 2, 2, 2, 1],
     modeFamily: 'Melodic Minor',
     modeNumber: 2,
-    otherNames: ['Phrygian #6'],
+    otherNames: ['Phrygian ♯6'],
   },
   {
     name: 'Lydian Augmented',
@@ -457,7 +457,7 @@ export const scaleDefinitions: IScale[] = [
     pattern: [2, 1, 2, 1, 2, 2, 2],
     modeFamily: 'Melodic Minor',
     modeNumber: 6,
-    otherNames: ['Locrian #2'],
+    otherNames: ['Locrian ♯2'],
   },
   {
     name: 'Altered Scale',

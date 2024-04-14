@@ -118,14 +118,14 @@ export default function MyApp({ Component, pageProps }) {
         <div className="flex flex-col h-full">
           <div
             className={`h-14 hover:cursor-pointer w-full text-center items-center flex ${
-              asPath.includes('/Scales')
+              asPath.includes('/scales')
                 ? 'font-bold bg-orange-400'
                 : 'font-semibold hover:bg-orange-100'
             } ${isMobile ? 'border-b-2' : ''}`}
           >
             <Link
               className="flex-1"
-              href="/Scales"
+              href="/scales"
               onClick={() => closeIfMobile()}
             >
               Scales
@@ -133,14 +133,14 @@ export default function MyApp({ Component, pageProps }) {
           </div>
           <div
             className={`h-14 hover:cursor-pointer w-full text-center items-center flex ${
-              asPath.includes('/Chords')
+              asPath.includes('/chords')
                 ? 'font-bold bg-orange-400'
                 : 'font-semibold hover:bg-orange-100'
             } ${isMobile ? 'border-b-2' : ''}`}
           >
             <Link
               className="flex-1"
-              href="/Chords"
+              href="/chords"
               onClick={() => closeIfMobile()}
             >
               Chords
@@ -148,14 +148,14 @@ export default function MyApp({ Component, pageProps }) {
           </div>
           <div
             className={`h-14 hover:cursor-pointer w-full text-center items-center flex ${
-              asPath === '/ChordFinder'
+              asPath === '/chordFinder'
                 ? 'font-bold bg-orange-400'
                 : 'font-semibold hover:bg-orange-100'
             } ${isMobile ? 'border-b-2' : ''}`}
           >
             <Link
               className="flex-1"
-              href="/ChordFinder"
+              href="/chordFinder"
               onClick={() => closeIfMobile()}
             >
               Chord Finder
@@ -163,14 +163,14 @@ export default function MyApp({ Component, pageProps }) {
           </div>
           <div
             className={`h-14 hover:cursor-pointer w-full text-center items-center flex ${
-              asPath === '/Tuner'
+              asPath === '/tuner'
                 ? 'font-bold bg-orange-400'
                 : 'font-semibold hover:bg-orange-100'
             } ${isMobile ? 'border-b-2' : ''}`}
           >
             <Link
               className="flex-1"
-              href="/Tuner"
+              href="/tuner"
               onClick={() => closeIfMobile()}
             >
               Tuner
@@ -178,14 +178,14 @@ export default function MyApp({ Component, pageProps }) {
           </div>
           <div
             className={`h-14 hover:cursor-pointer w-full text-center items-center flex ${
-              asPath === '/Rhythms'
+              asPath === '/rhythms'
                 ? 'font-bold bg-orange-400'
                 : 'font-semibold hover:bg-orange-100'
             } ${isMobile ? 'border-b-2' : ''}`}
           >
             <Link
               className="flex-1"
-              href="/Rhythms"
+              href="/rhythms"
               onClick={() => closeIfMobile()}
             >
               Rhythms
@@ -193,14 +193,14 @@ export default function MyApp({ Component, pageProps }) {
           </div>
           <div
             className={`h-14 hover:cursor-pointer w-full text-center items-center flex ${
-              asPath === '/Practice'
+              asPath === '/practice'
                 ? 'font-bold bg-orange-400'
                 : 'font-semibold hover:bg-orange-100'
             } ${isMobile ? 'border-b-2' : ''}`}
           >
             <Link
               className="flex-1"
-              href="/Practice"
+              href="/practice"
               onClick={() => closeIfMobile()}
             >
               Practice
@@ -208,14 +208,14 @@ export default function MyApp({ Component, pageProps }) {
           </div>
           <div
             className={`h-14 hover:cursor-pointer w-full text-center items-center flex ${
-              asPath === '/Glossary'
+              asPath === '/glossary'
                 ? 'font-bold bg-orange-400'
                 : 'font-semibold hover:bg-orange-100'
             } ${isMobile ? 'border-b-2' : ''}`}
           >
             <Link
               className="flex-1"
-              href="/Glossary"
+              href="/glossary"
               onClick={() => closeIfMobile()}
             >
               Glossary

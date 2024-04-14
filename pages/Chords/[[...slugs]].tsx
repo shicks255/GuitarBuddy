@@ -21,17 +21,17 @@ const Chords = () => {
 
   const setKey = (newKey: string) => {
     if (!newKey) {
-      router.push('/Chords', null, { scroll: false });
+      router.push('/chords', null, { scroll: false });
     }
     const c = chord ? `/${chord}` : '';
-    router.push(`/Chords/${newKey}${c}`, null, { scroll: false });
+    router.push(`/chords/${newKey}${c}`, null, { scroll: false });
   };
 
   const setChord = (newChord: string) => {
     if (!newChord || !key) {
-      router.push('/Chords', null, { scroll: false });
+      router.push('/chords', null, { scroll: false });
     }
-    const newPath = `/Chords/${key}/${newChord}`;
+    const newPath = `/chords/${key}/${newChord}`;
     router.push(newPath, null, { scroll: false });
   };
 

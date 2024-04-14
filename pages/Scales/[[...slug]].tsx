@@ -19,19 +19,19 @@ const Scales: React.FC = () => {
 
   const setKey = (newKey: string) => {
     if (!newKey) {
-      router.push('/Scales', null, {
+      router.push('/scales', null, {
         scroll: false,
       });
     }
     const s = scale ? `/${scale}` : '';
-    router.push(`/Scales/${newKey}${s}`, null, { scroll: false });
+    router.push(`/scales/${newKey}${s}`, null, { scroll: false });
   };
 
   const setScale = (newScale: string) => {
     if (!newScale || !key) {
-      router.push('/Scales', null, { scroll: false });
+      router.push('/scales', null, { scroll: false });
     }
-    const newPath = `/Scales/${key}/${newScale}`;
+    const newPath = `/scales/${key}/${newScale}`;
     router.push(newPath, null, { scroll: false });
   };
 
@@ -72,7 +72,7 @@ const Scales: React.FC = () => {
         c = 'dim7';
         break;
     }
-    router.push(`/Chords/${key}/${c}`);
+    router.push(`/chords/${key}/${c}`);
   };
 
   return (
@@ -266,26 +266,30 @@ const Scales: React.FC = () => {
             </div>
           </div>
           {scaleDefinition?.otherNames && (
-            <div className="md:flex md:items-center mb-6 justify-start">
-              <div className="block text-gray-600 font-bold md:text-right mb-1 md:mb-0 pr-4">
+            <div className="grid gap-4 grid-cols-5 mb-6">
+              <div className="col-span-1 block text-gray-600 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 Other Names
               </div>
-              <div className="">{scaleDefinition?.otherNames?.join(', ')}</div>
+              <div className="col-span-4">
+                {scaleDefinition?.otherNames?.join(', ')}
+              </div>
             </div>
           )}
           {scaleDefinition?.details && (
-            <div className="md:flex md:items-center mb-6 justify-start">
-              <div className="block text-gray-600 font-bold md:text-right mb-1 md:mb-0 pr-4">
+            <div className="grid gap-4 grid-cols-5 mb-6">
+              <div className="col-span-1 block text-gray-600 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 Other Notes: {scaleDefinition?.details.join(', ')}
               </div>
-              <div>{scaleDefinition?.details.join(', ')}</div>
+              <div className="col-span-4">
+                {scaleDefinition?.details.join(', ')}
+              </div>
             </div>
           )}
-          <div className="md:flex md:items-center mb-6 justify-start">
-            <div className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+          <div className="grid gap-4 grid-cols-5 mb-6">
+            <div className="col-span-1 block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
               Scale Degrees
             </div>
-            <div>
+            <div className="col-span-4">
               {scaleDefinition?.pattern
                 .map((note) => {
                   if (note === 1) {
@@ -299,17 +303,19 @@ const Scales: React.FC = () => {
                 .join(' - ')}
             </div>
           </div>
-          <div className="md:flex md:items-center mb-6 justify-start">
-            <div className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+          <div className="grid gap-4 grid-cols-5 mb-6">
+            <div className="col-span-1 block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
               Notes
             </div>
-            <div>{tones.map((tone) => tone.note).join(' - ')}</div>
+            <div className="col-span-4">
+              {tones.map((tone) => tone.note).join(' - ')}
+            </div>
           </div>
-          <div className="md:flex md:items-center mb-6 justify-start">
-            <div className="block text-gray-500 font-bold md:text-right md:mb-0 pr-4">
+          <div className="grid gap-4 grid-cols-5 mb-6 items-center">
+            <div className="col-span-1 block text-gray-500 font-bold md:text-right md:mb-0 pr-4">
               Diatonic Chords
             </div>
-            <div>
+            <div className="col-span-4">
               {tones.map((tone, index) => (
                 <div
                   key={tone.note}
@@ -329,11 +335,11 @@ const Scales: React.FC = () => {
               ))}
             </div>
           </div>
-          <div className="md:flex md:items-center justify-start">
-            <div className="block text-gray-500 font-bold md:text-right md:mb-0 pr-4">
+          <div className="grid gap-4 grid-cols-5 items-center">
+            <div className="col-span-1 block text-gray-500 font-bold md:text-right md:mb-0 pr-4">
               Extended Diatonic Chords
             </div>
-            <div>
+            <div className="col-span-4">
               {tones.map((tone, index) => (
                 <div
                   key={tone.note}

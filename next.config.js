@@ -10,4 +10,7 @@ module.exports = withBundleAnalyzer({
     locales: ['en'],
     defaultLocale: 'en',
   },
+  images: {
+    unoptimized: true,
+  },
 });

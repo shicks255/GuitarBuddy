@@ -249,7 +249,7 @@ export default function MyApp({ Component, pageProps }) {
             </a>
           </div>
           <div>
-            <Link href="/About">about</Link>
+            <Link href="/about">about</Link>
           </div>
         </footer>
       </main>
